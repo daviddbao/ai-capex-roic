@@ -1,0 +1,26 @@
+{
+  "company": "Meta Platforms, Inc.",
+  "accession": "0001628280-26-050596",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-20260729.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050596/meta-20260729.htm",
+      "sha256": "96f9c8482c2798770b715995e7513f43e0a026d44c844aa133f6c70951eb22a8",
+      "bytes": 28244,
+      "fetched_at": "2026-08-31T23:56:28+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050596",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050596/meta-06302026xexhibit991.htm",
+      "sha256": "96497fb80bc902097c756499df1f673303488652aa5460cfcc567546ed6cc31c",
+      "bytes": 273628,
+      "fetched_at": "2026-08-31T23:46:00+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050596",
+      "role": "8-K Exhibit 99.1"
+    }
+  ]
+}

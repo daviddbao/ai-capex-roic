@@ -1,0 +1,155 @@
+{
+  "snapshots": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323660/msft-20260630.htm",
+      "sha256": "4bcf2da2871acc19e32c5a62f36f6d83d6aae03cdc4aaa9a86a9a21ee8223f02",
+      "bytes": 8585501,
+      "fetched_at": "2026-08-31T23:41:28+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323660",
+      "role": "10-K primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-20260729.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323632/msft-20260729.htm",
+      "sha256": "69d0ec1fca7a61eba056154d7401d00981b0022f1bf3e2654ea4f65ed707a203",
+      "bytes": 63346,
+      "fetched_at": "2026-08-31T23:56:22+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323632",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323632/msft-ex99_1.htm",
+      "sha256": "03471d4dc122c24deace523de4130d53205a78de2ec11fc965764738bf97149a",
+      "bytes": 901600,
+      "fetched_at": "2026-08-31T23:45:57+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323632",
+      "role": "8-K Exhibit 99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "bytes": 2464133,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000071",
+      "role": "10-Q primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/goog-20260722.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/goog-20260722.htm",
+      "sha256": "9e881beb88f9496e316a412fdb881a22b9244fdec75131b4fb00ae11d0f9f7e4",
+      "bytes": 65815,
+      "fetched_at": "2026-08-31T23:56:23+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/googexhibit991q22026.htm",
+      "sha256": "a01f6bd87c7fa0dcb562493dda7348a1a37d017b4a4b5edb39b915b45688237e",
+      "bytes": 371494,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Exhibit 99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "bytes": 1591422,
+      "fetched_at": "2026-08-31T23:41:34+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000026",
+      "role": "10-Q primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260730.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260730.htm",
+      "sha256": "0100ab39d898b67817437a007c096f18591db3f4dc5c39f2d1eb6f535d6508b3",
+      "bytes": 47253,
+      "fetched_at": "2026-08-31T23:56:24+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260630xex991.htm",
+      "sha256": "3a867450183833d4b7f4ed73d81e9492f8117cb49ea6bd1986e9ad0ecd231895",
+      "bytes": 671722,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Exhibit 99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-277521/orcl-20260531.htm",
+      "sha256": "6cd094af28aa16098cad795bf785be1866d69e59605aed1d6aef75a911a5766b",
+      "bytes": 6873937,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-277521",
+      "role": "10-K primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-20260610.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-265848/orcl-20260610.htm",
+      "sha256": "34d4e6e4ce782c63c58ea4dd37a331a2797ea4f6346ae0e51f2d9d5a7c0615cf",
+      "bytes": 56596,
+      "fetched_at": "2026-08-31T23:56:26+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-265848",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-265848/orcl-ex99_1.htm",
+      "sha256": "5f18e9a8297707330f846d037ba0832cc5ba94536d840008169bdb2659c71937",
+      "bytes": 1956500,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-265848",
+      "role": "8-K Exhibit 99.1"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050705/meta-20260630.htm",
+      "sha256": "b294c4f08edb78d0700cb82c86a0141a2cef38e4f1c2bb02b16ff1ce564a8492",
+      "bytes": 1783894,
+      "fetched_at": "2026-08-31T23:46:00+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050705",
+      "role": "10-Q primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-20260729.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050596/meta-20260729.htm",
+      "sha256": "96f9c8482c2798770b715995e7513f43e0a026d44c844aa133f6c70951eb22a8",
+      "bytes": 28244,
+      "fetched_at": "2026-08-31T23:56:28+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050596",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050596/meta-06302026xexhibit991.htm",
+      "sha256": "96497fb80bc902097c756499df1f673303488652aa5460cfcc567546ed6cc31c",
+      "bytes": 273628,
+      "fetched_at": "2026-08-31T23:46:00+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050596",
+      "role": "8-K Exhibit 99.1"
+    }
+  ],
+  "updated": "2026-09-01T00:07:07+00:00"
+}

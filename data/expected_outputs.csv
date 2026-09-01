@@ -1,0 +1,261 @@
+company,period,view,scenario,metric,value,value_type
+MSFT,Q2 25,trajectory,n/a,Commercial RPO/Backlog ($B),368,number
+MSFT,Q3 25,trajectory,n/a,Commercial RPO/Backlog ($B),392,number
+MSFT,Q4 25,trajectory,n/a,Commercial RPO/Backlog ($B),625,number
+MSFT,Q1 26,trajectory,n/a,Commercial RPO/Backlog ($B),627,number
+MSFT,Q2 26,trajectory,n/a,Commercial RPO/Backlog ($B),678,number
+MSFT,Q2 25,trajectory,n/a,Quarterly Capex ($B),24.2,number
+MSFT,Q3 25,trajectory,n/a,Quarterly Capex ($B),34.9,number
+MSFT,Q4 25,trajectory,n/a,Quarterly Capex ($B),37.5,number
+MSFT,Q1 26,trajectory,n/a,Quarterly Capex ($B),31.9,number
+MSFT,Q2 26,trajectory,n/a,Quarterly Capex ($B),41,number
+MSFT,Q2 25,trajectory,n/a,Annualized AI Capex ($B),82.28,number
+MSFT,Q3 25,trajectory,n/a,Annualized AI Capex ($B),118.66,number
+MSFT,Q4 25,trajectory,n/a,Annualized AI Capex ($B),127.5,number
+MSFT,Q1 26,trajectory,n/a,Annualized AI Capex ($B),108.46,number
+MSFT,Q2 26,trajectory,n/a,Annualized AI Capex ($B),139.4,number
+MSFT,Q2 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),73.6,number
+MSFT,Q3 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),78.4,number
+MSFT,Q4 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),125,number
+MSFT,Q1 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),125.4,number
+MSFT,Q2 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),135.6,number
+MSFT,Q2 25,trajectory,base,Forward ROIC (Base),0.26835196888672824,number
+MSFT,Q3 25,trajectory,base,Forward ROIC (Base),0.19821338277431316,number
+MSFT,Q4 25,trajectory,base,Forward ROIC (Base),0.29411764705882354,number
+MSFT,Q1 26,trajectory,base,Forward ROIC (Base),0.34685598377281945,number
+MSFT,Q2 26,trajectory,base,Forward ROIC (Base),0.29182209469153514,number
+MSFT,Q2 25,trajectory,base,Spread vs WACC (ppt),0.17495196888672826,number
+MSFT,Q3 25,trajectory,base,Spread vs WACC (ppt),0.10481338277431317,number
+MSFT,Q4 25,trajectory,base,Spread vs WACC (ppt),0.20071764705882356,number
+MSFT,Q1 26,trajectory,base,Spread vs WACC (ppt),0.25345598377281947,number
+MSFT,Q2 26,trajectory,base,Spread vs WACC (ppt),0.19842209469153516,number
+GOOG,Q2 25,trajectory,n/a,Revenue Backlog/RPO ($B),108.2,number
+GOOG,Q3 25,trajectory,n/a,Revenue Backlog/RPO ($B),157.7,number
+GOOG,Q4 25,trajectory,n/a,Revenue Backlog/RPO ($B),242.8,number
+GOOG,Q1 26,trajectory,n/a,Revenue Backlog/RPO ($B),467.6,number
+GOOG,Q2 26,trajectory,n/a,Revenue Backlog/RPO ($B),519.5,number
+GOOG,Q2 25,trajectory,n/a,Quarterly Capex ($B),22.446,number
+GOOG,Q3 25,trajectory,n/a,Quarterly Capex ($B),23.953,number
+GOOG,Q4 25,trajectory,n/a,Quarterly Capex ($B),27.851,number
+GOOG,Q1 26,trajectory,n/a,Quarterly Capex ($B),35.674,number
+GOOG,Q2 26,trajectory,n/a,Quarterly Capex ($B),44.924,number
+GOOG,Q2 25,trajectory,n/a,Annualized AI Capex ($B),71.8272,number
+GOOG,Q3 25,trajectory,n/a,Annualized AI Capex ($B),76.6496,number
+GOOG,Q4 25,trajectory,n/a,Annualized AI Capex ($B),89.1232,number
+GOOG,Q1 26,trajectory,n/a,Annualized AI Capex ($B),114.1568,number
+GOOG,Q2 26,trajectory,n/a,Annualized AI Capex ($B),143.7568,number
+GOOG,Q2 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),28.131999999999998,number
+GOOG,Q3 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),41.001999999999995,number
+GOOG,Q4 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),63.12800000000001,number
+GOOG,Q1 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),121.576,number
+GOOG,Q2 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),135.07,number
+GOOG,Q2 25,trajectory,base,Forward ROIC (Base),0.11749866345896816,number
+GOOG,Q3 25,trajectory,base,Forward ROIC (Base),0.16047833256794553,number
+GOOG,Q4 25,trajectory,base,Forward ROIC (Base),0.2124968582815698,number
+GOOG,Q1 26,trajectory,base,Forward ROIC (Base),0.31949739305937097,number
+GOOG,Q2 26,trajectory,base,Forward ROIC (Base),0.2818718836256789,number
+GOOG,Q2 25,trajectory,base,Spread vs WACC (ppt),0.010898663458968158,number
+GOOG,Q3 25,trajectory,base,Spread vs WACC (ppt),0.053878332567945525,number
+GOOG,Q4 25,trajectory,base,Spread vs WACC (ppt),0.1058968582815698,number
+GOOG,Q1 26,trajectory,base,Spread vs WACC (ppt),0.21289739305937097,number
+GOOG,Q2 26,trajectory,base,Spread vs WACC (ppt),0.1752718836256789,number
+AMZN,Q2 25,trajectory,n/a,AWS-linked Commitments/RPO ($B),195,number
+AMZN,Q3 25,trajectory,n/a,AWS-linked Commitments/RPO ($B),200,number
+AMZN,Q4 25,trajectory,n/a,AWS-linked Commitments/RPO ($B),244,number
+AMZN,Q1 26,trajectory,n/a,AWS-linked Commitments/RPO ($B),364,number
+AMZN,Q2 26,trajectory,n/a,AWS-linked Commitments/RPO ($B),496,number
+AMZN,Q2 25,trajectory,n/a,Quarterly Capex ($B),32.183,number
+AMZN,Q3 25,trajectory,n/a,Quarterly Capex ($B),35.095,number
+AMZN,Q4 25,trajectory,n/a,Quarterly Capex ($B),39.522,number
+AMZN,Q1 26,trajectory,n/a,Quarterly Capex ($B),44.203,number
+AMZN,Q2 26,trajectory,n/a,Quarterly Capex ($B),54.208,number
+AMZN,Q2 25,trajectory,n/a,Annualized AI Capex ($B),96.549,number
+AMZN,Q3 25,trajectory,n/a,Annualized AI Capex ($B),105.285,number
+AMZN,Q4 25,trajectory,n/a,Annualized AI Capex ($B),118.566,number
+AMZN,Q1 26,trajectory,n/a,Annualized AI Capex ($B),132.609,number
+AMZN,Q2 26,trajectory,n/a,Annualized AI Capex ($B),162.624,number
+AMZN,Q2 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),26.812500000000004,number
+AMZN,Q3 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),27.500000000000004,number
+AMZN,Q4 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),33.550000000000004,number
+AMZN,Q1 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),50.050000000000004,number
+AMZN,Q2 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),68.2,number
+AMZN,Q2 25,trajectory,base,Forward ROIC (Base),0.07775844389895288,number
+AMZN,Q3 25,trajectory,base,Forward ROIC (Base),0.0731348245239113,number
+AMZN,Q4 25,trajectory,base,Forward ROIC (Base),0.0792301334277955,number
+AMZN,Q1 26,trajectory,base,Forward ROIC (Base),0.10567910172009443,number
+AMZN,Q2 26,trajectory,base,Forward ROIC (Base),0.11742424242424244,number
+AMZN,Q2 25,trajectory,base,Spread vs WACC (ppt),0.00505844389895288,number
+AMZN,Q3 25,trajectory,base,Spread vs WACC (ppt),0.00043482452391130355,number
+AMZN,Q4 25,trajectory,base,Spread vs WACC (ppt),0.006530133427795501,number
+AMZN,Q1 26,trajectory,base,Spread vs WACC (ppt),0.032979101720094425,number
+AMZN,Q2 26,trajectory,base,Spread vs WACC (ppt),0.044724242424242444,number
+ORCL,Q2 25,trajectory,n/a,RPO ($B),137.8,number
+ORCL,Q3 25,trajectory,n/a,RPO ($B),455.3,number
+ORCL,Q4 25,trajectory,n/a,RPO ($B),523.3,number
+ORCL,Q1 26,trajectory,n/a,RPO ($B),552.6,number
+ORCL,Q2 26,trajectory,n/a,RPO ($B),638,number
+ORCL,Q2 25,trajectory,n/a,Quarterly Capex ($B),9.08,number
+ORCL,Q3 25,trajectory,n/a,Quarterly Capex ($B),8.502,number
+ORCL,Q4 25,trajectory,n/a,Quarterly Capex ($B),12.033,number
+ORCL,Q1 26,trajectory,n/a,Quarterly Capex ($B),18.635,number
+ORCL,Q2 26,trajectory,n/a,Quarterly Capex ($B),16.493,number
+ORCL,Q2 25,trajectory,n/a,Annualized AI Capex ($B),32.688,number
+ORCL,Q3 25,trajectory,n/a,Annualized AI Capex ($B),30.607200000000002,number
+ORCL,Q4 25,trajectory,n/a,Annualized AI Capex ($B),43.318799999999996,number
+ORCL,Q1 26,trajectory,n/a,Annualized AI Capex ($B),67.08600000000001,number
+ORCL,Q2 26,trajectory,n/a,Annualized AI Capex ($B),59.37479999999999,number
+ORCL,Q2 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),23.426000000000002,number
+ORCL,Q3 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),77.401,number
+ORCL,Q4 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),88.96099999999998,number
+ORCL,Q1 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),93.942,number
+ORCL,Q2 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),108.46,number
+ORCL,Q2 25,trajectory,base,Forward ROIC (Base),0.1289977973568282,number
+ORCL,Q3 25,trajectory,base,Forward ROIC (Base),0.455192895789226,number
+ORCL,Q4 25,trajectory,base,Forward ROIC (Base),0.36965428405218975,number
+ORCL,Q1 26,trajectory,base,Forward ROIC (Base),0.2520579554601556,number
+ORCL,Q2 26,trajectory,base,Forward ROIC (Base),0.32880616018917114,number
+ORCL,Q2 25,trajectory,base,Spread vs WACC (ppt),0.05069779735682821,number
+ORCL,Q3 25,trajectory,base,Spread vs WACC (ppt),0.376892895789226,number
+ORCL,Q4 25,trajectory,base,Spread vs WACC (ppt),0.29135428405218977,number
+ORCL,Q1 26,trajectory,base,Spread vs WACC (ppt),0.1737579554601556,number
+ORCL,Q2 26,trajectory,base,Spread vs WACC (ppt),0.25050616018917116,number
+META,Q2 25,trajectory,n/a,"Revenue (Quarter, $B)",47.516,number
+META,Q3 25,trajectory,n/a,"Revenue (Quarter, $B)",51.242,number
+META,Q4 25,trajectory,n/a,"Revenue (Quarter, $B)",59.893,number
+META,Q1 26,trajectory,n/a,"Revenue (Quarter, $B)",56.311,number
+META,Q2 26,trajectory,n/a,"Revenue (Quarter, $B)",60.801,number
+META,Q2 25,trajectory,n/a,Quarterly Capex ($B),17.012,number
+META,Q3 25,trajectory,n/a,Quarterly Capex ($B),19.374,number
+META,Q4 25,trajectory,n/a,Quarterly Capex ($B),22.137,number
+META,Q1 26,trajectory,n/a,Quarterly Capex ($B),19.84,number
+META,Q2 26,trajectory,n/a,Quarterly Capex ($B),31.078,number
+META,Q2 25,trajectory,n/a,Annualized AI Capex ($B),61.2432,number
+META,Q3 25,trajectory,n/a,Annualized AI Capex ($B),69.7464,number
+META,Q4 25,trajectory,n/a,Annualized AI Capex ($B),79.6932,number
+META,Q1 26,trajectory,n/a,Annualized AI Capex ($B),71.424,number
+META,Q2 26,trajectory,n/a,Annualized AI Capex ($B),111.8808,number
+META,Q2 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),38.0128,number
+META,Q3 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),40.9936,number
+META,Q4 25,trajectory,n/a,Annualized AI Revenue Proxy ($B),47.9144,number
+META,Q1 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),45.0488,number
+META,Q2 26,trajectory,n/a,Annualized AI Revenue Proxy ($B),48.640800000000006,number
+META,Q2 25,trajectory,base,Forward ROIC (Base),0.19861953653630118,number
+META,Q3 25,trajectory,base,Forward ROIC (Base),0.18808070380693487,number
+META,Q4 25,trajectory,base,Forward ROIC (Base),0.19239543649897356,number
+META,Q1 26,trajectory,base,Forward ROIC (Base),0.20183154121863797,number
+META,Q2 26,trajectory,base,Forward ROIC (Base),0.13912177960829744,number
+META,Q2 25,trajectory,base,Spread vs WACC (ppt),0.09201953653630118,number
+META,Q3 25,trajectory,base,Spread vs WACC (ppt),0.08148070380693487,number
+META,Q4 25,trajectory,base,Spread vs WACC (ppt),0.08579543649897356,number
+META,Q1 26,trajectory,base,Spread vs WACC (ppt),0.09523154121863797,number
+META,Q2 26,trajectory,base,Spread vs WACC (ppt),0.03252177960829744,number
+MSFT,Q2 26,snapshot,n/a,Latest Quarter,"FY26 Q4 (Jun. 30, 2026)",text
+GOOG,Q2 26,snapshot,n/a,Latest Quarter,"Q2 2026 (Jun. 30, 2026)",text
+AMZN,Q2 26,snapshot,n/a,Latest Quarter,"Q2 2026 (Jun. 30, 2026)",text
+ORCL,Q2 26,snapshot,n/a,Latest Quarter,"FY26 Q4 (May. 31, 2026)",text
+META,Q2 26,snapshot,n/a,Latest Quarter,"Q2 2026 (Jun. 30, 2026)",text
+MSFT,Q2 26,snapshot,n/a,AI Revenue Source,Commercial RPO × assumed AI share ÷ assumed duration,text
+GOOG,Q2 26,snapshot,n/a,AI Revenue Source,RPO × assumed AI share ÷ assumed duration,text
+AMZN,Q2 26,snapshot,n/a,AI Revenue Source,RPO × assumed AI share ÷ assumed duration,text
+ORCL,Q2 26,snapshot,n/a,AI Revenue Source,RPO × assumed AI share ÷ assumed duration,text
+META,Q2 26,snapshot,n/a,AI Revenue Source,Quarterly revenue × 4 × assumed AI attribution,text
+MSFT,Q2 26,snapshot,n/a,Total RPO/Backlog or Annualized Revenue ($B),678,number
+GOOG,Q2 26,snapshot,n/a,Total RPO/Backlog or Annualized Revenue ($B),519.5,number
+AMZN,Q2 26,snapshot,n/a,Total RPO/Backlog or Annualized Revenue ($B),496,number
+ORCL,Q2 26,snapshot,n/a,Total RPO/Backlog or Annualized Revenue ($B),638,number
+META,Q2 26,snapshot,n/a,Total RPO/Backlog or Annualized Revenue ($B),243.204,number
+MSFT,Q2 26,snapshot,n/a,AI Share % (assumption),0.5,number
+GOOG,Q2 26,snapshot,n/a,AI Share % (assumption),0.65,number
+AMZN,Q2 26,snapshot,n/a,AI Share % (assumption),0.55,number
+ORCL,Q2 26,snapshot,n/a,AI Share % (assumption),0.85,number
+META,Q2 26,snapshot,n/a,AI Share % (assumption),0.2,number
+MSFT,Q2 26,snapshot,n/a,AI-linked RPO/Revenue ($B),339,number
+GOOG,Q2 26,snapshot,n/a,AI-linked RPO/Revenue ($B),337.675,number
+AMZN,Q2 26,snapshot,n/a,AI-linked RPO/Revenue ($B),272.8,number
+ORCL,Q2 26,snapshot,n/a,AI-linked RPO/Revenue ($B),542.3,number
+META,Q2 26,snapshot,n/a,AI-linked RPO/Revenue ($B),48.640800000000006,number
+MSFT,Q2 26,snapshot,n/a,Annual Capex Guide / Midpoint / Actual ($B),175,number
+GOOG,Q2 26,snapshot,n/a,Annual Capex Guide / Midpoint / Actual ($B),200,number
+AMZN,Q2 26,snapshot,n/a,Annual Capex Guide / Midpoint / Actual ($B),200,number
+ORCL,Q2 26,snapshot,n/a,Annual Capex Guide / Midpoint / Actual ($B),55.663,number
+META,Q2 26,snapshot,n/a,Annual Capex Guide / Midpoint / Actual ($B),137.5,number
+MSFT,Q2 26,snapshot,n/a,Plan Basis,CY2026 reported capex outlook after FY26 Q4 results,text
+GOOG,Q2 26,snapshot,n/a,Plan Basis,Midpoint of updated CY2026 $195B-$205B company range,text
+AMZN,Q2 26,snapshot,n/a,Plan Basis,CY2026 company outlook; no replacement numeric Q2 update,text
+ORCL,Q2 26,snapshot,n/a,Plan Basis,FY2026 reported actual; no comparable FY2027 gross-capex guide,text
+META,Q2 26,snapshot,n/a,Plan Basis,Midpoint of narrowed CY2026 $130B-$145B company range,text
+MSFT,Q2 26,snapshot,n/a,AI Share of Capex % (assumption),0.85,number
+GOOG,Q2 26,snapshot,n/a,AI Share of Capex % (assumption),0.8,number
+AMZN,Q2 26,snapshot,n/a,AI Share of Capex % (assumption),0.75,number
+ORCL,Q2 26,snapshot,n/a,AI Share of Capex % (assumption),0.9,number
+META,Q2 26,snapshot,n/a,AI Share of Capex % (assumption),0.9,number
+MSFT,Q2 26,snapshot,n/a,AI Capex ($B),148.75,number
+GOOG,Q2 26,snapshot,n/a,AI Capex ($B),160,number
+AMZN,Q2 26,snapshot,n/a,AI Capex ($B),150,number
+ORCL,Q2 26,snapshot,n/a,AI Capex ($B),50.0967,number
+META,Q2 26,snapshot,n/a,AI Capex ($B),123.75,number
+MSFT,Q2 26,snapshot,n/a,"RPO Duration (years, assumption)",2.5,number
+GOOG,Q2 26,snapshot,n/a,"RPO Duration (years, assumption)",2.5,number
+AMZN,Q2 26,snapshot,n/a,"RPO Duration (years, assumption)",4,number
+ORCL,Q2 26,snapshot,n/a,"RPO Duration (years, assumption)",5,number
+META,Q2 26,snapshot,n/a,"RPO Duration (years, assumption)",N/A,text
+MSFT,Q2 26,snapshot,n/a,Annualized AI Revenue Proxy ($B),135.6,number
+GOOG,Q2 26,snapshot,n/a,Annualized AI Revenue Proxy ($B),135.07,number
+AMZN,Q2 26,snapshot,n/a,Annualized AI Revenue Proxy ($B),68.2,number
+ORCL,Q2 26,snapshot,n/a,Annualized AI Revenue Proxy ($B),108.46,number
+META,Q2 26,snapshot,n/a,Annualized AI Revenue Proxy ($B),48.640800000000006,number
+MSFT,Q2 26,snapshot,base,NOPAT Margin (Base),0.3,number
+GOOG,Q2 26,snapshot,base,NOPAT Margin (Base),0.3,number
+AMZN,Q2 26,snapshot,base,NOPAT Margin (Base),0.28,number
+ORCL,Q2 26,snapshot,base,NOPAT Margin (Base),0.18,number
+META,Q2 26,snapshot,base,NOPAT Margin (Base),0.32,number
+MSFT,Q2 26,snapshot,base,Forward ROIC (Base),0.27347899159663863,number
+GOOG,Q2 26,snapshot,base,Forward ROIC (Base),0.25325624999999996,number
+AMZN,Q2 26,snapshot,base,Forward ROIC (Base),0.12730666666666668,number
+ORCL,Q2 26,snapshot,base,Forward ROIC (Base),0.38970231572139474,number
+META,Q2 26,snapshot,base,Forward ROIC (Base),0.12577823030303031,number
+MSFT,Q2 26,snapshot,n/a,"WACC (Damodaran sector, Jan. 2026)",0.0934,number
+GOOG,Q2 26,snapshot,n/a,"WACC (Damodaran sector, Jan. 2026)",0.1066,number
+AMZN,Q2 26,snapshot,n/a,"WACC (Damodaran sector, Jan. 2026)",0.0727,number
+ORCL,Q2 26,snapshot,n/a,"WACC (Damodaran sector, Jan. 2026)",0.0783,number
+META,Q2 26,snapshot,n/a,"WACC (Damodaran sector, Jan. 2026)",0.1066,number
+MSFT,Q2 26,snapshot,base,"Spread (Base, ppt)",0.18007899159663865,number
+GOOG,Q2 26,snapshot,base,"Spread (Base, ppt)",0.14665624999999996,number
+AMZN,Q2 26,snapshot,base,"Spread (Base, ppt)",0.05460666666666668,number
+ORCL,Q2 26,snapshot,base,"Spread (Base, ppt)",0.31140231572139476,number
+META,Q2 26,snapshot,base,"Spread (Base, ppt)",0.019178230303030314,number
+MSFT,Q2 26,snapshot,bear,Forward ROIC (Bear),0.18231932773109244,number
+GOOG,Q2 26,snapshot,bear,Forward ROIC (Bear),0.1688375,number
+AMZN,Q2 26,snapshot,bear,Forward ROIC (Bear),0.09093333333333334,number
+ORCL,Q2 26,snapshot,bear,Forward ROIC (Bear),0.21650128651188602,number
+META,Q2 26,snapshot,bear,Forward ROIC (Bear),0.09826424242424243,number
+MSFT,Q2 26,snapshot,bear,"Spread (Bear, ppt)",0.08891932773109244,number
+GOOG,Q2 26,snapshot,bear,"Spread (Bear, ppt)",0.0622375,number
+AMZN,Q2 26,snapshot,bear,"Spread (Bear, ppt)",0.018233333333333338,number
+ORCL,Q2 26,snapshot,bear,"Spread (Bear, ppt)",0.138201286511886,number
+META,Q2 26,snapshot,bear,"Spread (Bear, ppt)",-0.008335757575757566,number
+MSFT,Q2 26,snapshot,bull,Forward ROIC (Bull),0.3646386554621849,number
+GOOG,Q2 26,snapshot,bull,Forward ROIC (Bull),0.337675,number
+AMZN,Q2 26,snapshot,bull,Forward ROIC (Bull),0.17277333333333333,number
+ORCL,Q2 26,snapshot,bull,Forward ROIC (Bull),0.541253216279715,number
+META,Q2 26,snapshot,bull,Forward ROIC (Bull),0.15722278787878793,number
+MSFT,Q2 26,snapshot,bull,"Spread (Bull, ppt)",0.2712386554621849,number
+GOOG,Q2 26,snapshot,bull,"Spread (Bull, ppt)",0.231075,number
+AMZN,Q2 26,snapshot,bull,"Spread (Bull, ppt)",0.10007333333333333,number
+ORCL,Q2 26,snapshot,bull,"Spread (Bull, ppt)",0.46295321627971503,number
+META,Q2 26,snapshot,bull,"Spread (Bull, ppt)",0.050622787878787934,number
+MSFT,Q2 26,snapshot,n/a,"Spread Q2 26 (run-rate basis, ppt)",0.19842209469153516,number
+GOOG,Q2 26,snapshot,n/a,"Spread Q2 26 (run-rate basis, ppt)",0.1752718836256789,number
+AMZN,Q2 26,snapshot,n/a,"Spread Q2 26 (run-rate basis, ppt)",0.044724242424242444,number
+ORCL,Q2 26,snapshot,n/a,"Spread Q2 26 (run-rate basis, ppt)",0.25050616018917116,number
+META,Q2 26,snapshot,n/a,"Spread Q2 26 (run-rate basis, ppt)",0.03252177960829744,number
+MSFT,Q2 25,snapshot,n/a,"Spread Q2 25 (run-rate basis, ppt)",0.17495196888672826,number
+GOOG,Q2 25,snapshot,n/a,"Spread Q2 25 (run-rate basis, ppt)",0.010898663458968158,number
+AMZN,Q2 25,snapshot,n/a,"Spread Q2 25 (run-rate basis, ppt)",0.00505844389895288,number
+ORCL,Q2 25,snapshot,n/a,"Spread Q2 25 (run-rate basis, ppt)",0.05069779735682821,number
+META,Q2 25,snapshot,n/a,"Spread Q2 25 (run-rate basis, ppt)",0.09201953653630118,number
+MSFT,Q2 25 to Q2 26,snapshot,n/a,Δ Spread Q2 26 vs Q2 25 (bps),234.70125804806895,number
+GOOG,Q2 25 to Q2 26,snapshot,n/a,Δ Spread Q2 26 vs Q2 25 (bps),1643.7322016671073,number
+AMZN,Q2 25 to Q2 26,snapshot,n/a,Δ Spread Q2 26 vs Q2 25 (bps),396.6579852528956,number
+ORCL,Q2 25 to Q2 26,snapshot,n/a,Δ Spread Q2 26 vs Q2 25 (bps),1998.0836283234294,number
+META,Q2 25 to Q2 26,snapshot,n/a,Δ Spread Q2 26 vs Q2 25 (bps),-594.9775692800374,number

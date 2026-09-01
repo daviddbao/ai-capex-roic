@@ -1,0 +1,7 @@
+# Raw SEC responses, cached so a re-run does not re-hit data.sec.gov.
+# Regenerated on demand; the permanent copies live in 01_sources/.
+.cache/
+
+# Review packets are working documents for one refresh. Commit the ones you
+# actually signed off; everything else is noise.
+packets/*/diffs/

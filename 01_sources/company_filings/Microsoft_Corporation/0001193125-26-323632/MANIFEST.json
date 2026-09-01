@@ -1,0 +1,26 @@
+{
+  "company": "Microsoft Corporation",
+  "accession": "0001193125-26-323632",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-20260729.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323632/msft-20260729.htm",
+      "sha256": "69d0ec1fca7a61eba056154d7401d00981b0022f1bf3e2654ea4f65ed707a203",
+      "bytes": 63346,
+      "fetched_at": "2026-08-31T23:56:22+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323632",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323632/msft-ex99_1.htm",
+      "sha256": "03471d4dc122c24deace523de4130d53205a78de2ec11fc965764738bf97149a",
+      "bytes": 901600,
+      "fetched_at": "2026-08-31T23:45:57+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323632",
+      "role": "8-K Exhibit 99.1"
+    }
+  ]
+}

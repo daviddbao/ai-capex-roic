@@ -1,0 +1,14 @@
+* text=auto
+
+# Archived primary filings are audit evidence: each is verified against a
+# SHA-256 recorded in its MANIFEST.json. Git's line-ending normalisation would
+# rewrite their bytes on checkout and silently invalidate every one of those
+# hashes, so these paths are excluded from it entirely.
+01_sources/** -text -diff
+
+# The frozen v02 workbook is the audit-of-record; its hash is documented in
+# docs/SCHEMA.md and asserted by the build scripts.
+*.xlsx binary
+
+# Data-layer CSVs are compared byte-for-byte by the extraction round-trip.
+data/*.csv text eol=lf

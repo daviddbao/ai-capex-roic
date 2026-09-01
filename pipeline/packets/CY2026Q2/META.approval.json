@@ -1,0 +1,36 @@
+{
+  "_instructions": [
+    "This file IS the approval. There is no --approve flag.",
+    "Fill in reviewer, reviewed_at, every manual_values entry, and one sentence for",
+    "every guard id under acknowledgements. Then paste the packet's content hash into",
+    "packet_sha256 and set decision to APPROVED.",
+    "A FAIL guard cannot be acknowledged: fix it and re-draft the packet."
+  ],
+  "packet_file": "META.json",
+  "ticker": "META",
+  "report_bucket": "CY2026Q2",
+  "decision": "PENDING",
+  "reviewer": "",
+  "reviewed_at": "",
+  "packet_sha256": "",
+  "packet_sha256_expected_hint": "7dc269a6fc3a31b45724e5287d7ede9cc7edb32854dbc0df9fe6197ef61d69ef",
+  "manual_values": {
+    "annual_denominator_usd_b": null
+  },
+  "manual_value_sources": {
+    "annual_denominator_source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm"
+  },
+  "manual_value_evidence": {
+    "annual_denominator_quote": ""
+  },
+  "acknowledgements": {
+    "S5": "",
+    "T7": "",
+    "R2": ""
+  },
+  "acknowledgement_prompts": {
+    "S5": "[NEEDS_HUMAN] Manual field correctly refused: annual_denominator \u2014 HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE AS XBRL, but it IS present as prose in the SEC-filed 8-K Exhibit 99.1 (unlike MSFT/GOOG/AMZN, whose outlooks are call-only). It is untagged text, so extraction is regex-fragile. Where: 8-K Exhibit 99.1, CFO Out",
+    "T7": "[NEEDS_HUMAN] Meta's capex guidance sentence contains BOTH the current and the superseded range \u2014 Two ranges appear in one sentence: $130-145B, $125-145B. The CURRENT outlook is the one before 'narrowed from our prior outlook of'. A 'last match in sentence' regex would take the superseded figure; 'first match' is correct only by luck of word order. The same paragraph also carries a total-expense",
+    "R2": "[NEEDS_HUMAN] capex_fact moved more than 35% sequentially \u2014 Q1 26 19.840$B -> Q2 26 31.078$B (+56.6%). A move this large is possible in this cohort but must be confirmed explicitly rather than passed through -- check for a definition change, a period-selection error, or a one-off."
+  }
+}

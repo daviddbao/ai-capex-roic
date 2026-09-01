@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated workbooks — derivable from data/ via scripts/build_workbook.py.
+# The frozen v02 workbook at the repo root is tracked; these are not.
+build/
+
+# Raw SEC HTTP responses, re-fetchable and large. The durable copies of the
+# primary filings live under 01_sources/ with SHA-256 manifests.
+pipeline/.cache/

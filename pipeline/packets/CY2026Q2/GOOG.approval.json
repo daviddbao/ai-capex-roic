@@ -1,0 +1,32 @@
+{
+  "_instructions": [
+    "This file IS the approval. There is no --approve flag.",
+    "Fill in reviewer, reviewed_at, every manual_values entry, and one sentence for",
+    "every guard id under acknowledgements. Then paste the packet's content hash into",
+    "packet_sha256 and set decision to APPROVED.",
+    "A FAIL guard cannot be acknowledged: fix it and re-draft the packet."
+  ],
+  "packet_file": "GOOG.json",
+  "ticker": "GOOG",
+  "report_bucket": "CY2026Q2",
+  "decision": "PENDING",
+  "reviewer": "",
+  "reviewed_at": "",
+  "packet_sha256": "",
+  "packet_sha256_expected_hint": "de362e7e4d1b67207805b3289cf1a6ccb503b54e8ad51a0e36efeed840bceed1",
+  "manual_values": {
+    "annual_denominator_usd_b": null
+  },
+  "manual_value_sources": {
+    "annual_denominator_source_url": "https://abc.xyz/investor/events/"
+  },
+  "manual_value_evidence": {
+    "annual_denominator_quote": ""
+  },
+  "acknowledgements": {
+    "S5": ""
+  },
+  "acknowledgement_prompts": {
+    "S5": "[NEEDS_HUMAN] Manual field correctly refused: annual_denominator \u2014 HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear). Primary source: https://abc.xyz/investor/events/ "
+  }
+}

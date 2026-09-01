@@ -1,0 +1,16 @@
+{
+  "company": "Oracle Corporation",
+  "accession": "0001193125-26-277521",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-277521/orcl-20260531.htm",
+      "sha256": "6cd094af28aa16098cad795bf785be1866d69e59605aed1d6aef75a911a5766b",
+      "bytes": 6873937,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-277521",
+      "role": "10-K primary document"
+    }
+  ]
+}
