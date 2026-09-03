@@ -1,0 +1,37 @@
+{
+  "_instructions": [
+    "This file IS the approval. There is no --approve flag.",
+    "Fill in reviewer, reviewed_at, every manual_values entry, and one sentence for",
+    "every guard id under acknowledgements. Then paste the packet's content hash into",
+    "packet_sha256 and set decision to APPROVED.",
+    "A FAIL guard cannot be acknowledged: fix it and re-draft the packet."
+  ],
+  "packet_file": "MSFT.json",
+  "ticker": "MSFT",
+  "report_bucket": "CY2026Q2",
+  "decision": "PENDING",
+  "reviewer": "",
+  "reviewed_at": "",
+  "packet_sha256": "",
+  "packet_sha256_expected_hint": "a50de5bb1f670500da1574d7c476fe8d649d5ad2e97426e5be9e72153cc0b260",
+  "manual_values": {
+    "capex_fact_usd_b": null,
+    "annual_denominator_usd_b": null
+  },
+  "manual_value_sources": {
+    "capex_fact_source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+    "annual_denominator_source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
+  },
+  "manual_value_evidence": {
+    "capex_fact_quote": "",
+    "annual_denominator_quote": ""
+  },
+  "acknowledgements": {
+    "S5": "",
+    "T3": ""
+  },
+  "acknowledgement_prompts": {
+    "S5": "[NEEDS_HUMAN] Manual field correctly refused: annual_denominator \u2014 HUMAN REQUIRED -- CY2026 capital expenditure outlook. NOT MACHINE-READABLE - forward-looking outlook given verbally on the earnings call. Verified absent from both the 10-K and the 8-K Exhibit 99.1 press release. Primary source: https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-202",
+    "T3": "[NEEDS_HUMAN] Microsoft's capex outlook movement can be an accounting effect, not an investment cut \u2014 Microsoft extended estimated useful lives for datacenters and office buildings (15 -> 25 years), which shifts future datacenter leases from FINANCE leases (counted in the management capex metric) to OPERATING leases (excluded). The CY2026 outlook fell ~$190B -> ~$175B for that reason while capex inc"
+  }
+}

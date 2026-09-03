@@ -1,0 +1,16 @@
+{
+  "company": "Alphabet Inc.",
+  "accession": "0001652044-26-000071",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "bytes": 2464133,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000071",
+      "role": "10-Q primary document"
+    }
+  ]
+}

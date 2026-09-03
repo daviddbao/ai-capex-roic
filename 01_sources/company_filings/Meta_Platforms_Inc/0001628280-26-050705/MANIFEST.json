@@ -1,0 +1,16 @@
+{
+  "company": "Meta Platforms, Inc.",
+  "accession": "0001628280-26-050705",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Meta_Platforms_Inc/0001628280-26-050705/meta-20260630.htm",
+      "sha256": "b294c4f08edb78d0700cb82c86a0141a2cef38e4f1c2bb02b16ff1ce564a8492",
+      "bytes": 1783894,
+      "fetched_at": "2026-08-31T23:46:00+00:00",
+      "company": "Meta Platforms, Inc.",
+      "accession": "0001628280-26-050705",
+      "role": "10-Q primary document"
+    }
+  ]
+}

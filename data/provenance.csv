@@ -1,0 +1,452 @@
+sheet,cell,row,column,header,fill_rgb,fill_name,fill_class,has_value,value_preview
+Inputs,A1,1,A,,FF1F4E78,dark blue header,other,1,Filing Inputs
+Inputs,P1,1,P,,FF1F4E78,dark blue header,other,1,Model Assumptions and Latest Annual Capex Denominators
+Inputs,A2,2,A,,FFF2F2F2,light grey banner,other,1,Blue cells are public-filing or official-company facts. Yellow cells are analyst assumptions. Every sourced value carries a cell note with the public URL.
+Inputs,A4,4,A,,FF1F4E78,dark blue header,other,1,Company
+Inputs,B4,4,B,,FF1F4E78,dark blue header,other,1,Ticker
+Inputs,C4,4,C,,FF1F4E78,dark blue header,other,1,Report Bucket
+Inputs,D4,4,D,,FF1F4E78,dark blue header,other,1,Fiscal Period
+Inputs,E4,4,E,,FF1F4E78,dark blue header,other,1,Period End
+Inputs,F4,4,F,,FF1F4E78,dark blue header,other,1,RPO/Backlog or Revenue ($B)
+Inputs,G4,4,G,,FF1F4E78,dark blue header,other,1,Fact Metric
+Inputs,H4,4,H,,FF1F4E78,dark blue header,other,1,Quarterly Capex ($B)
+Inputs,I4,4,I,,FF1F4E78,dark blue header,other,1,Capex Definition
+Inputs,J4,4,J,,FF1F4E78,dark blue header,other,1,Fact Source URL
+Inputs,K4,4,K,,FF1F4E78,dark blue header,other,1,Capex Source URL
+Inputs,L4,4,L,,FF1F4E78,dark blue header,other,1,Evidence / Derivation
+Inputs,M4,4,M,,FF1F4E78,dark blue header,other,1,Fact Source ID
+Inputs,N4,4,N,,FF1F4E78,dark blue header,other,1,Capex Source ID
+Inputs,P4,4,P,,FF1F4E78,dark blue header,other,1,Ticker
+Inputs,Q4,4,Q,,FF1F4E78,dark blue header,other,1,AI Revenue Proxy
+Inputs,R4,4,R,,FF1F4E78,dark blue header,other,1,AI Share of RPO/Revenue
+Inputs,S4,4,S,,FF1F4E78,dark blue header,other,1,RPO Duration (Years)
+Inputs,T4,4,T,,FF1F4E78,dark blue header,other,1,AI Share of Capex
+Inputs,U4,4,U,,FF1F4E78,dark blue header,other,1,NOPAT Margin (Bear)
+Inputs,V4,4,V,,FF1F4E78,dark blue header,other,1,NOPAT Margin (Base)
+Inputs,W4,4,W,,FF1F4E78,dark blue header,other,1,NOPAT Margin (Bull)
+Inputs,X4,4,X,,FF1F4E78,dark blue header,other,1,WACC
+Inputs,Y4,4,Y,,FF1F4E78,dark blue header,other,1,Damodaran Sector / Date
+Inputs,Z4,4,Z,,FF1F4E78,dark blue header,other,1,Annual Capex Guide / Midpoint / Actual ($B)
+Inputs,AA4,4,AA,,FF1F4E78,dark blue header,other,1,Plan Basis
+Inputs,AB4,4,AB,,FF1F4E78,dark blue header,other,1,Plan Source URL
+Inputs,AC4,4,AC,,FF1F4E78,dark blue header,other,1,Source / Assumption Caveat
+Inputs,A5,5,A,Company,,,other,1,Microsoft
+Inputs,B5,5,B,Ticker,,,other,1,MSFT
+Inputs,C5,5,C,Report Bucket,,,other,1,Q2 25
+Inputs,D5,5,D,Fiscal Period,,,other,1,FY25 Q4
+Inputs,E5,5,E,Period End,,,other,1,2025-06-30
+Inputs,F5,5,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,368
+Inputs,G5,5,G,Fact Metric,,,other,1,Commercial remaining performance obligation
+Inputs,H5,5,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,24.2
+Inputs,I5,5,I,Capex Definition,,,other,1,"Company-reported capex, including finance leases"
+Inputs,J5,5,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm
+Inputs,K5,5,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/Investor/earnings/FY-2025-Q4/press-release-webcast
+Inputs,L5,5,L,Evidence / Derivation,,,other,1,"Fact: Commercial RPO increased to $368B at June 30, 2025. Capex: Official FY25 Q4 transcript: capital expenditures were $24.2B, including finance leases."
+Inputs,M5,5,M,Fact Source ID,,,other,1,MSFT-Q225-FACT
+Inputs,N5,5,N,Capex Source ID,,,other,1,MSFT-Q225-CAPEX
+Inputs,P5,5,P,Ticker,,,other,1,MSFT
+Inputs,Q5,5,Q,AI Revenue Proxy,,,other,1,Commercial RPO × assumed AI share ÷ assumed duration
+Inputs,R5,5,R,AI Share of RPO/Revenue,FFFFF2CC,light yellow,assumption,1,0.5
+Inputs,S5,5,S,RPO Duration (Years),FFFFF2CC,light yellow,assumption,1,2.5
+Inputs,T5,5,T,AI Share of Capex,FFFFF2CC,light yellow,assumption,1,0.85
+Inputs,U5,5,U,NOPAT Margin (Bear),FFFFF2CC,light yellow,assumption,1,0.2
+Inputs,V5,5,V,NOPAT Margin (Base),FFFFF2CC,light yellow,assumption,1,0.3
+Inputs,W5,5,W,NOPAT Margin (Bull),FFFFF2CC,light yellow,assumption,1,0.4
+Inputs,X5,5,X,WACC,FFEAF2F8,light blue,fact,1,0.0934
+Inputs,Y5,5,Y,Damodaran Sector / Date,,,other,1,"Software (System & Application), January 2026 U.S. industry average"
+Inputs,Z5,5,Z,Annual Capex Guide / Midpoint / Actual ($B),FFEAF2F8,light blue,fact,1,175
+Inputs,AA5,5,AA,Plan Basis,,,other,1,CY2026 reported capex outlook after FY26 Q4 results
+Inputs,AB5,5,AB,Plan Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+Inputs,AC5,5,AC,Source / Assumption Caveat,,,other,1,Microsoft reduced reported CY2026 capex expectation to approximately $175B from roughly $190B because longer datacenter useful lives shift future leases from finance leases included in its capex metri
+Inputs,A6,6,A,Company,,,other,1,Microsoft
+Inputs,B6,6,B,Ticker,,,other,1,MSFT
+Inputs,C6,6,C,Report Bucket,,,other,1,Q3 25
+Inputs,D6,6,D,Fiscal Period,,,other,1,FY26 Q1
+Inputs,E6,6,E,Period End,,,other,1,2025-09-30
+Inputs,F6,6,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,392
+Inputs,G6,6,G,Fact Metric,,,other,1,Commercial remaining performance obligation
+Inputs,H6,6,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,34.9
+Inputs,I6,6,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease timing effects"
+Inputs,J6,6,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm
+Inputs,K6,6,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q1/press-release-webcast
+Inputs,L6,6,L,Evidence / Derivation,,,other,1,"Fact: The 10-Q reports $398B total RPO, of which $392B is commercial RPO. Capex: Official FY26 Q1 transcript: capital expenditures were $34.9B."
+Inputs,M6,6,M,Fact Source ID,,,other,1,MSFT-Q325-FACT
+Inputs,N6,6,N,Capex Source ID,,,other,1,MSFT-Q325-CAPEX
+Inputs,P6,6,P,Ticker,,,other,1,GOOG
+Inputs,Q6,6,Q,AI Revenue Proxy,,,other,1,RPO × assumed AI share ÷ assumed duration
+Inputs,R6,6,R,AI Share of RPO/Revenue,FFFFF2CC,light yellow,assumption,1,0.65
+Inputs,S6,6,S,RPO Duration (Years),FFFFF2CC,light yellow,assumption,1,2.5
+Inputs,T6,6,T,AI Share of Capex,FFFFF2CC,light yellow,assumption,1,0.8
+Inputs,U6,6,U,NOPAT Margin (Bear),FFFFF2CC,light yellow,assumption,1,0.2
+Inputs,V6,6,V,NOPAT Margin (Base),FFFFF2CC,light yellow,assumption,1,0.3
+Inputs,W6,6,W,NOPAT Margin (Bull),FFFFF2CC,light yellow,assumption,1,0.4
+Inputs,X6,6,X,WACC,FFEAF2F8,light blue,fact,1,0.1066
+Inputs,Y6,6,Y,Damodaran Sector / Date,,,other,1,"Software (Internet), January 2026 U.S. industry average"
+Inputs,Z6,6,Z,Annual Capex Guide / Midpoint / Actual ($B),FFEAF2F8,light blue,fact,1,200
+Inputs,AA6,6,AA,Plan Basis,,,other,1,Midpoint of updated CY2026 $195B-$205B company range
+Inputs,AB6,6,AB,Plan Source URL,FFEAF2F8,light blue,fact,1,https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx
+Inputs,AC6,6,AC,Source / Assumption Caveat,,,other,1,"Alphabet's official Q2 2026 call raised its 2026 capex range to $195B-$205B from $180B-$190B. $200B is the model midpoint, not company point guidance. AI share, 2.5-year duration, and scenario margins"
+Inputs,A7,7,A,Company,,,other,1,Microsoft
+Inputs,B7,7,B,Ticker,,,other,1,MSFT
+Inputs,C7,7,C,Report Bucket,,,other,1,Q4 25
+Inputs,D7,7,D,Fiscal Period,,,other,1,FY26 Q2
+Inputs,E7,7,E,Period End,,,other,1,2025-12-31
+Inputs,F7,7,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,625
+Inputs,G7,7,G,Fact Metric,,,other,1,Commercial remaining performance obligation
+Inputs,H7,7,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,37.5
+Inputs,I7,7,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease timing effects"
+Inputs,J7,7,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/789019/000119312526027207/msft-20251231.htm
+Inputs,K7,7,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/press-release-webcast
+Inputs,L7,7,L,Evidence / Derivation,,,other,1,Fact: Commercial RPO was $625B with a weighted-average duration of approximately 2.5 years. Capex: Official FY26 Q2 transcript: capital expenditures were $37.5B.
+Inputs,M7,7,M,Fact Source ID,,,other,1,MSFT-Q425-FACT
+Inputs,N7,7,N,Capex Source ID,,,other,1,MSFT-Q425-CAPEX
+Inputs,P7,7,P,Ticker,,,other,1,AMZN
+Inputs,Q7,7,Q,AI Revenue Proxy,,,other,1,RPO × assumed AI share ÷ assumed duration
+Inputs,R7,7,R,AI Share of RPO/Revenue,FFFFF2CC,light yellow,assumption,1,0.55
+Inputs,S7,7,S,RPO Duration (Years),FFFFF2CC,light yellow,assumption,1,4
+Inputs,T7,7,T,AI Share of Capex,FFFFF2CC,light yellow,assumption,1,0.75
+Inputs,U7,7,U,NOPAT Margin (Bear),FFFFF2CC,light yellow,assumption,1,0.2
+Inputs,V7,7,V,NOPAT Margin (Base),FFFFF2CC,light yellow,assumption,1,0.28
+Inputs,W7,7,W,NOPAT Margin (Bull),FFFFF2CC,light yellow,assumption,1,0.38
+Inputs,X7,7,X,WACC,FFEAF2F8,light blue,fact,1,0.0727
+Inputs,Y7,7,Y,Damodaran Sector / Date,,,other,1,"Retail (General), January 2026 U.S. industry average"
+Inputs,Z7,7,Z,Annual Capex Guide / Midpoint / Actual ($B),FFEAF2F8,light blue,fact,1,200
+Inputs,AA7,7,AA,Plan Basis,,,other,1,CY2026 company outlook; no replacement numeric Q2 update
+Inputs,AB7,7,AB,Plan Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000002/amzn-20251231xex991.htm
+Inputs,AC7,7,AC,Source / Assumption Caveat,,,other,1,"Amazon's SEC-filed Q4 2025 release said it expected about $200B of 2026 capex. The Q2 2026 10-Q and filed release did not provide a replacement numeric full-year plan. AI share, four-year duration, an"
+Inputs,A8,8,A,Company,,,other,1,Microsoft
+Inputs,B8,8,B,Ticker,,,other,1,MSFT
+Inputs,C8,8,C,Report Bucket,,,other,1,Q1 26
+Inputs,D8,8,D,Fiscal Period,,,other,1,FY26 Q3
+Inputs,E8,8,E,Period End,,,other,1,2026-03-31
+Inputs,F8,8,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,627
+Inputs,G8,8,G,Fact Metric,,,other,1,Commercial remaining performance obligation
+Inputs,H8,8,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,31.9
+Inputs,I8,8,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease timing effects"
+Inputs,J8,8,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/789019/000119312526191507/msft-20260331.htm
+Inputs,K8,8,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q3/press-release-webcast
+Inputs,L8,8,L,Evidence / Derivation,,,other,1,Fact: Commercial RPO was $627B with a weighted-average duration of approximately 2.5 years. Capex: Official FY26 Q3 transcript: capital expenditures were $31.9B; cash paid for PP&E was $30.9B.
+Inputs,M8,8,M,Fact Source ID,,,other,1,MSFT-Q126-FACT
+Inputs,N8,8,N,Capex Source ID,,,other,1,MSFT-Q126-CAPEX
+Inputs,P8,8,P,Ticker,,,other,1,ORCL
+Inputs,Q8,8,Q,AI Revenue Proxy,,,other,1,RPO × assumed AI share ÷ assumed duration
+Inputs,R8,8,R,AI Share of RPO/Revenue,FFFFF2CC,light yellow,assumption,1,0.85
+Inputs,S8,8,S,RPO Duration (Years),FFFFF2CC,light yellow,assumption,1,5
+Inputs,T8,8,T,AI Share of Capex,FFFFF2CC,light yellow,assumption,1,0.9
+Inputs,U8,8,U,NOPAT Margin (Bear),FFFFF2CC,light yellow,assumption,1,0.1
+Inputs,V8,8,V,NOPAT Margin (Base),FFFFF2CC,light yellow,assumption,1,0.18
+Inputs,W8,8,W,NOPAT Margin (Bull),FFFFF2CC,light yellow,assumption,1,0.25
+Inputs,X8,8,X,WACC,FFEAF2F8,light blue,fact,1,0.0783
+Inputs,Y8,8,Y,Damodaran Sector / Date,,,other,1,"Computer Services, January 2026 U.S. industry average"
+Inputs,Z8,8,Z,Annual Capex Guide / Midpoint / Actual ($B),FFEAF2F8,light blue,fact,1,55.663
+Inputs,AA8,8,AA,Plan Basis,,,other,1,FY2026 reported actual; no comparable FY2027 gross-capex guide
+Inputs,AB8,8,AB,Plan Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm
+Inputs,AC8,8,AC,Source / Assumption Caveat,,,other,1,"Oracle reported FY2026 GAAP cash capex of $55.663B. Official Q4 slides guide to approximately $70B of FY2027 net cash outlay for capex, a non-GAAP measure that deducts capex financing and customer pre"
+Inputs,A9,9,A,Company,,,other,1,Microsoft
+Inputs,B9,9,B,Ticker,,,other,1,MSFT
+Inputs,C9,9,C,Report Bucket,,,other,1,Q2 26
+Inputs,D9,9,D,Fiscal Period,,,other,1,FY26 Q4
+Inputs,E9,9,E,Period End,,,other,1,2026-06-30
+Inputs,F9,9,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,678
+Inputs,G9,9,G,Fact Metric,,,other,1,Commercial remaining performance obligation
+Inputs,H9,9,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,41
+Inputs,I9,9,I,Capex Definition,,,other,1,"Management-reported capex, including finance-lease commencement effects"
+Inputs,J9,9,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+Inputs,K9,9,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+Inputs,L9,9,L,Evidence / Derivation,,,other,1,Fact: Commercial remaining performance obligation was $678B; total company RPO was $684B. Weighted-average commercial-RPO duration including OpenAI was 2.3 years. Capex: Official FY26 Q4 call reports 
+Inputs,M9,9,M,Fact Source ID,,,other,1,MSFT-Q226-FACT
+Inputs,N9,9,N,Capex Source ID,,,other,1,MSFT-Q226-CAPEX
+Inputs,P9,9,P,Ticker,,,other,1,META
+Inputs,Q9,9,Q,AI Revenue Proxy,,,other,1,Quarterly revenue × 4 × assumed AI attribution
+Inputs,R9,9,R,AI Share of RPO/Revenue,FFFFF2CC,light yellow,assumption,1,0.2
+Inputs,S9,9,S,RPO Duration (Years),FFFFF2CC,light yellow,assumption,0,
+Inputs,T9,9,T,AI Share of Capex,FFFFF2CC,light yellow,assumption,1,0.9
+Inputs,U9,9,U,NOPAT Margin (Bear),FFFFF2CC,light yellow,assumption,1,0.25
+Inputs,V9,9,V,NOPAT Margin (Base),FFFFF2CC,light yellow,assumption,1,0.32
+Inputs,W9,9,W,NOPAT Margin (Bull),FFFFF2CC,light yellow,assumption,1,0.4
+Inputs,X9,9,X,WACC,FFEAF2F8,light blue,fact,1,0.1066
+Inputs,Y9,9,Y,Damodaran Sector / Date,,,other,1,"Software (Internet), January 2026 U.S. industry average"
+Inputs,Z9,9,Z,Annual Capex Guide / Midpoint / Actual ($B),FFEAF2F8,light blue,fact,1,137.5
+Inputs,AA9,9,AA,Plan Basis,,,other,1,Midpoint of narrowed CY2026 $130B-$145B company range
+Inputs,AB9,9,AB,Plan Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm
+Inputs,AC9,9,AC,Source / Assumption Caveat,,,other,1,"Meta narrowed 2026 capex guidance to $130B-$145B from $125B-$145B. $137.5B is the model midpoint, not company point guidance. The 20% AI revenue attribution, 90% AI capex share, and scenario margins r"
+Inputs,A10,10,A,Company,,,other,1,Alphabet
+Inputs,B10,10,B,Ticker,,,other,1,GOOG
+Inputs,C10,10,C,Report Bucket,,,other,1,Q2 25
+Inputs,D10,10,D,Fiscal Period,,,other,1,Q2 2025
+Inputs,E10,10,E,Period End,,,other,1,2025-06-30
+Inputs,F10,10,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,108.2
+Inputs,G10,10,G,Fact Metric,,,other,1,Revenue backlog / remaining performance obligations
+Inputs,H10,10,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,22.446
+Inputs,I10,10,I,Capex Definition,,,other,1,Cash purchases of property and equipment
+Inputs,J10,10,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204425000062/goog-20250630.htm
+Inputs,K10,10,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204425000062/goog-20250630.htm
+Inputs,L10,10,L,Evidence / Derivation,,,other,1,"Fact: Revenue backlog/RPO was $108.2B as of June 30, 2025. Capex: Quarter capex = $39.643B first-half cash PP&E purchases less $17.197B Q1 = $22.446B."
+Inputs,M10,10,M,Fact Source ID,,,other,1,GOOG-Q225-FACT
+Inputs,N10,10,N,Capex Source ID,,,other,1,GOOG-Q225-CAPEX
+Inputs,A11,11,A,Company,,,other,1,Alphabet
+Inputs,B11,11,B,Ticker,,,other,1,GOOG
+Inputs,C11,11,C,Report Bucket,,,other,1,Q3 25
+Inputs,D11,11,D,Fiscal Period,,,other,1,Q3 2025
+Inputs,E11,11,E,Period End,,,other,1,2025-09-30
+Inputs,F11,11,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,157.7
+Inputs,G11,11,G,Fact Metric,,,other,1,Revenue backlog / remaining performance obligations
+Inputs,H11,11,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,23.953
+Inputs,I11,11,I,Capex Definition,,,other,1,Cash purchases of property and equipment
+Inputs,J11,11,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204425000091/goog-20250930.htm
+Inputs,K11,11,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204425000091/goog-20250930.htm
+Inputs,L11,11,L,Evidence / Derivation,,,other,1,"Fact: Revenue backlog/RPO was $157.7B as of September 30, 2025, primarily related to Google Cloud. Capex: Quarter capex = $63.596B nine-month cash PP&E purchases less $39.643B first half = $23.953B."
+Inputs,M11,11,M,Fact Source ID,,,other,1,GOOG-Q325-FACT
+Inputs,N11,11,N,Capex Source ID,,,other,1,GOOG-Q325-CAPEX
+Inputs,A12,12,A,Company,,,other,1,Alphabet
+Inputs,B12,12,B,Ticker,,,other,1,GOOG
+Inputs,C12,12,C,Report Bucket,,,other,1,Q4 25
+Inputs,D12,12,D,Fiscal Period,,,other,1,Q4 2025
+Inputs,E12,12,E,Period End,,,other,1,2025-12-31
+Inputs,F12,12,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,242.8
+Inputs,G12,12,G,Fact Metric,,,other,1,Revenue backlog / remaining performance obligations
+Inputs,H12,12,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,27.851
+Inputs,I12,12,I,Capex Definition,,,other,1,Cash purchases of property and equipment
+Inputs,J12,12,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm
+Inputs,K12,12,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm
+Inputs,L12,12,L,Evidence / Derivation,,,other,1,"Fact: Revenue backlog/RPO was $242.8B as of December 31, 2025, primarily related to Google Cloud. Capex: Quarter capex = $91.447B FY2025 cash PP&E purchases less $63.596B first nine months = $27.851B."
+Inputs,M12,12,M,Fact Source ID,,,other,1,GOOG-Q425-FACT
+Inputs,N12,12,N,Capex Source ID,,,other,1,GOOG-Q425-CAPEX
+Inputs,A13,13,A,Company,,,other,1,Alphabet
+Inputs,B13,13,B,Ticker,,,other,1,GOOG
+Inputs,C13,13,C,Report Bucket,,,other,1,Q1 26
+Inputs,D13,13,D,Fiscal Period,,,other,1,Q1 2026
+Inputs,E13,13,E,Period End,,,other,1,2026-03-31
+Inputs,F13,13,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,467.6
+Inputs,G13,13,G,Fact Metric,,,other,1,Revenue backlog / remaining performance obligations
+Inputs,H13,13,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,35.674
+Inputs,I13,13,I,Capex Definition,,,other,1,Cash purchases of property and equipment
+Inputs,J13,13,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000048/goog-20260331.htm
+Inputs,K13,13,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000048/goog-20260331.htm
+Inputs,L13,13,L,Evidence / Derivation,,,other,1,"Fact: Revenue backlog/RPO was $467.6B; $462.3B related to Google Cloud. Alphabet changed the definition in Q1 2026 to include original terms of one year or less ($7.3B), so the series has a comparabil"
+Inputs,M13,13,M,Fact Source ID,,,other,1,GOOG-Q126-FACT
+Inputs,N13,13,N,Capex Source ID,,,other,1,GOOG-Q126-CAPEX
+Inputs,A14,14,A,Company,,,other,1,Alphabet
+Inputs,B14,14,B,Ticker,,,other,1,GOOG
+Inputs,C14,14,C,Report Bucket,,,other,1,Q2 26
+Inputs,D14,14,D,Fiscal Period,,,other,1,Q2 2026
+Inputs,E14,14,E,Period End,,,other,1,2026-06-30
+Inputs,F14,14,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,519.5
+Inputs,G14,14,G,Fact Metric,,,other,1,Revenue backlog / remaining performance obligations
+Inputs,H14,14,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,44.924
+Inputs,I14,14,I,Capex Definition,,,other,1,Cash purchases of property and equipment
+Inputs,J14,14,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+Inputs,K14,14,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+Inputs,L14,14,L,Evidence / Derivation,,,other,1,"Fact: Revenue backlog/RPO was $519.5B, including $513.9B related to Google Cloud. The Q1 2026 short-term-contract definition change remains in effect, and Cloud backlog now includes TPU system-sale ag"
+Inputs,M14,14,M,Fact Source ID,,,other,1,GOOG-Q226-FACT
+Inputs,N14,14,N,Capex Source ID,,,other,1,GOOG-Q226-CAPEX
+Inputs,A15,15,A,Company,,,other,1,Amazon
+Inputs,B15,15,B,Ticker,,,other,1,AMZN
+Inputs,C15,15,C,Report Bucket,,,other,1,Q2 25
+Inputs,D15,15,D,Fiscal Period,,,other,1,Q2 2025
+Inputs,E15,15,E,Period End,,,other,1,2025-06-30
+Inputs,F15,15,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,195
+Inputs,G15,15,G,Fact Metric,,,other,1,"Long-term customer commitments, primarily AWS"
+Inputs,H15,15,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,32.183
+Inputs,I15,15,I,Capex Definition,,,other,1,Cash payments to acquire productive assets (SEC XBRL)
+Inputs,J15,15,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872425000086/amzn-20250630.htm
+Inputs,K15,15,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872425000086/amzn-20250630.htm
+Inputs,L15,15,L,Evidence / Derivation,,,other,1,"Fact: Long-term customer commitments, primarily AWS, were approximately $195B as of June 30, 2025. Capex: SEC XBRL PaymentsToAcquireProductiveAssets for Q2 2025 was $32.183B."
+Inputs,M15,15,M,Fact Source ID,,,other,1,AMZN-Q225-FACT
+Inputs,N15,15,N,Capex Source ID,,,other,1,AMZN-Q225-CAPEX
+Inputs,A16,16,A,Company,,,other,1,Amazon
+Inputs,B16,16,B,Ticker,,,other,1,AMZN
+Inputs,C16,16,C,Report Bucket,,,other,1,Q3 25
+Inputs,D16,16,D,Fiscal Period,,,other,1,Q3 2025
+Inputs,E16,16,E,Period End,,,other,1,2025-09-30
+Inputs,F16,16,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,200
+Inputs,G16,16,G,Fact Metric,,,other,1,"Long-term customer commitments, primarily AWS"
+Inputs,H16,16,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,35.095
+Inputs,I16,16,I,Capex Definition,,,other,1,Cash payments to acquire productive assets (SEC XBRL)
+Inputs,J16,16,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872425000123/amzn-20250930.htm
+Inputs,K16,16,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872425000123/amzn-20250930.htm
+Inputs,L16,16,L,Evidence / Derivation,,,other,1,"Fact: Long-term customer commitments, primarily AWS, were approximately $200B; weighted-average remaining life was 3.8 years. Capex: SEC XBRL PaymentsToAcquireProductiveAssets for Q3 2025 was $35.095B"
+Inputs,M16,16,M,Fact Source ID,,,other,1,AMZN-Q325-FACT
+Inputs,N16,16,N,Capex Source ID,,,other,1,AMZN-Q325-CAPEX
+Inputs,A17,17,A,Company,,,other,1,Amazon
+Inputs,B17,17,B,Ticker,,,other,1,AMZN
+Inputs,C17,17,C,Report Bucket,,,other,1,Q4 25
+Inputs,D17,17,D,Fiscal Period,,,other,1,Q4 2025
+Inputs,E17,17,E,Period End,,,other,1,2025-12-31
+Inputs,F17,17,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,244
+Inputs,G17,17,G,Fact Metric,,,other,1,"Long-term customer commitments, primarily AWS"
+Inputs,H17,17,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,39.522
+Inputs,I17,17,I,Capex Definition,,,other,1,Cash payments to acquire productive assets (SEC XBRL)
+Inputs,J17,17,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm
+Inputs,K17,17,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm
+Inputs,L17,17,L,Evidence / Derivation,,,other,1,"Fact: Long-term customer commitments, primarily AWS, were approximately $244B as of December 31, 2025. Capex: Quarter capex = $131.819B FY2025 less $92.297B first nine months = $39.522B."
+Inputs,M17,17,M,Fact Source ID,,,other,1,AMZN-Q425-FACT
+Inputs,N17,17,N,Capex Source ID,,,other,1,AMZN-Q425-CAPEX
+Inputs,A18,18,A,Company,,,other,1,Amazon
+Inputs,B18,18,B,Ticker,,,other,1,AMZN
+Inputs,C18,18,C,Report Bucket,,,other,1,Q1 26
+Inputs,D18,18,D,Fiscal Period,,,other,1,Q1 2026
+Inputs,E18,18,E,Period End,,,other,1,2026-03-31
+Inputs,F18,18,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,364
+Inputs,G18,18,G,Fact Metric,,,other,1,"Long-term customer commitments, primarily AWS"
+Inputs,H18,18,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,44.203
+Inputs,I18,18,I,Capex Definition,,,other,1,Cash payments to acquire productive assets (SEC XBRL)
+Inputs,J18,18,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000014/amzn-20260331.htm
+Inputs,K18,18,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000014/amzn-20260331.htm
+Inputs,L18,18,L,Evidence / Derivation,,,other,1,"Fact: Long-term customer commitments, primarily AWS, were approximately $364B as of March 31, 2026—not $464B as shown in the supplied snapshot. Weighted-average remaining life was 5.5 years. Capex: SE"
+Inputs,M18,18,M,Fact Source ID,,,other,1,AMZN-Q126-FACT
+Inputs,N18,18,N,Capex Source ID,,,other,1,AMZN-Q126-CAPEX
+Inputs,A19,19,A,Company,,,other,1,Amazon
+Inputs,B19,19,B,Ticker,,,other,1,AMZN
+Inputs,C19,19,C,Report Bucket,,,other,1,Q2 26
+Inputs,D19,19,D,Fiscal Period,,,other,1,Q2 2026
+Inputs,E19,19,E,Period End,,,other,1,2026-06-30
+Inputs,F19,19,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,496
+Inputs,G19,19,G,Fact Metric,,,other,1,"Long-term customer commitments, primarily AWS"
+Inputs,H19,19,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,54.208
+Inputs,I19,19,I,Capex Definition,,,other,1,Cash payments to acquire productive assets (SEC XBRL gross series)
+Inputs,J19,19,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+Inputs,K19,19,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+Inputs,L19,19,L,Evidence / Derivation,,,other,1,"Fact: Long-term customer commitments, primarily AWS, were approximately $496B; weighted-average remaining life was 6.4 years. Anthropic's expanded commitment is already included in the total and must "
+Inputs,M19,19,M,Fact Source ID,,,other,1,AMZN-Q226-FACT
+Inputs,N19,19,N,Capex Source ID,,,other,1,AMZN-Q226-CAPEX
+Inputs,A20,20,A,Company,,,other,1,Oracle
+Inputs,B20,20,B,Ticker,,,other,1,ORCL
+Inputs,C20,20,C,Report Bucket,,,other,1,Q2 25
+Inputs,D20,20,D,Fiscal Period,,,other,1,FY25 Q4
+Inputs,E20,20,E,Period End,,,other,1,2025-05-31
+Inputs,F20,20,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,137.8
+Inputs,G20,20,G,Fact Metric,,,other,1,Remaining performance obligations
+Inputs,H20,20,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,9.08
+Inputs,I20,20,I,Capex Definition,,,other,1,Cash capital expenditures; Q4 derived from annual less nine months
+Inputs,J20,20,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm
+Inputs,K20,20,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm
+Inputs,L20,20,L,Evidence / Derivation,,,other,1,"Fact: Remaining performance obligations were $137.8B as of May 31, 2025. Capex: Quarter capex = $21.215B FY2025 less $12.135B first nine months = $9.080B. The $5.0B in the supplied image is not suppor"
+Inputs,M20,20,M,Fact Source ID,,,other,1,ORCL-Q225-FACT
+Inputs,N20,20,N,Capex Source ID,,,other,1,ORCL-Q225-CAPEX
+Inputs,A21,21,A,Company,,,other,1,Oracle
+Inputs,B21,21,B,Ticker,,,other,1,ORCL
+Inputs,C21,21,C,Report Bucket,,,other,1,Q3 25
+Inputs,D21,21,D,Fiscal Period,,,other,1,FY26 Q1
+Inputs,E21,21,E,Period End,,,other,1,2025-08-31
+Inputs,F21,21,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,455.3
+Inputs,G21,21,G,Fact Metric,,,other,1,Remaining performance obligations
+Inputs,H21,21,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,8.502
+Inputs,I21,21,I,Capex Definition,,,other,1,Cash capital expenditures
+Inputs,J21,21,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm
+Inputs,K21,21,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm
+Inputs,L21,21,L,Evidence / Derivation,,,other,1,"Fact: Remaining performance obligations were $455.3B as of August 31, 2025. Capex: The FY26 Q1 cash-flow statement reports $8.502B of capex."
+Inputs,M21,21,M,Fact Source ID,,,other,1,ORCL-Q325-FACT
+Inputs,N21,21,N,Capex Source ID,,,other,1,ORCL-Q325-CAPEX
+Inputs,A22,22,A,Company,,,other,1,Oracle
+Inputs,B22,22,B,Ticker,,,other,1,ORCL
+Inputs,C22,22,C,Report Bucket,,,other,1,Q4 25
+Inputs,D22,22,D,Fiscal Period,,,other,1,FY26 Q2
+Inputs,E22,22,E,Period End,,,other,1,2025-11-30
+Inputs,F22,22,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,523.3
+Inputs,G22,22,G,Fact Metric,,,other,1,Remaining performance obligations
+Inputs,H22,22,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,12.033
+Inputs,I22,22,I,Capex Definition,,,other,1,Cash capital expenditures; quarter derived from cumulative filing values
+Inputs,J22,22,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm
+Inputs,K22,22,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm
+Inputs,L22,22,L,Evidence / Derivation,,,other,1,"Fact: Remaining performance obligations were $523.3B as of November 30, 2025. Capex: Quarter capex = $20.535B first half less $8.502B Q1 = $12.033B."
+Inputs,M22,22,M,Fact Source ID,,,other,1,ORCL-Q425-FACT
+Inputs,N22,22,N,Capex Source ID,,,other,1,ORCL-Q425-CAPEX
+Inputs,A23,23,A,Company,,,other,1,Oracle
+Inputs,B23,23,B,Ticker,,,other,1,ORCL
+Inputs,C23,23,C,Report Bucket,,,other,1,Q1 26
+Inputs,D23,23,D,Fiscal Period,,,other,1,FY26 Q3
+Inputs,E23,23,E,Period End,,,other,1,2026-02-28
+Inputs,F23,23,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,552.6
+Inputs,G23,23,G,Fact Metric,,,other,1,Remaining performance obligations
+Inputs,H23,23,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,18.635
+Inputs,I23,23,I,Capex Definition,,,other,1,Cash capital expenditures; quarter derived from cumulative filing values
+Inputs,J23,23,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm
+Inputs,K23,23,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm
+Inputs,L23,23,L,Evidence / Derivation,,,other,1,"Fact: Remaining performance obligations were $552.6B as of February 28, 2026. Capex: Quarter capex = $39.170B first nine months less $20.535B first half = $18.635B."
+Inputs,M23,23,M,Fact Source ID,,,other,1,ORCL-Q126-FACT
+Inputs,N23,23,N,Capex Source ID,,,other,1,ORCL-Q126-CAPEX
+Inputs,A24,24,A,Company,,,other,1,Oracle
+Inputs,B24,24,B,Ticker,,,other,1,ORCL
+Inputs,C24,24,C,Report Bucket,,,other,1,Q2 26
+Inputs,D24,24,D,Fiscal Period,,,other,1,FY26 Q4
+Inputs,E24,24,E,Period End,,,other,1,2026-05-31
+Inputs,F24,24,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,638
+Inputs,G24,24,G,Fact Metric,,,other,1,Remaining performance obligations
+Inputs,H24,24,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,16.493
+Inputs,I24,24,I,Capex Definition,,,other,1,Cash capital expenditures
+Inputs,J24,24,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm
+Inputs,K24,24,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm
+Inputs,L24,24,L,Evidence / Derivation,,,other,1,"Fact: Remaining performance obligations were $638B at May 31, 2026, up $85B sequentially. Oracle's filed release says most Q3/Q4 RPO growth came from large AI contracts and $75B of prepaid or customer"
+Inputs,M24,24,M,Fact Source ID,,,other,1,ORCL-Q226-FACT
+Inputs,N24,24,N,Capex Source ID,,,other,1,ORCL-Q226-CAPEX
+Inputs,A25,25,A,Company,,,other,1,Meta Platforms
+Inputs,B25,25,B,Ticker,,,other,1,META
+Inputs,C25,25,C,Report Bucket,,,other,1,Q2 25
+Inputs,D25,25,D,Fiscal Period,,,other,1,Q2 2025
+Inputs,E25,25,E,Period End,,,other,1,2025-06-30
+Inputs,F25,25,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,47.516
+Inputs,G25,25,G,Fact Metric,,,other,1,Quarterly revenue
+Inputs,H25,25,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,17.012
+Inputs,I25,25,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease principal payments"
+Inputs,J25,25,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828025036791/meta-20250630.htm
+Inputs,K25,25,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828025036791/meta-20250630.htm
+Inputs,L25,25,L,Evidence / Derivation,,,other,1,Fact: Q2 2025 revenue was $47.516B. Capex: Company-defined capex including finance-lease principal was $17.012B (reported as $17.01B).
+Inputs,M25,25,M,Fact Source ID,,,other,1,META-Q225-FACT
+Inputs,N25,25,N,Capex Source ID,,,other,1,META-Q225-CAPEX
+Inputs,A26,26,A,Company,,,other,1,Meta Platforms
+Inputs,B26,26,B,Ticker,,,other,1,META
+Inputs,C26,26,C,Report Bucket,,,other,1,Q3 25
+Inputs,D26,26,D,Fiscal Period,,,other,1,Q3 2025
+Inputs,E26,26,E,Period End,,,other,1,2025-09-30
+Inputs,F26,26,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,51.242
+Inputs,G26,26,G,Fact Metric,,,other,1,Quarterly revenue
+Inputs,H26,26,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,19.374
+Inputs,I26,26,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease principal payments"
+Inputs,J26,26,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828025047240/meta-20250930.htm
+Inputs,K26,26,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828025047240/meta-20250930.htm
+Inputs,L26,26,L,Evidence / Derivation,,,other,1,Fact: Q3 2025 revenue was $51.242B. Capex: Company-defined capex including finance-lease principal was $19.374B (reported as $19.37B).
+Inputs,M26,26,M,Fact Source ID,,,other,1,META-Q325-FACT
+Inputs,N26,26,N,Capex Source ID,,,other,1,META-Q325-CAPEX
+Inputs,A27,27,A,Company,,,other,1,Meta Platforms
+Inputs,B27,27,B,Ticker,,,other,1,META
+Inputs,C27,27,C,Report Bucket,,,other,1,Q4 25
+Inputs,D27,27,D,Fiscal Period,,,other,1,Q4 2025
+Inputs,E27,27,E,Period End,,,other,1,2025-12-31
+Inputs,F27,27,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,59.893
+Inputs,G27,27,G,Fact Metric,,,other,1,Quarterly revenue
+Inputs,H27,27,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,22.137
+Inputs,I27,27,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease principal payments; derived quarter"
+Inputs,J27,27,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm
+Inputs,K27,27,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm
+Inputs,L27,27,L,Evidence / Derivation,,,other,1,Fact: Q4 2025 revenue = $200.966B FY2025 less $141.073B first nine months = $59.893B. Capex: Company-defined capex including finance-lease principal was $22.137B (reported as $22.14B).
+Inputs,M27,27,M,Fact Source ID,,,other,1,META-Q425-FACT
+Inputs,N27,27,N,Capex Source ID,,,other,1,META-Q425-CAPEX
+Inputs,A28,28,A,Company,,,other,1,Meta Platforms
+Inputs,B28,28,B,Ticker,,,other,1,META
+Inputs,C28,28,C,Report Bucket,,,other,1,Q1 26
+Inputs,D28,28,D,Fiscal Period,,,other,1,Q1 2026
+Inputs,E28,28,E,Period End,,,other,1,2026-03-31
+Inputs,F28,28,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,56.311
+Inputs,G28,28,G,Fact Metric,,,other,1,Quarterly revenue
+Inputs,H28,28,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,19.84
+Inputs,I28,28,I,Capex Definition,,,other,1,"Company-reported capex, including finance-lease principal payments"
+Inputs,J28,28,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026028526/meta-20260331.htm
+Inputs,K28,28,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026028526/meta-20260331.htm
+Inputs,L28,28,L,Evidence / Derivation,,,other,1,Fact: Q1 2026 revenue was $56.311B. The $240B annualized revenue in the supplied snapshot is based on roughly $60B and does not match the Q1 filing; filing-based annualized revenue is $225.244B. Capex
+Inputs,M28,28,M,Fact Source ID,,,other,1,META-Q126-FACT
+Inputs,N28,28,N,Capex Source ID,,,other,1,META-Q126-CAPEX
+Inputs,A29,29,A,Company,,,other,1,Meta Platforms
+Inputs,B29,29,B,Ticker,,,other,1,META
+Inputs,C29,29,C,Report Bucket,,,other,1,Q2 26
+Inputs,D29,29,D,Fiscal Period,,,other,1,Q2 2026
+Inputs,E29,29,E,Period End,,,other,1,2026-06-30
+Inputs,F29,29,F,RPO/Backlog or Revenue ($B),FFEAF2F8,light blue,fact,1,60.801
+Inputs,G29,29,G,Fact Metric,,,other,1,Quarterly revenue
+Inputs,H29,29,H,Quarterly Capex ($B),FFEAF2F8,light blue,fact,1,31.078
+Inputs,I29,29,I,Capex Definition,,,other,1,Company-defined capex including finance-lease principal payments
+Inputs,J29,29,J,Fact Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm
+Inputs,K29,29,K,Capex Source URL,FFEAF2F8,light blue,fact,1,https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm
+Inputs,L29,29,L,Evidence / Derivation,,,other,1,Fact: Q2 2026 total company revenue was $60.801B; Meta does not disclose standalone AI revenue. Capex: Company-defined capex was $31.078B: $30.116B Q2 cash PP&E purchases plus $0.962B finance-lease pr
+Inputs,M29,29,M,Fact Source ID,,,other,1,META-Q226-FACT
+Inputs,N29,29,N,Capex Source ID,,,other,1,META-Q226-CAPEX

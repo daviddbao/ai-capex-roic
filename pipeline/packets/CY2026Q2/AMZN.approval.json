@@ -1,0 +1,32 @@
+{
+  "_instructions": [
+    "This file IS the approval. There is no --approve flag.",
+    "Fill in reviewer, reviewed_at, every manual_values entry, and one sentence for",
+    "every guard id under acknowledgements. Then paste the packet's content hash into",
+    "packet_sha256 and set decision to APPROVED.",
+    "A FAIL guard cannot be acknowledged: fix it and re-draft the packet."
+  ],
+  "packet_file": "AMZN.json",
+  "ticker": "AMZN",
+  "report_bucket": "CY2026Q2",
+  "decision": "PENDING",
+  "reviewer": "",
+  "reviewed_at": "",
+  "packet_sha256": "",
+  "packet_sha256_expected_hint": "6673a5888c6e5cfa28c47a1aeb9945f6c1aae24f7f239e48f6c79cd765dedb09",
+  "manual_values": {
+    "annual_denominator_usd_b": null
+  },
+  "manual_value_sources": {
+    "annual_denominator_source_url": "https://ir.aboutamazon.com/events/"
+  },
+  "manual_value_evidence": {
+    "annual_denominator_quote": ""
+  },
+  "acknowledgements": {
+    "S5": ""
+  },
+  "acknowledgement_prompts": {
+    "S5": "[NEEDS_HUMAN] Manual field correctly refused: annual_denominator \u2014 HUMAN REQUIRED -- FY2026 capital investment plan. NOT MACHINE-READABLE - company plan stated on the earnings call. Verified absent from the 8-K Exhibit 99.1 press release, which contains no capital-expenditure outlook at all. Primary source: https://ir.aboutamazon.com/events/ Note: The methodology r"
+  }
+}

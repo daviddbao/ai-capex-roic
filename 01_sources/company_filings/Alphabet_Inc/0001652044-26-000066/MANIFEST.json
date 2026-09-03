@@ -1,0 +1,26 @@
+{
+  "company": "Alphabet Inc.",
+  "accession": "0001652044-26-000066",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/goog-20260722.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/goog-20260722.htm",
+      "sha256": "9e881beb88f9496e316a412fdb881a22b9244fdec75131b4fb00ae11d0f9f7e4",
+      "bytes": 65815,
+      "fetched_at": "2026-08-31T23:56:23+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/googexhibit991q22026.htm",
+      "sha256": "a01f6bd87c7fa0dcb562493dda7348a1a37d017b4a4b5edb39b915b45688237e",
+      "bytes": 371494,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Exhibit 99.1"
+    }
+  ]
+}

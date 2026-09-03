@@ -1,0 +1,26 @@
+{
+  "company": "Oracle Corporation",
+  "accession": "0001193125-26-265848",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-20260610.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-265848/orcl-20260610.htm",
+      "sha256": "34d4e6e4ce782c63c58ea4dd37a331a2797ea4f6346ae0e51f2d9d5a7c0615cf",
+      "bytes": 56596,
+      "fetched_at": "2026-08-31T23:56:26+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-265848",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "repo_relative_path": "01_sources/company_filings/Oracle_Corporation/0001193125-26-265848/orcl-ex99_1.htm",
+      "sha256": "5f18e9a8297707330f846d037ba0832cc5ba94536d840008169bdb2659c71937",
+      "bytes": 1956500,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Oracle Corporation",
+      "accession": "0001193125-26-265848",
+      "role": "8-K Exhibit 99.1"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "company": "Amazon.com, Inc.",
+  "accession": "0001018724-26-000024",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260730.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260730.htm",
+      "sha256": "0100ab39d898b67817437a007c096f18591db3f4dc5c39f2d1eb6f535d6508b3",
+      "bytes": 47253,
+      "fetched_at": "2026-08-31T23:56:24+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260630xex991.htm",
+      "sha256": "3a867450183833d4b7f4ed73d81e9492f8117cb49ea6bd1986e9ad0ecd231895",
+      "bytes": 671722,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Exhibit 99.1"
+    }
+  ]
+}

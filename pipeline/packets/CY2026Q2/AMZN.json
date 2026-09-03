@@ -1,0 +1,569 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-01T00:07:03+00:00",
+  "ticker": "AMZN",
+  "company": "Amazon.com, Inc.",
+  "cik": "0001018724",
+  "report_bucket": "CY2026Q2",
+  "model_period_key": "Q2 26",
+  "period": {
+    "ticker": "AMZN",
+    "report_bucket": "CY2026Q2",
+    "model_period_key": "Q2 26",
+    "calendar_quarter_end": "2026-06-30",
+    "period_end": "2026-06-30",
+    "prior_period_end": "2026-03-31",
+    "quarter_start": "2026-04-01",
+    "fiscal_year_start": "2026-01-01",
+    "fiscal_quarter": 2,
+    "fiscal_year_label": "FY26",
+    "fiscal_period": "Q2 2026",
+    "expected_form": "10-Q",
+    "ytd_is_quarter": false,
+    "source_map_agrees": true,
+    "source_map_period_end": "2026-06-30"
+  },
+  "periodic_filing": {
+    "cik": "0001018724",
+    "form": "10-Q",
+    "accession": "0001018724-26-000026",
+    "filing_date": "2026-07-31",
+    "report_date": "2026-06-30",
+    "items": "",
+    "primary_document": "amzn-20260630.htm",
+    "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+    "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm"
+  },
+  "earnings_8k": {
+    "cik": "0001018724",
+    "form": "8-K",
+    "accession": "0001018724-26-000024",
+    "filing_date": "2026-07-30",
+    "report_date": "2026-07-30",
+    "items": "2.02,9.01",
+    "primary_document": "amzn-20260730.htm",
+    "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260730.htm",
+    "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/0001018724-26-000024-index.htm"
+  },
+  "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+  "archived_sources": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "bytes": 1591422,
+      "fetched_at": "2026-08-31T23:41:34+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000026",
+      "role": "10-Q primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260730.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260730.htm",
+      "sha256": "0100ab39d898b67817437a007c096f18591db3f4dc5c39f2d1eb6f535d6508b3",
+      "bytes": 47253,
+      "fetched_at": "2026-08-31T23:56:24+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000024/amzn-20260630xex991.htm",
+      "sha256": "3a867450183833d4b7f4ed73d81e9492f8117cb49ea6bd1986e9ad0ecd231895",
+      "bytes": 671722,
+      "fetched_at": "2026-08-31T23:45:59+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000024",
+      "role": "8-K Exhibit 99.1"
+    }
+  ],
+  "archive_errors": [],
+  "fetch_errors": [],
+  "fields": {
+    "demand_fact": {
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "label": "Long-term customer commitments not yet recognized (AWS-linked RPO)",
+      "automation_tier": "auto",
+      "access": "inline_xbrl_dimensional",
+      "status": "extracted",
+      "value_usd": 496000000000.0,
+      "concepts": [
+        "us-gaap:RevenueRemainingPerformanceObligation"
+      ],
+      "derivation": "inline-XBRL us-gaap:RevenueRemainingPerformanceObligation @ instant 2026-06-30 with dimensional context [us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis present], excluding contexts carrying srt:MajorCustomersAxis",
+      "components": [
+        {
+          "value": 496000000000.0,
+          "context_id": "c-46",
+          "instant": "2026-06-30",
+          "start": null,
+          "end": null,
+          "explicit_dimensions": {},
+          "typed_dimensions": {
+            "us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis": "2026-07-01"
+          }
+        },
+        {
+          "value": 38000000000.0,
+          "context_id": "c-47",
+          "instant": "2026-03-31",
+          "start": null,
+          "end": null,
+          "explicit_dimensions": {
+            "srt:MajorCustomersAxis": "amzn:OpenAIGroupPBCMember"
+          },
+          "typed_dimensions": {
+            "us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis": "2026-07-01"
+          }
+        }
+      ],
+      "context": {
+        "id": "c-46",
+        "instant": "2026-06-30",
+        "start": null,
+        "end": null,
+        "explicit_dimensions": {},
+        "typed_dimensions": {
+          "us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis": "2026-07-01"
+        }
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "source_sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "evidence_quote": "For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026.",
+      "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "human_instruction": "",
+      "human_source_url": "",
+      "proxy_only": null,
+      "model_q2_2026": 496000000000,
+      "notes": [
+        "2 fact(s) tagged us-gaap:RevenueRemainingPerformanceObligation in the primary document; 1 match the required dimensional context.",
+        "precision_note: Tagged rounded to whole billions and prefixed 'approximately'.",
+        "corroborating_prose: 10-Q: 'For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $496 billion as of June 30, 2026. The weighted-average remaining life of our long-term contracts is 6.4 years.'"
+      ],
+      "error": "",
+      "value_usd_b": 496.0,
+      "title": "Demand fact (RPO / backlog / revenue)",
+      "local_path_if_any": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "cell_note": "AMZN Q2 26 \u2014 Long-term customer commitments not yet recognized (AWS-linked RPO)\nValue: $496.000B\nPublic source: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm\nEvidence: For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026.\nLocal source: 01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm\nClassification: SEC filing"
+    },
+    "capex_fact": {
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "label": "GROSS cash purchases of property and equipment / productive assets",
+      "automation_tier": "auto",
+      "access": "companyfacts",
+      "status": "extracted",
+      "value_usd": 54208000000.0,
+      "concepts": [
+        "us-gaap:PaymentsToAcquireProductiveAssets"
+      ],
+      "derivation": "companyfacts us-gaap:PaymentsToAcquireProductiveAssets for the standalone duration 2026-04-01 -> 2026-06-30",
+      "components": [
+        {
+          "start": "2026-04-01",
+          "end": "2026-06-30",
+          "val": 54208000000,
+          "form": "10-Q",
+          "accn": "0001018724-26-000026",
+          "filed": "2026-07-31",
+          "fy": 2026,
+          "fp": "Q2",
+          "filing_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm"
+        }
+      ],
+      "context": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "source_sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "evidence_quote": "74 2,641 (749) Net cash provided by (used in) operating activities 32,515 45,387 49,530 71,419 121,137 161,403 INVESTING ACTIVITIES: Purchases of property and equipment (32,183) (54,208) (57,202) (98,411) (107,656) (173,028) Proceeds from property and equipment sales and incentives 815 1,132 1,579 2,101 4,703 4,021 Acquisitions, net of cash acquired, non-marketab",
+      "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+      "human_instruction": "",
+      "human_source_url": "",
+      "proxy_only": null,
+      "model_q2_2026": 54208000000,
+      "notes": [],
+      "error": "",
+      "value_usd_b": 54.208,
+      "title": "Quarterly capex",
+      "local_path_if_any": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "cell_note": "AMZN Q2 26 \u2014 GROSS cash purchases of property and equipment / productive assets\nValue: $54.208B\nPublic source: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm\nEvidence: 74 2,641 (749) Net cash provided by (used in) operating activities 32,515 45,387 49,530 71,419 121,137 161,403 INVESTING ACTIVITIES: Purchases of property and equipment (32,183) (54,208) (57,202) (98,411) (107,656) (173,028) Proceeds from property and equipment sales and incentives 815 1,132 1,579 2,101 4,703 4,021 Acquisitions, net of cash acquired, non-marketab\nLocal source: 01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm\nClassification: SEC filing"
+    },
+    "annual_denominator": {
+      "ticker": "AMZN",
+      "field": "annual_denominator",
+      "label": "FY2026 capital investment plan",
+      "automation_tier": "manual",
+      "access": "not_in_xbrl",
+      "status": "refused_manual",
+      "value_usd": null,
+      "concepts": [],
+      "derivation": "",
+      "components": [],
+      "context": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "source_sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "evidence_quote": "",
+      "evidence_quote_source_url": "",
+      "human_instruction": "HUMAN REQUIRED -- FY2026 capital investment plan. NOT MACHINE-READABLE - company plan stated on the earnings call. Verified absent from the 8-K Exhibit 99.1 press release, which contains no capital-expenditure outlook at all. Primary source: https://ir.aboutamazon.com/events/ Note: The methodology retains the latest filed company plan because Q2 2026 contained no replacement numeric figure. Beware: Amazon's Q2 2026 NET SALES were $200.6B - numerically near-identical to the $200B capex plan. Do not let a regex confuse them.",
+      "human_source_url": "https://ir.aboutamazon.com/events/",
+      "proxy_only": null,
+      "model_q2_2026": 200000000000,
+      "notes": [],
+      "error": "",
+      "value_usd_b": null,
+      "title": "Annual capex denominator",
+      "local_path_if_any": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "cell_note": "AMZN Q2 26 \u2014 FY2026 capital investment plan\nValue: NOT SUPPLIED \u2014 human input required\nPublic source: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm\nEvidence: HUMAN REQUIRED -- FY2026 capital investment plan. NOT MACHINE-READABLE - company plan stated on the earnings call. Verified absent from the 8-K Exhibit 99.1 press release, which contains no capital-expenditure outlook at all. Primary source: https://ir.aboutamazon.com/events/ Note: The methodology retains the latest filed company plan because Q2 2026 contained no replacement numeric figure. Beware: Amazon's Q2 2026 NET SALES were $200.6B - numerically near-identical to the $200B capex plan. Do not let a regex confuse them.\nLocal source: 01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm\nClassification: Official company disclosure (not in SEC XBRL)"
+    }
+  },
+  "manual_required": [
+    {
+      "field": "annual_denominator",
+      "title": "Annual capex denominator",
+      "label": "FY2026 capital investment plan",
+      "why": "HUMAN REQUIRED -- FY2026 capital investment plan. NOT MACHINE-READABLE - company plan stated on the earnings call. Verified absent from the 8-K Exhibit 99.1 press release, which contains no capital-expenditure outlook at all. Primary source: https://ir.aboutamazon.com/events/ Note: The methodology retains the latest filed company plan because Q2 2026 contained no replacement numeric figure. Beware: Amazon's Q2 2026 NET SALES were $200.6B - numerically near-identical to the $200B capex plan. Do not let a regex confuse them.",
+      "where_to_look": "https://ir.aboutamazon.com/events/",
+      "value_on_file_last_refresh": 200000000000,
+      "xbrl_proxy_for_sanity_only": null,
+      "supply_as": "approval.manual_values.annual_denominator_usd_b"
+    }
+  ],
+  "guards": [
+    {
+      "id": "S1",
+      "name": "Resolved period matches source_map.report_bucket_map",
+      "ticker": "AMZN",
+      "field": "period",
+      "status": "PASS",
+      "message": "period_end 2026-06-30, Q2 2026, form 10-Q.",
+      "evidence": {
+        "period": {
+          "ticker": "AMZN",
+          "report_bucket": "CY2026Q2",
+          "model_period_key": "Q2 26",
+          "calendar_quarter_end": "2026-06-30",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2026-03-31",
+          "quarter_start": "2026-04-01",
+          "fiscal_year_start": "2026-01-01",
+          "fiscal_quarter": 2,
+          "fiscal_year_label": "FY26",
+          "fiscal_period": "Q2 2026",
+          "expected_form": "10-Q",
+          "ytd_is_quarter": false,
+          "source_map_agrees": true,
+          "source_map_period_end": "2026-06-30"
+        }
+      }
+    },
+    {
+      "id": "S2",
+      "name": "Periodic filing present",
+      "ticker": "AMZN",
+      "field": "filing",
+      "status": "PASS",
+      "message": "10-Q 0001018724-26-000026 filed 2026-07-31 for reportDate 2026-06-30.",
+      "evidence": {
+        "filing": {
+          "cik": "0001018724",
+          "form": "10-Q",
+          "accession": "0001018724-26-000026",
+          "filing_date": "2026-07-31",
+          "report_date": "2026-06-30",
+          "items": "",
+          "primary_document": "amzn-20260630.htm",
+          "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+          "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm"
+        }
+      }
+    },
+    {
+      "id": "S3",
+      "name": "Filing form matches the fiscal quarter",
+      "ticker": "AMZN",
+      "field": "filing",
+      "status": "PASS",
+      "message": "fiscal Q2 -> 10-Q.",
+      "evidence": {}
+    },
+    {
+      "id": "S4",
+      "name": "Extraction succeeded: demand_fact",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "496.000 $B via auto/inline_xbrl_dimensional.",
+      "evidence": {
+        "derivation": "inline-XBRL us-gaap:RevenueRemainingPerformanceObligation @ instant 2026-06-30 with dimensional context [us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis present], excluding contexts carrying srt:MajorCustomersAxis"
+      }
+    },
+    {
+      "id": "S4",
+      "name": "Extraction succeeded: capex_fact",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "54.208 $B via auto/companyfacts.",
+      "evidence": {
+        "derivation": "companyfacts us-gaap:PaymentsToAcquireProductiveAssets for the standalone duration 2026-04-01 -> 2026-06-30"
+      }
+    },
+    {
+      "id": "S5",
+      "name": "Manual field correctly refused: annual_denominator",
+      "ticker": "AMZN",
+      "field": "annual_denominator",
+      "status": "NEEDS_HUMAN",
+      "message": "HUMAN REQUIRED -- FY2026 capital investment plan. NOT MACHINE-READABLE - company plan stated on the earnings call. Verified absent from the 8-K Exhibit 99.1 press release, which contains no capital-expenditure outlook at all. Primary source: https://ir.aboutamazon.com/events/ Note: The methodology retains the latest filed company plan because Q2 2026 contained no replacement numeric figure. Beware: Amazon's Q2 2026 NET SALES were $200.6B - numerically near-identical to the $200B capex plan. Do not let a regex confuse them.",
+      "evidence": {
+        "human_source_url": "https://ir.aboutamazon.com/events/",
+        "proxy_only": null
+      }
+    },
+    {
+      "id": "S6",
+      "name": "No fetch errors",
+      "ticker": "AMZN",
+      "field": "fetch",
+      "status": "PASS",
+      "message": "All sources retrieved.",
+      "evidence": {}
+    },
+    {
+      "id": "T6",
+      "name": "Amazon capex uses us-gaap:PaymentsToAcquireProductiveAssets",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "The cash-flow-statement 'Purchases of property and equipment' line, as the model requires.",
+      "evidence": {
+        "concepts": [
+          "us-gaap:PaymentsToAcquireProductiveAssets"
+        ]
+      }
+    },
+    {
+      "id": "T6",
+      "name": "Amazon capex is GROSS, not the MD&A's net 'cash capital expenditures'",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "gross 54.208$B as re-read from the filing's cash-flow statement; the net measure the MD&A quotes would be 53.076$B after deducting 1,132M of proceeds from property and equipment sales and incentives. The model uses gross.",
+      "evidence": {
+        "gross_usd": 54208000000.0,
+        "net_usd": 53076000000.0,
+        "proceeds_usd": 1132000000.0
+      }
+    },
+    {
+      "id": "T8",
+      "name": "Directly-tagged capex duration is a standalone quarter",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "2026-04-01 -> 2026-06-30 = 90 days.",
+      "evidence": {
+        "component": {
+          "start": "2026-04-01",
+          "end": "2026-06-30",
+          "val": 54208000000,
+          "form": "10-Q",
+          "accn": "0001018724-26-000026",
+          "filed": "2026-07-31",
+          "fy": 2026,
+          "fp": "Q2",
+          "filing_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm"
+        }
+      }
+    },
+    {
+      "id": "T9",
+      "name": "Demand fact is distinct from purchase/contractual obligations",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "demand fact 496.0$B; obligation-side facts in the same filing: ContractualObligation 650.0$B, UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary 11.7$B, UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary 33.0$B",
+      "evidence": {
+        "obligation_facts": [
+          {
+            "concept": "us-gaap:ContractualObligation",
+            "value_usd": 650034000000.0
+          },
+          {
+            "concept": "us-gaap:UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+            "value_usd": 11732000000.0
+          },
+          {
+            "concept": "us-gaap:UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+            "value_usd": 33026000000.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "T10",
+      "name": "Amazon RPO selected by AXIS PRESENCE, not by a hardcoded typed-member date",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "context c-46 @ 2026-06-30; typed member reads '2026-07-01' (the day after period end -- it advances every quarter, so it is matched on axis presence only). Value 496.0$B.",
+      "evidence": {
+        "context": {
+          "id": "c-46",
+          "instant": "2026-06-30",
+          "start": null,
+          "end": null,
+          "explicit_dimensions": {},
+          "typed_dimensions": {
+            "us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis": "2026-07-01"
+          }
+        },
+        "typed_member": "2026-07-01"
+      }
+    },
+    {
+      "id": "T10",
+      "name": "Customer-specific sibling commitments correctly excluded",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "Excluded 38$B with {'srt:MajorCustomersAxis': 'amzn:OpenAIGroupPBCMember'}",
+      "evidence": {
+        "excluded": [
+          {
+            "value": 38000000000.0,
+            "context_id": "c-47",
+            "instant": "2026-03-31",
+            "start": null,
+            "end": null,
+            "explicit_dimensions": {
+              "srt:MajorCustomersAxis": "amzn:OpenAIGroupPBCMember"
+            },
+            "typed_dimensions": {
+              "us-gaap:RevenueRemainingPerformanceObligationExpectedTimingOfSatisfactionStartDateAxis": "2026-07-01"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "T10",
+      "name": "companyfacts confirmed empty for Amazon RPO at this instant",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "As documented: companyfacts returns nothing for Amazon RPO at 2026-06-30. The value came from the filing's inline XBRL. A companyfacts-only fetcher would have silently skipped this company.",
+      "evidence": {
+        "companyfacts_entries": null
+      }
+    },
+    {
+      "id": "T11",
+      "name": "Amazon's capex plan is not confusable with its net sales in this packet",
+      "ticker": "AMZN",
+      "field": "annual_denominator",
+      "status": "INFO",
+      "message": "Quarterly net sales were 200.6$B",
+      "evidence": {
+        "net_sales_usd": 200606000000.0
+      }
+    },
+    {
+      "id": "T13",
+      "name": "Period end coincides with the calendar quarter end, as expected",
+      "ticker": "AMZN",
+      "field": "period",
+      "status": "PASS",
+      "message": "2026-06-30.",
+      "evidence": {}
+    },
+    {
+      "id": "T15",
+      "name": "demand_fact: value corroborated by a verbatim disclosure, within its own precision",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "XBRL value 496.000$B; tolerance for this fact is +/-500.0M because filers tag demand facts to whole billions and cash-flow items to the million. Rounding is not error, and a rounded press-release figure never overrides a more precise XBRL derivation. Quote: For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026.",
+      "evidence": {
+        "quote": "For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026.",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+        "tolerance_usd": 500000000.0
+      }
+    },
+    {
+      "id": "T15",
+      "name": "capex_fact: value corroborated by a verbatim disclosure, within its own precision",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "XBRL value 54.208$B; tolerance for this fact is +/-0.5M because filers tag demand facts to whole billions and cash-flow items to the million. Rounding is not error, and a rounded press-release figure never overrides a more precise XBRL derivation. Quote: 74 2,641 (749) Net cash provided by (used in) operating activities 32,515 45,387 49,530 71,419 121,137 161,403 INVESTING ACTIVITIES: Purchases of property and equipment (32,183) (54,208) (57,202) (98,411) (107,656) (173,028) Proceeds from p",
+      "evidence": {
+        "quote": "74 2,641 (749) Net cash provided by (used in) operating activities 32,515 45,387 49,530 71,419 121,137 161,403 INVESTING ACTIVITIES: Purchases of property and equipment (32,183) (54,208) (57,202) (98,411) (107,656) (173,028) Proceeds from property and equipment sales and incentives 815 1,132 1,579 2,101 4,703 4,021 Acquisitions, net of cash acquired, non-marketab",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+        "tolerance_usd": 500000.0
+      }
+    },
+    {
+      "id": "R1",
+      "name": "demand_fact sequential move is within the plausible band",
+      "ticker": "AMZN",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "Q1 26 364.000$B -> Q2 26 496.000$B (+36.3%)",
+      "evidence": {
+        "prior_usd": 364000000000.0,
+        "value_usd": 496000000000.0,
+        "ratio": 1.3626373626373627
+      }
+    },
+    {
+      "id": "R2",
+      "name": "capex_fact sequential move is within the plausible band",
+      "ticker": "AMZN",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "Q1 26 44.203$B -> Q2 26 54.208$B (+22.6%)",
+      "evidence": {
+        "prior_usd": 44203000000.0,
+        "value_usd": 54208000000.0,
+        "ratio": 1.2263421034771396
+      }
+    }
+  ],
+  "guards_summary": {
+    "total": 20,
+    "pass": 18,
+    "fail": 0,
+    "needs_human": 1,
+    "info": 1,
+    "blocking_ids": [
+      "S5"
+    ]
+  },
+  "already_on_file": {
+    "company": "Amazon",
+    "ticker": "AMZN",
+    "report_bucket": "Q2 26",
+    "fiscal_period": "Q2 2026",
+    "period_end": "2026-06-30",
+    "rpo_backlog_or_revenue_usd_b": "496",
+    "fact_metric": "Long-term customer commitments, primarily AWS",
+    "quarterly_capex_usd_b": "54.208",
+    "capex_definition": "Cash payments to acquire productive assets (SEC XBRL gross series)",
+    "fact_source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+    "capex_source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+    "evidence_derivation": "Fact: Long-term customer commitments, primarily AWS, were approximately $496B; weighted-average remaining life was 6.4 years. Anthropic's expanded commitment is already included in the total and must not be added separately. Capex: Gross cash PP&E purchases were $54.208B, also reconciling as $98.411B first half less $44.203B Q1. Amazon's separate net cash-capex measure was $53.076B; the model preserves the gross series.",
+    "fact_source_id": "AMZN-Q226-FACT",
+    "capex_source_id": "AMZN-Q226-CAPEX"
+  },
+  "proposed_source_ids": {
+    "fact": "AMZN-Q226-FACT",
+    "capex": "AMZN-Q226-CAPEX"
+  },
+  "approval": {
+    "status": "DRAFT \u2014 UNAPPROVED",
+    "note": "This packet is a PROPOSAL. Nothing is written to data/ until a reviewer fills in and saves the companion *.approval.json file. There is no CLI flag that approves a packet."
+  },
+  "packet_sha256": "6673a5888c6e5cfa28c47a1aeb9945f6c1aae24f7f239e48f6c79cd765dedb09"
+}

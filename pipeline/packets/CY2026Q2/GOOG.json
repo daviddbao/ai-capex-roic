@@ -1,0 +1,493 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-01T00:07:02+00:00",
+  "ticker": "GOOG",
+  "company": "Alphabet Inc.",
+  "cik": "0001652044",
+  "report_bucket": "CY2026Q2",
+  "model_period_key": "Q2 26",
+  "period": {
+    "ticker": "GOOG",
+    "report_bucket": "CY2026Q2",
+    "model_period_key": "Q2 26",
+    "calendar_quarter_end": "2026-06-30",
+    "period_end": "2026-06-30",
+    "prior_period_end": "2026-03-31",
+    "quarter_start": "2026-04-01",
+    "fiscal_year_start": "2026-01-01",
+    "fiscal_quarter": 2,
+    "fiscal_year_label": "FY26",
+    "fiscal_period": "Q2 2026",
+    "expected_form": "10-Q",
+    "ytd_is_quarter": false,
+    "source_map_agrees": true,
+    "source_map_period_end": "2026-06-30"
+  },
+  "periodic_filing": {
+    "cik": "0001652044",
+    "form": "10-Q",
+    "accession": "0001652044-26-000071",
+    "filing_date": "2026-07-23",
+    "report_date": "2026-06-30",
+    "items": "",
+    "primary_document": "goog-20260630.htm",
+    "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+    "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm"
+  },
+  "earnings_8k": {
+    "cik": "0001652044",
+    "form": "8-K",
+    "accession": "0001652044-26-000066",
+    "filing_date": "2026-07-22",
+    "report_date": "2026-07-22",
+    "items": "2.02,9.01",
+    "primary_document": "goog-20260722.htm",
+    "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/goog-20260722.htm",
+    "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/0001652044-26-000066-index.htm"
+  },
+  "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm",
+  "archived_sources": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "bytes": 2464133,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000071",
+      "role": "10-Q primary document"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/goog-20260722.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/goog-20260722.htm",
+      "sha256": "9e881beb88f9496e316a412fdb881a22b9244fdec75131b4fb00ae11d0f9f7e4",
+      "bytes": 65815,
+      "fetched_at": "2026-08-31T23:56:23+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Item 2.02"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm",
+      "repo_relative_path": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000066/googexhibit991q22026.htm",
+      "sha256": "a01f6bd87c7fa0dcb562493dda7348a1a37d017b4a4b5edb39b915b45688237e",
+      "bytes": 371494,
+      "fetched_at": "2026-08-31T23:45:58+00:00",
+      "company": "Alphabet Inc.",
+      "accession": "0001652044-26-000066",
+      "role": "8-K Exhibit 99.1"
+    }
+  ],
+  "archive_errors": [],
+  "fetch_errors": [],
+  "fields": {
+    "demand_fact": {
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "label": "Revenue backlog (total remaining performance obligations)",
+      "automation_tier": "auto",
+      "access": "companyfacts",
+      "status": "extracted",
+      "value_usd": 519500000000.0,
+      "concepts": [
+        "us-gaap:RevenueRemainingPerformanceObligation"
+      ],
+      "derivation": "companyfacts us-gaap:RevenueRemainingPerformanceObligation @ instant 2026-06-30 (undimensioned)",
+      "components": [
+        {
+          "start": null,
+          "end": "2026-06-30",
+          "val": 519500000000,
+          "form": "10-Q",
+          "accn": "0001652044-26-000071",
+          "filed": "2026-07-23",
+          "fy": 2026,
+          "fp": "Q2",
+          "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm"
+        }
+      ],
+      "context": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "source_sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "evidence_quote": "Revenue Backlog As of June 30, 2026, we had $ 519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $ 513.9 billion related to Google Cloud.",
+      "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "human_instruction": "",
+      "human_source_url": "",
+      "proxy_only": null,
+      "model_q2_2026": 519500000000,
+      "notes": [
+        "precision_note: Tagged to one decimal place in billions.",
+        "definition_break: In Q1 2026 Alphabet elected to include contracts with an original expected term of one year or less. 2025 and earlier figures are on the OLD definition. See docs/SOURCE_MAP.md 'Definitional traps'.",
+        "corroborating_prose: 10-Q: 'As of June 30, 2026, we had $519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $513.9 billion related to Google Cloud.'"
+      ],
+      "error": "",
+      "value_usd_b": 519.5,
+      "title": "Demand fact (RPO / backlog / revenue)",
+      "local_path_if_any": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "cell_note": "GOOG Q2 26 \u2014 Revenue backlog (total remaining performance obligations)\nValue: $519.500B\nPublic source: https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm\nEvidence: Revenue Backlog As of June 30, 2026, we had $ 519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $ 513.9 billion related to Google Cloud.\nLocal source: 01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm\nClassification: SEC filing"
+    },
+    "capex_fact": {
+      "ticker": "GOOG",
+      "field": "capex_fact",
+      "label": "Cash purchases of property and equipment",
+      "automation_tier": "derived",
+      "access": "companyfacts",
+      "status": "extracted",
+      "value_usd": 44924000000.0,
+      "concepts": [
+        "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"
+      ],
+      "derivation": "YTD differencing against 2026-01-01 -> 2026-03-31. us-gaap:PaymentsToAcquirePropertyPlantAndEquipment: 80,598,000,000 - 35,674,000,000 = 44,924,000,000",
+      "components": [
+        {
+          "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+          "role": "YTD current",
+          "start": "2026-01-01",
+          "end": "2026-06-30",
+          "val": 80598000000,
+          "form": "10-Q",
+          "accn": "0001652044-26-000071",
+          "filed": "2026-07-23",
+          "fy": 2026,
+          "fp": "Q2",
+          "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+          "evidence_quote": "During the six months ended June 30, 2025 and 2026, we spent $39.6 billion and $80.6 billion on capital expenditures, respectively.",
+          "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm"
+        },
+        {
+          "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+          "role": "YTD prior",
+          "start": "2026-01-01",
+          "end": "2026-03-31",
+          "val": 35674000000,
+          "form": "10-Q",
+          "accn": "0001652044-26-000048",
+          "filed": "2026-04-30",
+          "fy": 2026,
+          "fp": "Q1",
+          "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000048/0001652044-26-000048-index.htm",
+          "evidence_quote": "Quarter Ended TTM Q3 2025 Q4 2025 Q1 2026 Q2 2026 Q2 2026 Net cash provided by operating activities $ 48,414 $ 52,402 $ 45,790 $ 39,069 $ 185,675 Less: purchases of property and equipment (23,953) (27,851) (35,674) (44,924) (132,402) Free cash flow $ 24,461 $ 24,551 $ 10,116 $ (5,855) $ 53,273 Free cash flow: We define free cash flow as net cash provided by operating activities less capital expenditures.",
+          "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm"
+        }
+      ],
+      "context": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "source_sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "evidence_quote": "\u2022 Capital expenditures, which primarily reflected investments in technical infrastructure, were $44.9 billion for the three months ended June 30, 2026.",
+      "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "human_instruction": "",
+      "human_source_url": "",
+      "proxy_only": null,
+      "model_q2_2026": 44924000000,
+      "notes": [],
+      "error": "",
+      "value_usd_b": 44.924,
+      "title": "Quarterly capex",
+      "local_path_if_any": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "cell_note": "GOOG Q2 26 \u2014 Cash purchases of property and equipment\nValue: $44.924B\nPublic source: https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm\nEvidence: \u2022 Capital expenditures, which primarily reflected investments in technical infrastructure, were $44.9 billion for the three months ended June 30, 2026.\nLocal source: 01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm\nClassification: SEC filing"
+    },
+    "annual_denominator": {
+      "ticker": "GOOG",
+      "field": "annual_denominator",
+      "label": "FY2026 capital expenditure outlook range midpoint",
+      "automation_tier": "manual",
+      "access": "not_in_xbrl",
+      "status": "refused_manual",
+      "value_usd": null,
+      "concepts": [],
+      "derivation": "",
+      "components": [],
+      "context": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "source_sha256": "fecfbc2683f630380b17937278ce3745eca150eb90e21a945fd6b78fe19728c7",
+      "evidence_quote": "",
+      "evidence_quote_source_url": "",
+      "human_instruction": "HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear). Primary source: https://abc.xyz/investor/events/ Note: Raised from $180-190B at Q1 2026. The model uses the midpoint.",
+      "human_source_url": "https://abc.xyz/investor/events/",
+      "proxy_only": null,
+      "model_q2_2026": 200000000000,
+      "notes": [],
+      "error": "",
+      "value_usd_b": null,
+      "title": "Annual capex denominator",
+      "local_path_if_any": "01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm",
+      "cell_note": "GOOG Q2 26 \u2014 FY2026 capital expenditure outlook range midpoint\nValue: NOT SUPPLIED \u2014 human input required\nPublic source: https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm\nEvidence: HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear). Primary source: https://abc.xyz/investor/events/ Note: Raised from $180-190B at Q1 2026. The model uses the midpoint.\nLocal source: 01_sources/company_filings/Alphabet_Inc/0001652044-26-000071/goog-20260630.htm\nClassification: Official company disclosure (not in SEC XBRL)"
+    }
+  },
+  "manual_required": [
+    {
+      "field": "annual_denominator",
+      "title": "Annual capex denominator",
+      "label": "FY2026 capital expenditure outlook range midpoint",
+      "why": "HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear). Primary source: https://abc.xyz/investor/events/ Note: Raised from $180-190B at Q1 2026. The model uses the midpoint.",
+      "where_to_look": "https://abc.xyz/investor/events/",
+      "value_on_file_last_refresh": 200000000000,
+      "xbrl_proxy_for_sanity_only": null,
+      "supply_as": "approval.manual_values.annual_denominator_usd_b"
+    }
+  ],
+  "guards": [
+    {
+      "id": "S1",
+      "name": "Resolved period matches source_map.report_bucket_map",
+      "ticker": "GOOG",
+      "field": "period",
+      "status": "PASS",
+      "message": "period_end 2026-06-30, Q2 2026, form 10-Q.",
+      "evidence": {
+        "period": {
+          "ticker": "GOOG",
+          "report_bucket": "CY2026Q2",
+          "model_period_key": "Q2 26",
+          "calendar_quarter_end": "2026-06-30",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2026-03-31",
+          "quarter_start": "2026-04-01",
+          "fiscal_year_start": "2026-01-01",
+          "fiscal_quarter": 2,
+          "fiscal_year_label": "FY26",
+          "fiscal_period": "Q2 2026",
+          "expected_form": "10-Q",
+          "ytd_is_quarter": false,
+          "source_map_agrees": true,
+          "source_map_period_end": "2026-06-30"
+        }
+      }
+    },
+    {
+      "id": "S2",
+      "name": "Periodic filing present",
+      "ticker": "GOOG",
+      "field": "filing",
+      "status": "PASS",
+      "message": "10-Q 0001652044-26-000071 filed 2026-07-23 for reportDate 2026-06-30.",
+      "evidence": {
+        "filing": {
+          "cik": "0001652044",
+          "form": "10-Q",
+          "accession": "0001652044-26-000071",
+          "filing_date": "2026-07-23",
+          "report_date": "2026-06-30",
+          "items": "",
+          "primary_document": "goog-20260630.htm",
+          "primary_doc_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm"
+        }
+      }
+    },
+    {
+      "id": "S3",
+      "name": "Filing form matches the fiscal quarter",
+      "ticker": "GOOG",
+      "field": "filing",
+      "status": "PASS",
+      "message": "fiscal Q2 -> 10-Q.",
+      "evidence": {}
+    },
+    {
+      "id": "S4",
+      "name": "Extraction succeeded: demand_fact",
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "519.500 $B via auto/companyfacts.",
+      "evidence": {
+        "derivation": "companyfacts us-gaap:RevenueRemainingPerformanceObligation @ instant 2026-06-30 (undimensioned)"
+      }
+    },
+    {
+      "id": "S4",
+      "name": "Extraction succeeded: capex_fact",
+      "ticker": "GOOG",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "44.924 $B via derived/companyfacts.",
+      "evidence": {
+        "derivation": "YTD differencing against 2026-01-01 -> 2026-03-31. us-gaap:PaymentsToAcquirePropertyPlantAndEquipment: 80,598,000,000 - 35,674,000,000 = 44,924,000,000"
+      }
+    },
+    {
+      "id": "S5",
+      "name": "Manual field correctly refused: annual_denominator",
+      "ticker": "GOOG",
+      "field": "annual_denominator",
+      "status": "NEEDS_HUMAN",
+      "message": "HUMAN REQUIRED -- FY2026 capital expenditure outlook range midpoint. NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear). Primary source: https://abc.xyz/investor/events/ Note: Raised from $180-190B at Q1 2026. The model uses the midpoint.",
+      "evidence": {
+        "human_source_url": "https://abc.xyz/investor/events/",
+        "proxy_only": null
+      }
+    },
+    {
+      "id": "S6",
+      "name": "No fetch errors",
+      "ticker": "GOOG",
+      "field": "fetch",
+      "status": "PASS",
+      "message": "All sources retrieved.",
+      "evidence": {}
+    },
+    {
+      "id": "T5",
+      "name": "Alphabet's expanded backlog definition is still in force",
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "status": "INFO",
+      "message": "Detected the Q1 2026 definition-change language, so this quarter is on the NEW basis (contracts with an original expected term of one year or less are included). Q1 26 onward are comparable with each other; any comparison spanning Q4 25 -> Q1 26 is not. Carry definition_version = '2026-expanded' on the row.",
+      "evidence": {
+        "quote": "In the first quarter of 2026, we elected to change our reporting of revenue backlog to also include contracts with an original expected term of one year or less.",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+        "definition_version": "2026-expanded"
+      }
+    },
+    {
+      "id": "T8",
+      "name": "Quarter correctly derived by year-to-date differencing",
+      "ticker": "GOOG",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "YTD differencing against 2026-01-01 -> 2026-03-31. us-gaap:PaymentsToAcquirePropertyPlantAndEquipment: 80,598,000,000 - 35,674,000,000 = 44,924,000,000",
+      "evidence": {
+        "components": [
+          {
+            "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+            "role": "YTD current",
+            "start": "2026-01-01",
+            "end": "2026-06-30",
+            "val": 80598000000,
+            "form": "10-Q",
+            "accn": "0001652044-26-000071",
+            "filed": "2026-07-23",
+            "fy": 2026,
+            "fp": "Q2",
+            "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+            "evidence_quote": "During the six months ended June 30, 2025 and 2026, we spent $39.6 billion and $80.6 billion on capital expenditures, respectively.",
+            "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm"
+          },
+          {
+            "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
+            "role": "YTD prior",
+            "start": "2026-01-01",
+            "end": "2026-03-31",
+            "val": 35674000000,
+            "form": "10-Q",
+            "accn": "0001652044-26-000048",
+            "filed": "2026-04-30",
+            "fy": 2026,
+            "fp": "Q1",
+            "filing_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000048/0001652044-26-000048-index.htm",
+            "evidence_quote": "Quarter Ended TTM Q3 2025 Q4 2025 Q1 2026 Q2 2026 Q2 2026 Net cash provided by operating activities $ 48,414 $ 52,402 $ 45,790 $ 39,069 $ 185,675 Less: purchases of property and equipment (23,953) (27,851) (35,674) (44,924) (132,402) Free cash flow $ 24,461 $ 24,551 $ 10,116 $ (5,855) $ 53,273 Free cash flow: We define free cash flow as net cash provided by operating activities less capital expenditures.",
+            "evidence_quote_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "T9",
+      "name": "Demand fact is distinct from purchase/contractual obligations",
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "demand fact 519.5$B; obligation-side facts in the same filing: none tagged",
+      "evidence": {
+        "obligation_facts": []
+      }
+    },
+    {
+      "id": "T13",
+      "name": "Period end coincides with the calendar quarter end, as expected",
+      "ticker": "GOOG",
+      "field": "period",
+      "status": "PASS",
+      "message": "2026-06-30.",
+      "evidence": {}
+    },
+    {
+      "id": "T15",
+      "name": "demand_fact: value corroborated by a verbatim disclosure, within its own precision",
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "XBRL value 519.500$B; tolerance for this fact is +/-50.0M because filers tag demand facts to whole billions and cash-flow items to the million. Rounding is not error, and a rounded press-release figure never overrides a more precise XBRL derivation. Quote: Revenue Backlog As of June 30, 2026, we had $ 519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $ 513.9 billion related to Google Cloud.",
+      "evidence": {
+        "quote": "Revenue Backlog As of June 30, 2026, we had $ 519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $ 513.9 billion related to Google Cloud.",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+        "tolerance_usd": 50000000.0
+      }
+    },
+    {
+      "id": "T15",
+      "name": "capex_fact: value corroborated by a verbatim disclosure, within its own precision",
+      "ticker": "GOOG",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "XBRL value 44.924$B; tolerance for this fact is +/-50.0M because filers tag demand facts to whole billions and cash-flow items to the million. Rounding is not error, and a rounded press-release figure never overrides a more precise XBRL derivation. Quote: \u2022 Capital expenditures, which primarily reflected investments in technical infrastructure, were $44.9 billion for the three months ended June 30, 2026.",
+      "evidence": {
+        "quote": "\u2022 Capital expenditures, which primarily reflected investments in technical infrastructure, were $44.9 billion for the three months ended June 30, 2026.",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+        "tolerance_usd": 50000000.0
+      }
+    },
+    {
+      "id": "R1",
+      "name": "demand_fact sequential move is within the plausible band",
+      "ticker": "GOOG",
+      "field": "demand_fact",
+      "status": "PASS",
+      "message": "Q1 26 467.600$B -> Q2 26 519.500$B (+11.1%)",
+      "evidence": {
+        "prior_usd": 467600000000.0,
+        "value_usd": 519500000000.0,
+        "ratio": 1.1109923011120615
+      }
+    },
+    {
+      "id": "R2",
+      "name": "capex_fact sequential move is within the plausible band",
+      "ticker": "GOOG",
+      "field": "capex_fact",
+      "status": "PASS",
+      "message": "Q1 26 35.674$B -> Q2 26 44.924$B (+25.9%)",
+      "evidence": {
+        "prior_usd": 35674000000.0,
+        "value_usd": 44924000000.0,
+        "ratio": 1.2592924819196054
+      }
+    }
+  ],
+  "guards_summary": {
+    "total": 15,
+    "pass": 13,
+    "fail": 0,
+    "needs_human": 1,
+    "info": 1,
+    "blocking_ids": [
+      "S5"
+    ]
+  },
+  "already_on_file": {
+    "company": "Alphabet",
+    "ticker": "GOOG",
+    "report_bucket": "Q2 26",
+    "fiscal_period": "Q2 2026",
+    "period_end": "2026-06-30",
+    "rpo_backlog_or_revenue_usd_b": "519.5",
+    "fact_metric": "Revenue backlog / remaining performance obligations",
+    "quarterly_capex_usd_b": "44.924",
+    "capex_definition": "Cash purchases of property and equipment",
+    "fact_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+    "capex_source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+    "evidence_derivation": "Fact: Revenue backlog/RPO was $519.5B, including $513.9B related to Google Cloud. The Q1 2026 short-term-contract definition change remains in effect, and Cloud backlog now includes TPU system-sale agreements; the vast majority remains GCP agreements. Capex: The Q2 2026 10-Q reports exact cash purchases of PP&E of $44.924B; narrative disclosure rounds to $44.9B.",
+    "fact_source_id": "GOOG-Q226-FACT",
+    "capex_source_id": "GOOG-Q226-CAPEX"
+  },
+  "proposed_source_ids": {
+    "fact": "GOOG-Q226-FACT",
+    "capex": "GOOG-Q226-CAPEX"
+  },
+  "approval": {
+    "status": "DRAFT \u2014 UNAPPROVED",
+    "note": "This packet is a PROPOSAL. Nothing is written to data/ until a reviewer fills in and saves the companion *.approval.json file. There is no CLI flag that approves a packet."
+  },
+  "packet_sha256": "de362e7e4d1b67207805b3289cf1a6ccb503b54e8ad51a0e36efeed840bceed1"
+}

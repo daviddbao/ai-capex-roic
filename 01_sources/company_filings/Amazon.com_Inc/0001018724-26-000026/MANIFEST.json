@@ -1,0 +1,16 @@
+{
+  "company": "Amazon.com, Inc.",
+  "accession": "0001018724-26-000026",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Amazon.com_Inc/0001018724-26-000026/amzn-20260630.htm",
+      "sha256": "d07b8a88fa442c2c55bd65b3f1d336ca16e7d1e9fda831e1063d24adea60e4eb",
+      "bytes": 1591422,
+      "fetched_at": "2026-08-31T23:41:34+00:00",
+      "company": "Amazon.com, Inc.",
+      "accession": "0001018724-26-000026",
+      "role": "10-Q primary document"
+    }
+  ]
+}

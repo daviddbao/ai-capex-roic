@@ -1,0 +1,26 @@
+{
+  "_instructions": [
+    "This file IS the approval. There is no --approve flag.",
+    "Fill in reviewer, reviewed_at, every manual_values entry, and one sentence for",
+    "every guard id under acknowledgements. Then paste the packet's content hash into",
+    "packet_sha256 and set decision to APPROVED.",
+    "A FAIL guard cannot be acknowledged: fix it and re-draft the packet."
+  ],
+  "packet_file": "ORCL.json",
+  "ticker": "ORCL",
+  "report_bucket": "CY2026Q2",
+  "decision": "PENDING",
+  "reviewer": "",
+  "reviewed_at": "",
+  "packet_sha256": "",
+  "packet_sha256_expected_hint": "057e4e9e8442cd1153a67b1f20da326c4ca9edf6f4d397beb9befed45580f1ea",
+  "manual_values": {},
+  "manual_value_sources": {},
+  "manual_value_evidence": {},
+  "acknowledgements": {
+    "T14": ""
+  },
+  "acknowledgement_prompts": {
+    "T14": "[NEEDS_HUMAN] Oracle's RPO includes prepaid / customer-supplied hardware \u2014 Oracle disclosed that most of its RPO increase came from large-scale AI contracts where the customer prepaid for the GPUs, or bought and supplied the GPUs to Oracle -- roughly $75B that reduces Oracle's own capital requirement. The RPO number is machine-readable; its comparability to Alphabet's or M"
+  }
+}

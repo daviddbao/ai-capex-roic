@@ -1,0 +1,16 @@
+{
+  "company": "Microsoft Corporation",
+  "accession": "0001193125-26-323660",
+  "files": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+      "repo_relative_path": "01_sources/company_filings/Microsoft_Corporation/0001193125-26-323660/msft-20260630.htm",
+      "sha256": "4bcf2da2871acc19e32c5a62f36f6d83d6aae03cdc4aaa9a86a9a21ee8223f02",
+      "bytes": 8585501,
+      "fetched_at": "2026-08-31T23:41:28+00:00",
+      "company": "Microsoft Corporation",
+      "accession": "0001193125-26-323660",
+      "role": "10-K primary document"
+    }
+  ]
+}
