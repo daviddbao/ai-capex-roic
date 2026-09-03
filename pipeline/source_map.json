@@ -7,7 +7,6 @@
     "calendar_quarter_end": "2026-09-30",
     "note": "MSFT quarter end coincides with the calendar quarter (2026-09-30, its FY27 Q1). ORCL does NOT: its FY27 Q1 ends 2026-08-31 and is mapped into the CY2026Q3 bucket one month early."
   },
-
   "conventions": {
     "tiers": {
       "auto": "A single XBRL fact, uniquely identified by concept + period + dimensional context, verified to equal the model's figure. No arithmetic.",
@@ -23,7 +22,6 @@
     "unit": "All monetary values USD, unscaled (a value of 44924000000 means $44.924B).",
     "verification_note": "`verified_q2_2026` is the value this mapping reproduced from live SEC data on 2026-08-31; `model_q2_2026` is the value the methodology doc reports. They are equal for every fact except MSFT capex (see that entry)."
   },
-
   "companies": {
     "MSFT": {
       "name": "Microsoft Corporation",
@@ -36,8 +34,16 @@
       "reporting_calendar_offset_months": 0,
       "offset_note": "Fiscal-year LABEL is offset but quarter-END dates coincide with calendar quarters. Calendar Q2 2026 (ends 2026-06-30) = MSFT FY2026 Q4. Calendar Q3 2026 (ends 2026-09-30) = MSFT FY2027 Q1.",
       "report_bucket_map": {
-        "CY2026Q2": {"fiscal_period": "FY2026 Q4", "period_end": "2026-06-30", "form": "10-K"},
-        "CY2026Q3": {"fiscal_period": "FY2027 Q1", "period_end": "2026-09-30", "form": "10-Q"}
+        "CY2026Q2": {
+          "fiscal_period": "FY2026 Q4",
+          "period_end": "2026-06-30",
+          "form": "10-K"
+        },
+        "CY2026Q3": {
+          "fiscal_period": "FY2027 Q1",
+          "period_end": "2026-09-30",
+          "form": "10-Q"
+        }
       },
       "ir_url": "https://www.microsoft.com/en-us/investor",
       "ir_earnings_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
@@ -58,7 +64,6 @@
         "items": "2.02,9.01",
         "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm"
       },
-
       "demand_fact": {
         "label": "Commercial remaining performance obligation",
         "model_q2_2026": 678000000000,
@@ -90,7 +95,6 @@
           "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm"
         ]
       },
-
       "capex_fact": {
         "label": "Company-reported capital expenditures INCLUDING finance leases (management metric)",
         "model_q2_2026": 41000000000,
@@ -129,7 +133,6 @@
           "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
         ]
       },
-
       "annual_denominator": {
         "label": "CY2026 capital expenditure outlook",
         "model_value": 175000000000,
@@ -137,9 +140,50 @@
         "access": "not_in_xbrl",
         "not_machine_readable_reason": "NOT MACHINE-READABLE - forward-looking outlook given verbally on the earnings call. Verified absent from both the 10-K and the 8-K Exhibit 99.1 press release.",
         "human_source": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
+      },
+      "counterparty_revenue": {
+        "label": "Revenue from commercial arrangements with OpenAI (ASC 850 related party)",
+        "model_q2_2026": null,
+        "verified_q2_2026": 24100000000,
+        "automation_tier": "auto",
+        "access": "inline_xbrl_dimensional",
+        "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "unit": "USD",
+        "period_type": "duration",
+        "period_note": "Annual. Microsoft's fiscal year ends June 30, so FY2026 covers 2025-07-01 to 2026-06-30 and coincides exactly with a trailing-twelve-month window ending at the model's latest quarter.",
+        "availability": "10-K only. The disclosure does not appear in 10-Qs, so three quarters in four will not carry it.",
+        "context_selector": {
+          "start": "<fiscal_year_start>",
+          "end": "<fiscal_year_end>",
+          "required_dimensions": {
+            "srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis": "msft:OpenAIGlobalLlcMember"
+          }
+        },
+        "derivation": "single fact; select the ix:nonFraction whose context carries srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis = msft:OpenAIGlobalLlcMember over the fiscal-year duration",
+        "source_document": "primary inline-XBRL 10-K",
+        "verified_context_id_fy2026": "C_c9f61846-f062-4620-8d2c-b0863f215c29",
+        "companyfacts_trap": {
+          "value_returned": 331839000000,
+          "what_it_is": "TOTAL company revenue for FY2026 (undimensioned). The SAME us-gaap concept carries both figures; only the equity-method-investee axis separates them.",
+          "error_if_used": "13.8x too large, and it reads as an entirely ordinary revenue number. This is T4's failure mode on a different fact.",
+          "guard": "T16"
+        },
+        "not_what_it_is": {
+          "is_not": "Microsoft's AI revenue.",
+          "why": "It is revenue from ONE counterparty, disclosed only because Microsoft's ~25% as-converted stake makes OpenAI an equity-method related party under ASC 850. It excludes Copilot, Foundry and Azure AI sold to every other customer.",
+          "use": "A disclosed FLOOR against which to read the model's AI revenue proxy. Never a substitute for the proxy and never a replacement for the demand fact.",
+          "guard": "T16"
+        },
+        "companion_disclosure": {
+          "accounts_receivable_from_openai_usd": 6000000000,
+          "instant": "2026-06-30"
+        },
+        "peers": {
+          "note": "No other filer makes an equivalent disclosure, and the silence is an accounting artifact rather than evidence. Amazon names a $38.0B OpenAI commitment expanded by $100.0B over 8 years and an Anthropic collaboration expanded by more than $100.0B over 10 years, and reports no revenue from either, because its stakes are convertible notes and nonvoting preferred carried at fair value rather than equity-method holdings.",
+          "guard": "T17"
+        }
       }
     },
-
     "GOOG": {
       "name": "Alphabet Inc.",
       "cik": "0001652044",
@@ -151,8 +195,16 @@
       "reporting_calendar_offset_months": 0,
       "offset_note": "Fiscal year is the calendar year. Calendar Q2 2026 = FY2026 Q2.",
       "report_bucket_map": {
-        "CY2026Q2": {"fiscal_period": "FY2026 Q2", "period_end": "2026-06-30", "form": "10-Q"},
-        "CY2026Q3": {"fiscal_period": "FY2026 Q3", "period_end": "2026-09-30", "form": "10-Q"}
+        "CY2026Q2": {
+          "fiscal_period": "FY2026 Q2",
+          "period_end": "2026-06-30",
+          "form": "10-Q"
+        },
+        "CY2026Q3": {
+          "fiscal_period": "FY2026 Q3",
+          "period_end": "2026-09-30",
+          "form": "10-Q"
+        }
       },
       "ir_url": "https://abc.xyz/investor/",
       "sec_filing_index_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001652044&type=10-&dateb=&owner=include&count=40",
@@ -171,7 +223,6 @@
         "items": "2.02,9.01",
         "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm"
       },
-
       "demand_fact": {
         "label": "Revenue backlog (total remaining performance obligations)",
         "model_q2_2026": 519500000000,
@@ -200,14 +251,15 @@
           "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm"
         ]
       },
-
       "capex_fact": {
         "label": "Cash purchases of property and equipment",
         "model_q2_2026": 44924000000,
         "verified_q2_2026": 44924000000,
         "automation_tier": "derived",
         "access": "companyfacts",
-        "concepts": ["us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"],
+        "concepts": [
+          "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"
+        ],
         "unit": "USD",
         "period_type": "duration",
         "derivation": "YTD differencing: PaymentsToAcquirePropertyPlantAndEquipment[FY_start -> period_end] - PaymentsToAcquirePropertyPlantAndEquipment[FY_start -> prior_period_end]",
@@ -222,11 +274,13 @@
           "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000066/googexhibit991q22026.htm"
         ]
       },
-
       "annual_denominator": {
         "label": "FY2026 capital expenditure outlook range midpoint",
         "model_value": 200000000000,
-        "model_range": [195000000000, 205000000000],
+        "model_range": [
+          195000000000,
+          205000000000
+        ],
         "automation_tier": "manual",
         "access": "not_in_xbrl",
         "not_machine_readable_reason": "NOT MACHINE-READABLE - given on the earnings call. Verified absent from both the 10-Q and the 8-K Exhibit 99.1 press release (the strings '195' and '205' as guidance do not appear).",
@@ -234,7 +288,6 @@
         "note": "Raised from $180-190B at Q1 2026. The model uses the midpoint."
       }
     },
-
     "AMZN": {
       "name": "Amazon.com, Inc.",
       "cik": "0001018724",
@@ -246,8 +299,16 @@
       "reporting_calendar_offset_months": 0,
       "offset_note": "Fiscal year is the calendar year. Calendar Q2 2026 = FY2026 Q2.",
       "report_bucket_map": {
-        "CY2026Q2": {"fiscal_period": "FY2026 Q2", "period_end": "2026-06-30", "form": "10-Q"},
-        "CY2026Q3": {"fiscal_period": "FY2026 Q3", "period_end": "2026-09-30", "form": "10-Q"}
+        "CY2026Q2": {
+          "fiscal_period": "FY2026 Q2",
+          "period_end": "2026-06-30",
+          "form": "10-Q"
+        },
+        "CY2026Q3": {
+          "fiscal_period": "FY2026 Q3",
+          "period_end": "2026-09-30",
+          "form": "10-Q"
+        }
       },
       "ir_url": "https://ir.aboutamazon.com/",
       "sec_filing_index_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001018724&type=10-&dateb=&owner=include&count=40",
@@ -266,7 +327,6 @@
         "items": "2.02,9.01",
         "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm"
       },
-
       "demand_fact": {
         "label": "Long-term customer commitments not yet recognized (AWS-linked RPO)",
         "model_q2_2026": 496000000000,
@@ -283,7 +343,9 @@
           ],
           "typed_member_value_q2_2026": "2026-07-01",
           "typed_member_value_rule": "the day AFTER period_end; it CHANGES every quarter - match on axis presence, never on a hardcoded date",
-          "forbidden_dimensions": ["srt:MajorCustomersAxis"]
+          "forbidden_dimensions": [
+            "srt:MajorCustomersAxis"
+          ]
         },
         "derivation": "single fact; select the ix:nonFraction on RevenueRemainingPerformanceObligation whose context carries the ExpectedTimingOfSatisfactionStartDate typed axis and NO srt:MajorCustomersAxis member",
         "verified_context_id_q2_2026": "c-46",
@@ -303,7 +365,6 @@
           "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm"
         ]
       },
-
       "capex_fact": {
         "label": "GROSS cash purchases of property and equipment / productive assets",
         "model_q2_2026": 54208000000,
@@ -336,7 +397,6 @@
           "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm"
         ]
       },
-
       "annual_denominator": {
         "label": "FY2026 capital investment plan",
         "model_value": 200000000000,
@@ -347,7 +407,6 @@
         "note": "The methodology retains the latest filed company plan because Q2 2026 contained no replacement numeric figure. Beware: Amazon's Q2 2026 NET SALES were $200.6B - numerically near-identical to the $200B capex plan. Do not let a regex confuse them."
       }
     },
-
     "ORCL": {
       "name": "Oracle Corporation",
       "cik": "0001341439",
@@ -359,8 +418,16 @@
       "reporting_calendar_offset_months": -1,
       "offset_note": "THE ONLY GENUINELY OFFSET FILER. Quarters end Aug/Nov/Feb/May, one month before the calendar quarter. Calendar Q2 2026 bucket = ORCL FY2026 Q4, the quarter ended 2026-05-31 (i.e. Mar-May). Calendar Q3 2026 bucket = ORCL FY2027 Q1, ending 2026-08-31 (Jun-Aug).",
       "report_bucket_map": {
-        "CY2026Q2": {"fiscal_period": "FY2026 Q4", "period_end": "2026-05-31", "form": "10-K"},
-        "CY2026Q3": {"fiscal_period": "FY2027 Q1", "period_end": "2026-08-31", "form": "10-Q"}
+        "CY2026Q2": {
+          "fiscal_period": "FY2026 Q4",
+          "period_end": "2026-05-31",
+          "form": "10-K"
+        },
+        "CY2026Q3": {
+          "fiscal_period": "FY2027 Q1",
+          "period_end": "2026-08-31",
+          "form": "10-Q"
+        }
       },
       "ir_url": "https://investor.oracle.com/",
       "sec_filing_index_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001341439&type=10-&dateb=&owner=include&count=40",
@@ -379,7 +446,6 @@
         "items": "2.02,8.01,9.01",
         "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
       },
-
       "demand_fact": {
         "label": "Remaining performance obligations (RPO)",
         "model_q2_2026": 638000000000,
@@ -402,14 +468,15 @@
           "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
         ]
       },
-
       "capex_fact": {
         "label": "GAAP cash capital expenditures",
         "model_q2_2026": 16493000000,
         "verified_q2_2026": 16493000000,
         "automation_tier": "derived",
         "access": "companyfacts",
-        "concepts": ["us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"],
+        "concepts": [
+          "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment"
+        ],
         "unit": "USD",
         "period_type": "duration",
         "derivation": "YTD differencing: PaymentsToAcquirePropertyPlantAndEquipment[FY_start -> period_end] - PaymentsToAcquirePropertyPlantAndEquipment[FY_start -> prior_period_end]",
@@ -422,14 +489,16 @@
           "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
         ]
       },
-
       "annual_denominator": {
         "label": "FY2026 actual gross cash capex",
         "model_value": 55663000000,
         "automation_tier": "auto",
         "access": "companyfacts",
         "concept": "us-gaap:PaymentsToAcquirePropertyPlantAndEquipment",
-        "context_selector": {"start": "2025-06-01", "end": "2026-05-31"},
+        "context_selector": {
+          "start": "2025-06-01",
+          "end": "2026-05-31"
+        },
         "verified": 55663000000,
         "note": "UNIQUE AMONG THE FIVE: Oracle's annual denominator is a filed GAAP ACTUAL, not an outlook, so it is fully automatable. The methodology deliberately uses the completed FY2026 actual because Oracle's FY2027 guide is a non-comparable net-cash-outlay measure.",
         "do_not_use": {
@@ -439,7 +508,6 @@
         }
       }
     },
-
     "META": {
       "name": "Meta Platforms, Inc.",
       "cik": "0001326801",
@@ -451,8 +519,16 @@
       "reporting_calendar_offset_months": 0,
       "offset_note": "Fiscal year is the calendar year. Calendar Q2 2026 = FY2026 Q2.",
       "report_bucket_map": {
-        "CY2026Q2": {"fiscal_period": "FY2026 Q2", "period_end": "2026-06-30", "form": "10-Q"},
-        "CY2026Q3": {"fiscal_period": "FY2026 Q3", "period_end": "2026-09-30", "form": "10-Q"}
+        "CY2026Q2": {
+          "fiscal_period": "FY2026 Q2",
+          "period_end": "2026-06-30",
+          "form": "10-Q"
+        },
+        "CY2026Q3": {
+          "fiscal_period": "FY2026 Q3",
+          "period_end": "2026-09-30",
+          "form": "10-Q"
+        }
       },
       "ir_url": "https://investor.atmeta.com/",
       "sec_filing_index_url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001326801&type=10-&dateb=&owner=include&count=40",
@@ -471,7 +547,6 @@
         "items": "2.02,9.01",
         "exhibit_991_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm"
       },
-
       "demand_fact": {
         "label": "Quarterly revenue",
         "model_q2_2026": 60801000000,
@@ -494,7 +569,6 @@
           "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm"
         ]
       },
-
       "capex_fact": {
         "label": "Capital expenditures INCLUDING principal payments on finance leases",
         "model_q2_2026": 31078000000,
@@ -518,11 +592,13 @@
           "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-06302026xexhibit991.htm"
         ]
       },
-
       "annual_denominator": {
         "label": "FY2026 capital expenditure outlook range midpoint",
         "model_value": 137500000000,
-        "model_range": [130000000000, 145000000000],
+        "model_range": [
+          130000000000,
+          145000000000
+        ],
         "automation_tier": "manual",
         "access": "not_in_xbrl",
         "not_machine_readable_reason": "NOT MACHINE-READABLE AS XBRL, but it IS present as prose in the SEC-filed 8-K Exhibit 99.1 (unlike MSFT/GOOG/AMZN, whose outlooks are call-only). It is untagged text, so extraction is regex-fragile.",
@@ -532,17 +608,34 @@
       }
     }
   },
-
   "summary": {
     "facts_required_per_refresh": 10,
-    "by_tier": {"auto": 6, "derived": 3, "manual": 1},
-    "by_access": {"companyfacts": 8, "inline_xbrl_dimensional": 2, "not_in_xbrl": 1},
+    "by_tier": {
+      "auto": 6,
+      "derived": 3,
+      "manual": 1
+    },
+    "by_access": {
+      "companyfacts": 8,
+      "inline_xbrl_dimensional": 2,
+      "not_in_xbrl": 1
+    },
     "note_on_counts": "8 + 2 + 1 = 11 because MSFT capex is counted once as not_in_xbrl (tier manual) and its optional proxy is not counted. The 10 required facts split: 6 auto, 3 derived, 1 manual.",
     "annual_denominators": {
       "count": 5,
-      "by_tier": {"auto": 1, "manual": 4},
+      "by_tier": {
+        "auto": 1,
+        "manual": 4
+      },
       "note": "Only Oracle's annual denominator is automatable, and only because the methodology chose a filed GAAP actual over the company's guide."
     },
-    "overall": "9 of 10 core facts (90%) are machine-readable from SEC XBRL. Including the 5 annual denominators, 10 of 15 model inputs (67%) are machine-readable."
+    "overall": "9 of 10 core facts (90%) are machine-readable from SEC XBRL. Including the 5 annual denominators, 10 of 15 model inputs (67%) are machine-readable.",
+    "disclosed_counterparty_revenue": {
+      "count": 1,
+      "filers": [
+        "MSFT"
+      ],
+      "note": "Optional. Not one of the 10 required facts: it feeds no model input and is carried as a disclosed cross-check on the AI revenue proxy. Guarded by T16 and T17."
+    }
   }
 }

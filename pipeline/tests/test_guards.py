@@ -443,3 +443,143 @@ def test_no_guard_fails_on_the_real_quarter(replay_extractions, client, source_m
             ticker,
             [(r.id, r.name, r.message[:160]) for r in outcome.failures],
         )
+
+
+# ---------------------------------------------------------------------------
+# T16 / T17 -- Microsoft's disclosed OpenAI revenue
+# ---------------------------------------------------------------------------
+
+OPENAI_AXIS = "srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis"
+OPENAI_MEMBER = "msft:OpenAIGlobalLlcMember"
+
+
+def _with_counterparty_revenue(extractions, value_usd, dimensions):
+    """Microsoft's extraction carrying a counterparty-revenue field."""
+    extraction = copy.deepcopy(extractions["MSFT"])
+    template = extraction.fields["demand_fact"]
+    extraction.fields["counterparty_revenue"] = dataclasses.replace(
+        template,
+        field="counterparty_revenue",
+        label="Revenue from commercial arrangements with OpenAI",
+        value_usd=value_usd,
+        concepts=["us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"],
+        context={
+            "id": "C_c9f61846-f062-4620-8d2c-b0863f215c29",
+            "instant": None,
+            "start": "2025-07-01",
+            "end": "2026-06-30",
+            "explicit_dimensions": dict(dimensions),
+            "typed_dimensions": {},
+        },
+    )
+    return extraction
+
+
+def test_t16_fails_when_the_investee_axis_is_missing(replay_extractions, client, source_map):
+    """Undimensioned, that concept is Microsoft's TOTAL revenue: $331,839M.
+
+    A 13.8x error that reads as a perfectly ordinary revenue number — T4's
+    failure mode on a different fact.
+    """
+    tampered = _with_counterparty_revenue(replay_extractions, 331_839_000_000.0, {})
+    outcome = run_guards(tampered, client=client, source_map=source_map)
+    assert FAIL in _statuses(outcome, "T16")
+    assert any("total" in r.message.lower() for r in _by_id(outcome, "T16"))
+
+
+def test_t16_fails_when_the_axis_is_present_but_the_value_is_company_scale(
+    replay_extractions, client, source_map
+):
+    """The axis alone is not proof: a wrong context under the right axis still
+    has to be caught by magnitude."""
+    tampered = _with_counterparty_revenue(
+        replay_extractions, 331_839_000_000.0, {OPENAI_AXIS: OPENAI_MEMBER}
+    )
+    outcome = run_guards(tampered, client=client, source_map=source_map)
+    assert FAIL in _statuses(outcome, "T16")
+
+
+def test_t16_passes_on_the_disclosed_figure(replay_extractions, client, source_map):
+    tampered = _with_counterparty_revenue(
+        replay_extractions, 24_100_000_000.0, {OPENAI_AXIS: OPENAI_MEMBER}
+    )
+    outcome = run_guards(tampered, client=client, source_map=source_map)
+    passes = [r for r in _by_id(outcome, "T16") if r.field == "counterparty_revenue"]
+    assert [r.status for r in passes] == [PASS]
+
+
+def test_t16_always_warns_that_one_counterparty_is_not_ai_revenue(
+    replay_extractions, client, source_map
+):
+    """The dimension check cannot catch the misuse that matters: substituting a
+    single counterparty's revenue for the model's AI revenue proxy."""
+    outcome = run_guards(replay_extractions["MSFT"], client=client, source_map=source_map)
+    warnings = [r for r in _by_id(outcome, "T16") if r.status == NEEDS_HUMAN]
+    assert len(warnings) == 1
+    assert warnings[0].field == "demand_fact"
+    assert "floor" in warnings[0].message.lower()
+
+
+def test_t16_is_not_applicable_to_the_four_filers_without_the_disclosure(
+    replay_extractions, client, source_map
+):
+    for ticker in ("GOOG", "AMZN", "ORCL", "META"):
+        outcome = run_guards(replay_extractions[ticker], client=client, source_map=source_map,
+                             include_not_applicable=True)
+        assert _statuses(outcome, "T16") == {"NOT_APPLICABLE"}, ticker
+
+
+def test_t17_says_amazon_silence_is_an_accounting_artifact(
+    replay_extractions, client, source_map
+):
+    """Amazon has larger named AI-counterparty exposure than Microsoft and
+    discloses no revenue from it — because its stakes are not equity-method.
+    Reading the silence as evidence would invert the ranking."""
+    outcome = run_guards(replay_extractions["AMZN"], client=client, source_map=source_map)
+    results = _by_id(outcome, "T17")
+    assert [r.status for r in results] == [INFO]
+    message = results[0].message
+    assert "equity-method" in message and "ASC 850" in message
+    assert "38.0B" in message and "100.0B" in message
+
+
+def test_t17_does_not_fire_for_the_filer_that_does_disclose(
+    replay_extractions, client, source_map
+):
+    outcome = run_guards(replay_extractions["MSFT"], client=client, source_map=source_map,
+                         include_not_applicable=True)
+    assert _statuses(outcome, "T17") == {"NOT_APPLICABLE"}
+
+
+# ---------------------------------------------------------------------------
+# The fact on file
+# ---------------------------------------------------------------------------
+
+
+def test_the_disclosed_figure_is_on_file_with_its_source():
+    import csv
+    from pathlib import Path
+
+    repo = Path(__file__).resolve().parents[2]
+    rows = list(csv.DictReader((repo / "data" / "disclosed_counterparty_revenue.csv")
+                               .open(encoding="utf-8")))
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["ticker"] == "MSFT"
+    assert float(row["revenue_usd_b"]) == 24.1
+    assert float(row["receivable_usd_b"]) == 6.0
+    assert row["period_start"] == "2025-07-01" and row["period_end"] == "2026-06-30"
+    assert int(row["period_months"]) == 12
+    assert row["xbrl_axis"] == OPENAI_AXIS
+    assert row["counterparty_member"] == OPENAI_MEMBER
+    # it must say plainly what it is not
+    assert "floor" in row["excludes"].lower()
+
+    sources = {r["source_id"]: r for r in csv.DictReader(
+        (repo / "data" / "sources.csv").open(encoding="utf-8"))}
+    src = sources[row["source_id"]]
+    assert src["kind"] == "counterparty_revenue"
+    assert src["url"].endswith("msft-20260630.htm")
+    assert "$24.1 billion" in src["evidence_derivation"]
+    assert "331,839" in src["caveat"]        # names the number it must not be confused with
+    assert (repo / src["local_path_if_any"]).exists()

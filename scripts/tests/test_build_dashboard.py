@@ -117,7 +117,7 @@ def test_generated_block_is_valid_json_after_the_assignment(sandbox: Path):
     body = block[block.index("const DATA = ") + len("const DATA = ") : block.rindex("};") + 1]
     assert set(json.loads(body)) == {
         "tickers", "quartersPerYear", "row1Label", "provenance",
-        "workbook", "facts", "assum", "sources", "expected", "computed",
+        "workbook", "facts", "assum", "sources", "disclosed", "expected", "computed",
     }
 
 
@@ -254,7 +254,7 @@ def test_every_source_row_reaches_the_page():
     data = bd.build_data(REPO / "data")
     on_file = pd.read_csv(REPO / "data" / "sources.csv")
     assert set(data["sources"]) == set(on_file.source_id)
-    assert len(data["sources"]) == 62
+    assert len(data["sources"]) == 63
 
 
 def test_every_fact_row_cites_two_sources_that_exist(sandbox: Path):
@@ -292,13 +292,37 @@ def test_a_source_of_the_wrong_kind_refuses_to_build(sandbox: Path):
         bd.build_data(sandbox / "data")
 
 
-def test_a_blank_local_path_is_null_not_the_string_nan():
-    """21 of the 62 sources have no preserved copy. The page has to say so."""
+def test_only_a_verified_archived_copy_counts_as_archived():
+    """``sources.csv`` names a local path for 42 of 63 rows, but 32 of those
+    point at a layout that was never populated — the runbook says historic
+    filings were not backfilled. The page may only claim what is on disk."""
     sources = bd.build_data(REPO / "data")["sources"]
-    locals_ = [s["local"] for s in sources.values()]
-    assert None in locals_
-    assert not any(isinstance(v, str) and v.lower() == "nan" for v in locals_)
-    assert sum(v is None for v in locals_) == 21
+    archived = {k: v for k, v in sources.items() if v["local"]}
+    assert len(archived) == 12
+    for sid, entry in archived.items():
+        assert (REPO / entry["local"]).exists(), sid
+        assert len(entry["sha256"]) == 64, sid
+    # and a path recorded with nothing behind it is reported as exactly that
+    stale = [k for k, v in sources.items() if v["localClaimed"]]
+    assert len(stale) == 32
+    assert all(sources[k]["local"] is None for k in stale)
+    assert not any(isinstance(v["local"], str) and v["local"].lower() == "nan"
+                   for v in sources.values())
+
+
+def test_a_manifest_naming_a_missing_file_refuses_to_build(tmp_path: Path):
+    """The archive and its manifest are written together and cannot legitimately
+    disagree, so a divergence is a build failure rather than a downgrade."""
+    import json
+
+    bad = tmp_path / "manifest.json"
+    bad.write_text(json.dumps({"snapshots": [
+        {"url": "https://example.invalid/x.htm",
+         "repo_relative_path": "01_sources/company_filings/nope/missing.htm",
+         "sha256": "0" * 64, "bytes": 1}
+    ]}), encoding="utf-8")
+    with pytest.raises(SystemExit, match="not on disk"):
+        bd.archived_copies(bad)
 
 
 def test_a_new_quarter_without_source_rows_is_refused(sandbox: Path):
@@ -319,3 +343,20 @@ def test_a_new_quarter_without_source_rows_is_refused(sandbox: Path):
     df.to_csv(facts, index=False)
     with pytest.raises(SystemExit, match="MSFT-Q326-FACT"):
         bd.build_data(sandbox / "data")
+
+
+def test_the_disclosed_counterparty_revenue_reaches_the_page():
+    """It feeds no model input, so nothing breaks if it is absent — but when it
+    is on file the page must carry it, with its source."""
+    data = bd.build_data(REPO / "data")
+    d = data["disclosed"]
+    assert set(d) == {"MSFT"}
+    assert d["MSFT"]["revenueB"] == 24.1
+    assert d["MSFT"]["months"] == 12
+    assert data["sources"][d["MSFT"]["source"]]["kind"] == "counterparty_revenue"
+
+
+def test_the_page_builds_without_the_optional_disclosure_table(sandbox: Path):
+    (sandbox / "data" / "disclosed_counterparty_revenue.csv").unlink()
+    data = bd.build_data(sandbox / "data")
+    assert data["disclosed"] == {}

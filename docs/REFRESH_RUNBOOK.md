@@ -154,6 +154,19 @@ assumption must be appended as a **new row with a later `effective_from`**, neve
 place. If an approved annual denominator differs from the one on file, the diff report says so;
 append the row by hand and re-run the model.
 
+### Step 8 — the annual disclosure, once a year
+
+`data/disclosed_counterparty_revenue.csv` holds Microsoft's ASC 850 disclosure of revenue from
+commercial arrangements with OpenAI. It is **annual and 10-K-only**, so three refreshes in four
+will not touch it — refresh it in the late-July window, when Microsoft's 10-K lands, and leave it
+alone otherwise. `pipeline.apply` does not write this table; append the row by hand alongside its
+`*-OPENAI-REV` source row.
+
+It feeds **no model input**. It is carried so the AI revenue proxy can be read against the one
+audited AI-linked revenue figure any of the five filers publishes, and guards `T16`/`T17` exist to
+stop it being mistaken for AI revenue or its absence elsewhere being read as evidence. See
+`docs/SCHEMA.md` §8.
+
 ---
 
 ## 3. What each guard means when it trips
@@ -173,7 +186,7 @@ Statuses: `FAIL` blocks outright · `NEEDS_HUMAN` blocks until acknowledged by i
 | `S6` | A fetch failed. | Re-run; if it persists, report it. Do not proceed on partial data. |
 | `S7` | The pinned annual-denominator window is a superseded fiscal year. | Decide whether to roll the pin forward in `source_map.json`. This is a methodology choice. |
 
-### The 15 documented traps
+### The 17 documented traps
 
 | Id | Trap | Meaning when it trips |
 |---|---|---|
@@ -192,6 +205,8 @@ Statuses: `FAIL` blocks outright · `NEEDS_HUMAN` blocks until acknowledged by i
 | `T13` | Oracle's period ends are not calendar quarter ends | FAILs if Oracle resolves to a calendar quarter end, or if a calendar filer resolves to something else. INFO otherwise, restating the one-month mismatch that no automation removes. |
 | `T14` | Oracle's RPO includes prepaid / customer-supplied hardware | Always asks a human. ~$75B of prepaid or customer-supplied GPUs reduces Oracle's own capital requirement. The number is machine-readable; its comparability is not. |
 | `T15` | Precision is not uniform, and rounding is not error | PASSes with the tolerance for that specific fact. MSFT/AMZN/ORCL tag demand facts to whole billions, Alphabet to one decimal, cash-flow items to the million. A rounded press-release figure never overrides a more precise XBRL derivation (Meta: $31.08B printed, $31.078B derived — use the derivation). |
+| `T16` | A related-party revenue disclosure is one counterparty, not AI revenue | Microsoft's FY2026 10-K discloses **$24.1B of revenue from commercial arrangements with OpenAI**, inclusive of revenue-sharing payments, plus $6.0B of receivables — compelled by ASC 850 because its ~25% stake makes OpenAI an equity-method related party. **FAILs** if the fact lacks `srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis = msft:OpenAIGlobalLlcMember`, or if the value is company-scale: the same concept undimensioned returns total FY2026 revenue of $331,839M, 13.8x too large. **Always asks a human** as well, because the figure covers one counterparty and excludes Copilot, Foundry and Azure AI sold to everyone else — a floor on Microsoft's AI revenue, never a substitute for the proxy. |
+| `T17` | The absence of that disclosure elsewhere is an accounting artifact | Amazon names a $38.0B OpenAI commitment expanded by $100.0B over 8 years and an Anthropic collaboration expanded by more than $100.0B over 10 years, and discloses no revenue from either — because its stakes are not equity-method, so neither is a related party. INFO on the four filers without the disclosure. Never read silence as evidence. |
 
 ### Range and cross-check
 
@@ -399,6 +414,56 @@ python scripts/build_dashboard.py --check    # fail if regeneration would change
 Before writing, the script recomputes all 260 frozen workbook rows through `model/calc.py` and
 refuses to emit a page whose model no longer reproduces the workbook. The page then re-asserts
 the whole model in JavaScript on load and shows a red alarm instead of numbers if it disagrees.
+
+### What the page shows, in order
+
+| Section | What it is |
+|---|---|
+| **The numbers** | Three views of the model — quarterly trajectory, latest-quarter snapshot, and the disclosed inputs themselves. This is what the page leads with. Every disclosed figure is a link to its row in the evidence ledger; the trajectory view carries a QoQ / YoY / LTM block on the right. |
+| **Return against cost of capital** | The same numbers drawn, toggling between forward ROIC, WACC and the spread between them. |
+| **How each spread is built** | One receipt per company for the selected quarter: the filed figures, the analyst choices, and the arithmetic. Both capex denominators — run-rate and annual plan — against a shared numerator. |
+| **Cost of capital** | The Damodaran sector WACC the model uses, beside a bottom-up WACC built on the page. See below. |
+| **Assumptions** | Every analyst judgement in one grid. |
+| **Evidence ledger** | All 62 sources, ordered by quarter, each linked to and from the figures it supports. |
+
+### LTM is not four times the latest quarter
+
+The trajectory view's LTM column sums the last four quarters rather than annualising the latest
+one, because for capex ramping this hard the two differ materially — Alphabet's Q2 26 quarter
+annualises to $179.7B against $132.4B actually spent in the year to that date. A demand fact is
+only summable when it is a flow: backlog and RPO are point-in-time balances, so those cells read
+`balance` and the LTM proxy for those four filers is the run-rate proxy unchanged, with only the
+denominator becoming trailing. Meta's demand fact is quarterly revenue, so its numerator *is* a
+true trailing sum. `test_ltm_refuses_to_sum_a_point_in_time_balance` pins that distinction.
+
+### The page names no file, script or format
+
+`test_no_visible_text_reveals_how_the_page_is_built` asserts that no body text, tooltip, label or
+aria-label on the rendered page contains "workbook", ".xlsx", "calc.py", "extract.py",
+"pipeline/", "scripts/", "01_sources", "data layer", "csv" or "python". The page is meant to read
+as its own analysis rather than as a description of the machinery behind it. The integrity signal
+survives the de-jargoning — the verification chip still states how many reference values were
+matched — and `test_the_verification_chip_still_says_what_it_checked` holds it to that. **If you
+add prose to the page, keep it in the reader's language.**
+| **What this model cannot tell you** | The caveats, carried from the methodology doc. |
+
+### The cost-of-capital card is not sourced, by construction
+
+The model's WACC is a Damodaran sector average, which is a published figure and is treated as a
+fact. The card also builds a WACC from the ground up — CAPM cost of equity, after-tax cost of
+debt, weighted by capital structure — and **every input to it is declared, not sourced.** The
+data layer holds filing facts for backlog and capex and nothing else: no debt, no tax rate, no
+share count, no market data. Each input is flagged with why it is not a fact:
+
+* **sourceable** — it is in the archived filings and could become a guarded fact through
+  `pipeline/extract.py`: total debt, interest expense, effective tax rate, shares outstanding.
+* **market input** — it exists in no filing at all and needs a market data feed: risk-free rate,
+  equity risk premium, beta, share price.
+
+Defaults are identical across all five companies on purpose, so an unreplaced placeholder is
+obvious rather than looking like a company estimate. The built figure does not reach the model
+unless the reader switches the toggle, and the page's own self-check always runs on the sector
+figures regardless.
 
 **The page carries `data/sources.csv` and links every disclosed figure to it.** Each fact row
 in `data/facts.csv` cites a `*-FACT` and a `*-CAPEX` source id, and each company cites a
