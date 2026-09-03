@@ -84,7 +84,8 @@ def test_the_page_loads_without_a_script_error(page):
 
 
 def test_one_receipt_per_company(page):
-    assert page.locator(".led").count() == 5
+    # the cost-of-capital cards reuse the receipt shell, so scope to the ledger
+    assert page.locator("#ledger-grid .led").count() == 5
 
 
 def test_every_fact_chip_resolves_to_a_source_row(page):
@@ -235,7 +236,8 @@ def test_a_source_row_links_back_to_the_figure_it_supports(page):
     reset(page)
     page.click("#q-seg button[data-q='Q2 25']")
     page.wait_for_timeout(200)
-    page.click("#src-GOOG-Q226-FACT .usedby a")
+    # the ledger is ordered by quarter, so the quarter cell is the way back
+    page.click("#src-GOOG-Q226-FACT [data-fig]")
     page.wait_for_timeout(500)
     assert page.inner_text("#led-q") == "Q2 2026"
 
@@ -345,3 +347,170 @@ def test_the_capex_share_chip_appears_in_both_denominators(page):
         "() => document.querySelector('.assum-btn[aria-expanded=\"true\"]').dataset.slot")
     assert owner == "plan"
     reset(page)
+
+# ---------------------------------------------------------------------------
+# The workbook's own sheets, leading the page
+# ---------------------------------------------------------------------------
+
+
+def test_the_tables_come_before_the_charts(page):
+    order = page.evaluate(
+        """() => [...document.querySelectorAll('.main > section')].map(s => s.id || s.querySelector('h2').id)"""
+    )
+    assert order.index("tables") < order.index("traj-h")
+
+
+def test_the_trajectory_sheet_is_the_workbook_shape(page):
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    # 5 company headings + 6 metric rows each
+    assert page.locator("#sheet-table tbody tr.grouphead").count() == 5
+    assert page.locator("#sheet-table tbody tr").count() == 5 + 5 * 6
+    text = page.inner_text("#sheet-table")
+    for shown in ("$678.000B", "$41.000B", "$139.4B", "$135.6B"):   # MSFT Q2 26
+        assert shown in text, shown
+
+
+def test_every_sheet_renders(page):
+    for sheet, probe in (("snapshot", "Annual capex guide"), ("inputs", "Capex definition")):
+        page.click(f"[data-sheet='{sheet}']")
+        page.wait_for_timeout(250)
+        assert probe.lower() in page.inner_text("#sheet-table").lower(), sheet
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(200)
+
+
+def test_the_inputs_sheet_links_every_fact_to_its_source(page):
+    page.click("[data-sheet='inputs']")
+    page.wait_for_timeout(250)
+    # two source links per company-quarter
+    assert page.locator("#sheet-table [data-jumpsrc]").count() == 5 * len(
+        page.eval_on_selector_all("#q-seg button", "els => els.map(e => e.dataset.q)")
+    ) * 2
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(200)
+
+
+# ---------------------------------------------------------------------------
+# Cost of capital
+# ---------------------------------------------------------------------------
+
+
+def test_the_chart_toggles_roic_wacc_and_spread(page):
+    reset(page)
+    for unit in ("roic", "wacc", "ppt"):
+        page.click(f"[data-traj-unit='{unit}']")
+        page.wait_for_timeout(300)
+        assert page.locator("#traj-svg polyline").count() == 5, unit
+        assert page.get_attribute(f"[data-traj-unit='{unit}']", "aria-pressed") == "true"
+
+
+def test_the_wacc_view_plots_the_threshold_flat(page):
+    reset(page)
+    page.click("[data-traj-unit='wacc']")
+    page.wait_for_timeout(300)
+    flat = page.evaluate(
+        """() => TICKERS.every(t => {
+             const w = waccOf(t);
+             return QUARTERS.every(q => Math.abs(w - waccOf(t)) < 1e-15);
+           })"""
+    )
+    assert flat
+    page.click("[data-traj-unit='ppt']")
+    page.wait_for_timeout(200)
+
+
+def test_the_built_wacc_starts_identical_across_companies(page):
+    """The placeholders are the same for all five on purpose — an unreplaced
+    number has to be obvious rather than look like a company estimate."""
+    reset(page)
+    vals = page.evaluate("() => TICKERS.map(t => computedWacc(t))")
+    assert len(set(round(v, 12) for v in vals)) == 1
+    assert abs(vals[0] - (0.9 * (0.04 + 1.0 * 0.045) + 0.1 * 0.05 * (1 - 0.21))) < 1e-12
+    assert page.locator(".wacc-warn").count() == 5
+
+
+def test_every_wacc_input_declares_why_it_is_not_a_fact(page):
+    flags = page.eval_on_selector_all(
+        "#wacc .prov-flag", "els => els.map(e => e.className.replace('prov-flag ',''))"
+    )
+    assert set(flags) == {"market", "sourceable", "both"}
+    # nothing in the cost-of-capital card is dressed up as a sourced fact
+    assert page.locator("#wacc .fact-btn").count() == 0
+
+
+def test_the_sector_wacc_is_what_the_model_uses_until_switched(page):
+    reset(page)
+    assert page.evaluate("() => waccMode") == "sector"
+    same = page.evaluate("() => TICKERS.every(t => waccOf(t) === DATA.assum[t].wacc)")
+    assert same
+
+
+def test_switching_to_the_built_wacc_moves_every_spread(page):
+    reset(page)
+    before = page.evaluate("() => TICKERS.map(t => evalQuarter(t, LATEST).spread)")
+    page.click("[data-wacc-mode='computed']")
+    page.wait_for_timeout(350)
+    after = page.evaluate("() => TICKERS.map(t => evalQuarter(t, LATEST).spread)")
+    assert all(abs(a - b) > 1e-9 for a, b in zip(before, after))
+    # and the page's own self-check is unaffected: it asserts against the workbook
+    assert page.evaluate("() => runSelfCheck().failures.length") == 0
+    page.click("[data-wacc-mode='sector']")
+    page.wait_for_timeout(300)
+    restored = page.evaluate("() => TICKERS.map(t => evalQuarter(t, LATEST).spread)")
+    assert all(abs(a - b) < 1e-12 for a, b in zip(before, restored))
+
+
+# ---------------------------------------------------------------------------
+# The evidence ledger, as a grid ordered by quarter
+# ---------------------------------------------------------------------------
+
+
+def test_the_evidence_ledger_is_ordered_by_quarter(page):
+    groups = page.eval_on_selector_all(
+        "#src-table tbody tr.grouphead", "els => els.map(e => e.textContent.trim())"
+    )
+    quarters = page.eval_on_selector_all("#q-seg button", "els => els.map(e => e.dataset.q)")
+    expected = [q.replace(" ", " 20") for q in quarters]
+    assert groups[: len(expected)] == expected
+    assert groups[-2:] == [
+        "Not quarter-specific · assumptions rows",
+        "Context — no model input reads these",
+    ]
+
+
+def test_every_source_appears_exactly_once(page):
+    ids = page.eval_on_selector_all(
+        "#src-table tbody tr[data-hay]", "els => els.map(e => e.id.replace('src-',''))"
+    )
+    assert len(ids) == len(set(ids)) == 62
+
+
+def test_a_source_row_carries_its_quote_behind_a_click(page):
+    row = page.locator("#q-GOOG-Q226-FACT")
+    assert row.is_hidden()
+    page.click("#src-GOOG-Q226-FACT .ev-toggle")
+    page.wait_for_timeout(200)
+    assert row.is_visible()
+    assert "Revenue backlog/RPO was $519.5B" in row.inner_text()
+    page.click("#src-GOOG-Q226-FACT .ev-toggle")
+    page.wait_for_timeout(150)
+    assert row.is_hidden()
+
+
+# ---------------------------------------------------------------------------
+# Last, so it sees everything the tests above provoked
+# ---------------------------------------------------------------------------
+
+
+def test_nothing_in_this_module_threw(page):
+    """A throw inside a click handler is invisible to a load-time check.
+
+    Deleting jumpToFigure() while replacing the evidence renderer broke every
+    back-link on the page and the load-time check above still passed, because
+    the error only happens when someone clicks. The page fixture collects
+    pageerror for the whole module, so asserting it here catches that class of
+    breakage for every interaction the file exercises.
+    """
+    assert page.errors == []

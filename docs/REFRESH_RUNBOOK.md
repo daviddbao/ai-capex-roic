@@ -400,6 +400,36 @@ Before writing, the script recomputes all 260 frozen workbook rows through `mode
 refuses to emit a page whose model no longer reproduces the workbook. The page then re-asserts
 the whole model in JavaScript on load and shows a red alarm instead of numbers if it disagrees.
 
+### What the page shows, in order
+
+| Section | What it is |
+|---|---|
+| **Trajectory / Snapshot / Inputs** | The workbook's own three sheets, live. This is what the page leads with. |
+| **Return against cost of capital** | The same numbers drawn, toggling between forward ROIC, WACC and the spread between them. |
+| **How each spread is built** | One receipt per company for the selected quarter: the filed figures, the analyst choices, and the arithmetic. Both capex denominators — run-rate and annual plan — against a shared numerator. |
+| **Cost of capital** | The Damodaran sector WACC the model uses, beside a bottom-up WACC built on the page. See below. |
+| **Assumptions** | Every analyst judgement in one grid. |
+| **Evidence ledger** | All 62 sources, ordered by quarter, each linked to and from the figures it supports. |
+| **What this model cannot tell you** | The caveats, carried from the methodology doc. |
+
+### The cost-of-capital card is not sourced, by construction
+
+The model's WACC is a Damodaran sector average, which is a published figure and is treated as a
+fact. The card also builds a WACC from the ground up — CAPM cost of equity, after-tax cost of
+debt, weighted by capital structure — and **every input to it is declared, not sourced.** The
+data layer holds filing facts for backlog and capex and nothing else: no debt, no tax rate, no
+share count, no market data. Each input is flagged with why it is not a fact:
+
+* **sourceable** — it is in the archived filings and could become a guarded fact through
+  `pipeline/extract.py`: total debt, interest expense, effective tax rate, shares outstanding.
+* **market input** — it exists in no filing at all and needs a market data feed: risk-free rate,
+  equity risk premium, beta, share price.
+
+Defaults are identical across all five companies on purpose, so an unreplaced placeholder is
+obvious rather than looking like a company estimate. The built figure does not reach the model
+unless the reader switches the toggle, and the page's own self-check always runs on the sector
+figures regardless.
+
 **The page carries `data/sources.csv` and links every disclosed figure to it.** Each fact row
 in `data/facts.csv` cites a `*-FACT` and a `*-CAPEX` source id, and each company cites a
 `*-PLAN` and a `*-WACC` id; the build **aborts** if any of them is missing or is of the wrong

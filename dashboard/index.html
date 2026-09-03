@@ -737,6 +737,83 @@ footer.page-foot{
   font-size:13px; font-weight:650; letter-spacing:-.01em; margin-top:5px;
 }
 
+
+/* ============================================================
+   Workbook sheets — the tables the page now leads with
+   ============================================================ */
+.sheet-wrap table{ font-size:12px; }
+.sheet-wrap td.metric{ text-align:left; color:var(--ink-2); white-space:nowrap; }
+.sheet-wrap td.metric.fact{ border-left:3px solid var(--fact); padding-left:8px; }
+.sheet-wrap td.metric.assum{ border-left:3px solid var(--assum); padding-left:8px; }
+.sheet-wrap td.txt{ text-align:left; color:var(--ink-2); }
+.sheet-wrap th.selq, .sheet-wrap td.selq{
+  background:color-mix(in srgb, var(--fact) 8%, transparent);
+}
+.sheet-wrap tr.selq-row > td{ background:color-mix(in srgb, var(--fact) 6%, transparent); }
+.sheet-wrap .na{ color:var(--ink-3); font-style:italic; }
+table tr.grouphead > td{
+  background:var(--surface-2); font-weight:650; font-size:11.5px;
+  border-bottom:1px solid var(--rule-2); text-align:left;
+}
+
+/* ============================================================
+   Cost of capital
+   ============================================================ */
+.notice{
+  margin-top:14px; padding:12px 14px; border-radius:9px;
+  background:var(--assum-wash); border:1px solid color-mix(in srgb, var(--assum) 34%, transparent);
+  color:var(--ink-2); font-size:12.5px; line-height:1.6;
+}
+.notice strong{ color:var(--ink); }
+.notice[data-active="1"]{
+  background:color-mix(in srgb, var(--critical) 10%, transparent);
+  border-color:var(--critical);
+}
+.prov-flag{
+  display:inline-block; font-family:var(--font-mono); font-size:9px; letter-spacing:.06em;
+  text-transform:uppercase; padding:1px 5px; border-radius:3px; vertical-align:1px;
+  background:var(--surface-3); color:var(--ink-2); white-space:nowrap;
+}
+.prov-flag.market{ background:color-mix(in srgb, var(--critical) 14%, transparent); color:var(--critical-ink); }
+.prov-flag.sourceable{ background:color-mix(in srgb, var(--fact) 15%, transparent); color:var(--fact-ink); }
+.prov-flag.both{ background:color-mix(in srgb, var(--warning) 20%, transparent); color:var(--assum-ink); }
+.wacc-shared{ margin-top:16px; }
+.wacc-shared-row{
+  display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center;
+  padding:11px 13px; border:1px solid var(--rule); border-radius:9px; background:var(--surface-2);
+}
+.wacc-shared-item{ display:inline-flex; align-items:center; gap:9px; }
+.wacc-shared-item .k{ font-size:12px; color:var(--ink-2); }
+.wacc-card .led-head .res .v{ color:var(--assum-ink); }
+.wacc-warn{
+  margin:8px 0 0; font-size:11px; line-height:1.5; color:var(--ink-3);
+  padding:7px 9px; border-radius:6px; background:var(--surface-3);
+}
+
+/* ============================================================
+   Evidence ledger — grid, ordered by quarter
+   ============================================================ */
+#src-table{ font-size:12px; table-layout:fixed; min-width:1080px; }
+#src-table th:nth-child(1), #src-table td:nth-child(1){ width:62px; }
+#src-table th:nth-child(2), #src-table td:nth-child(2){ width:74px; }
+#src-table th:nth-child(3), #src-table td:nth-child(3){ width:172px; }
+#src-table th:nth-child(4), #src-table td:nth-child(4){ width:96px; }
+#src-table th:nth-child(5), #src-table td:nth-child(5){ width:150px; }
+#src-table th:nth-child(6), #src-table td:nth-child(6){ width:auto; }
+#src-table th:nth-child(7), #src-table td:nth-child(7){ width:132px; }
+#src-table th:nth-child(8), #src-table td:nth-child(8){ width:88px; }
+#src-table th:nth-child(9), #src-table td:nth-child(9){ width:70px; }
+#src-table td{ overflow:hidden; text-overflow:ellipsis; }
+#src-table td.doc a{ display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#src-table tr.src-quote > td{ width:auto; overflow:visible; }
+#src-table td.txt{ text-align:left; color:var(--ink-2); }
+#src-table tr.src-quote > td{
+  background:var(--surface-2); border-bottom:1px solid var(--rule-2);
+  white-space:normal; text-align:left; padding-top:8px; padding-bottom:10px;
+}
+#src-table tr[data-dim="1"]{ display:none; }
+#src-table .ev-toggle{ font-family:var(--font-mono); font-size:10px; }
+
 /* anything the page scrolls to must clear the sticky control bar */
 .card, .led, #src-table tr{ scroll-margin-top:74px; }
 
@@ -773,42 +850,6 @@ footer.page-foot{
     </div>
   </header>
 
-  <!-- ===================== THE THESIS ===================== -->
-  <section class="thesis" id="thesis" aria-labelledby="thesis-h">
-    <div>
-      <p class="eyebrow">The finding that decides this model</p>
-      <h2 id="thesis-h">Amazon's AI capex earns its cost of capital, and nothing more, once you use Amazon's own
-        disclosed contract life.</h2>
-      <p class="prose">The model amortises AI-attributed backlog over an assumed <strong>4.0-year</strong> life.
-        At June 30 2026 Amazon disclosed a weighted-average remaining contract life of <strong>6.4 years</strong>.
-        The model keeps 4.0 for comparability with v01 — a shorter life recognises the same backlog faster, so it
-        flatters the return. On Amazon's own number the <span id="thesis-q">latest</span> run-rate spread all but
-        disappears.</p>
-      <div class="thesis-actions">
-        <button class="btn btn-primary" id="amzn-toggle" aria-pressed="false">Apply Amazon's disclosed 6.4 years</button>
-        <span class="prose" style="font-size:12px" id="amzn-state"></span>
-      </div>
-    </div>
-    <div>
-      <div class="swing">
-        <p class="swing-cap" id="amzn-swing-cap">Amazon · run-rate spread</p>
-        <div class="swing-row swing-from">
-          <span class="swing-lab">On the modelled 4.0 y</span>
-          <span class="num" id="amzn-from">+447 bps</span>
-        </div>
-        <div class="arrow" aria-hidden="true">↓</div>
-        <div class="swing-row swing-to">
-          <span class="swing-lab">On Amazon’s disclosed 6.4 y</span>
-          <span class="num" id="amzn-to">+7 bps</span>
-        </div>
-      </div>
-      <div class="chart-wrap" style="margin-top:12px" id="amzn-strip-wrap">
-        <svg id="amzn-strip" role="img" aria-label="Amazon Q2 2026 run-rate spread on the modelled and disclosed contract life"></svg>
-      </div>
-    </div>
-  </section>
-
-
   <!-- ===================== PAGE CONTROLS ===================== -->
   <div class="controls" role="group" aria-label="Page controls">
     <span class="grp">
@@ -831,16 +872,34 @@ footer.page-foot{
   <div class="layout" style="margin-top:22px">
     <div class="main">
 
+      <!-- ===================== WORKBOOK TABLES ===================== -->
+      <section class="card" id="tables" aria-labelledby="tbl-h">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">The workbook, as it is laid out</p>
+            <h2 id="tbl-h">Trajectory and Snapshot</h2>
+          </div>
+          <div class="seg" role="group" aria-label="Which sheet">
+            <button type="button" data-sheet="trajectory" aria-pressed="true">Trajectory</button>
+            <button type="button" data-sheet="snapshot" aria-pressed="false">Snapshot</button>
+            <button type="button" data-sheet="inputs" aria-pressed="false">Inputs</button>
+          </div>
+        </div>
+        <p class="prose" id="sheet-note"></p>
+        <div class="tbl-scroll sheet-wrap" style="margin-top:14px"><table id="sheet-table"></table></div>
+      </section>
+
       <!-- ===================== TRAJECTORY ===================== -->
       <section class="card" aria-labelledby="traj-h">
         <div class="card-head">
           <div>
-            <p class="eyebrow">Primary view · run-rate basis</p>
-            <h2 id="traj-h">Spread over WACC</h2>
+            <p class="eyebrow">Run-rate basis · the same numbers, drawn</p>
+            <h2 id="traj-h">Return against cost of capital</h2>
           </div>
           <div class="seg" role="group" aria-label="Trajectory value shown">
-            <button type="button" data-traj-unit="ppt" aria-pressed="true">Spread (ppt)</button>
-            <button type="button" data-traj-unit="roic" aria-pressed="false">Forward ROIC (%)</button>
+            <button type="button" data-traj-unit="roic" aria-pressed="false">Forward ROIC</button>
+            <button type="button" data-traj-unit="wacc" aria-pressed="false">WACC</button>
+            <button type="button" data-traj-unit="ppt" aria-pressed="true">Spread</button>
           </div>
         </div>
         <p class="prose">Forward ROIC less cost of capital, using each quarter's own capex annualised. Above the zero
@@ -925,6 +984,38 @@ footer.page-foot{
             <div class="tbl-scroll"><table id="snap-table"></table></div>
           </details>
         </div>
+      </section>
+
+      <!-- ===================== COST OF CAPITAL ===================== -->
+      <section class="card" id="wacc" aria-labelledby="wacc-h">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">The threshold every spread is measured against</p>
+            <h2 id="wacc-h">Cost of capital</h2>
+          </div>
+          <div class="seg" role="group" aria-label="Which WACC the model uses">
+            <button type="button" data-wacc-mode="sector" aria-pressed="true">Damodaran sector</button>
+            <button type="button" data-wacc-mode="computed" aria-pressed="false">Built below</button>
+          </div>
+        </div>
+        <p class="prose">The model's WACC is a <strong>Damodaran January 2026 U.S. sector average</strong> — a published
+          figure, but an industry average is not a company's cost of capital, and the choice of sector is itself a
+          judgement. Below, the same number built from the ground up: CAPM for the cost of equity, an after-tax cost of
+          debt, weighted by capital structure. Switch the toggle to push the built figure through every spread on this
+          page.</p>
+
+        <div class="notice" id="wacc-notice" role="note">
+          <strong>Every input below is declared, not sourced.</strong> This repository's data layer carries filing facts
+          for backlog and capex only — it holds no debt, tax, share-count or market data. Rows marked
+          <span class="prov-flag sourceable">sourceable</span> are in the archived filings and could become guarded
+          facts through <span class="mono">pipeline/extract.py</span>; rows marked
+          <span class="prov-flag market">market input</span> exist in no filing and would need a market data feed.
+          The defaults are placeholders, deliberately identical across companies, so a number that has not been
+          replaced is obvious. <strong>Nothing here is a company estimate until you make it one.</strong>
+        </div>
+
+        <div class="wacc-shared" id="wacc-shared"></div>
+        <div class="ledger-grid" id="wacc-grid"></div>
       </section>
 
       <!-- ===================== ASSUMPTIONS ===================== -->
@@ -1911,7 +2002,7 @@ function evalQuarter(t, q, opts){
   const proxy = dur ? proxyFromRpo(f.fact, share, dur) : proxyFromRevenue(f.fact, share);
   const capex = capexTrajectory(f.capex, capshare);
   const roic = forwardRoic(proxy, margin, capex);
-  return { proxy, capex, roic, spread: spreadVsWacc(roic, a.wacc), wacc:a.wacc };
+  return { proxy, capex, roic, spread: spreadVsWacc(roic, waccOf(t)), wacc:waccOf(t) };
 }
 
 function evalSnapshot(t, scenario, opts){
@@ -1926,7 +2017,7 @@ function evalSnapshot(t, scenario, opts){
   const proxy = dur ? aiLinked / dur : aiLinked;
   const capex = capexSnapshot(a.guide, capshare);
   const roic = forwardRoic(proxy, margin, capex);
-  return { proxy, capex, roic, spread: spreadVsWacc(roic, a.wacc), wacc:a.wacc, margin };
+  return { proxy, capex, roic, spread: spreadVsWacc(roic, waccOf(t)), wacc:waccOf(t), margin };
 }
 
 /* ============================================================================
@@ -1975,14 +2066,24 @@ function renderTrajectory(){
   const pw = W - M.l - M.r, ph = H - M.t - M.b;
 
   const visible = TICKERS.filter(t => !hidden.has(t));
-  const key = trajUnit === 'ppt' ? 'spread' : 'roic';
+  /* Three views of the same model: the return, the threshold it is measured
+     against, and the difference. WACC is a level per company, not a series, so
+     in that view each line is flat — and when the built WACC is switched on,
+     the Damodaran sector figure it replaced is drawn beside it. */
   const series = {};
-  TICKERS.forEach(t => { series[t] = QUARTERS.map(q => evalQuarter(t,q)[key]); });
+  TICKERS.forEach(t => {
+    series[t] = trajUnit === 'wacc'
+      ? QUARTERS.map(() => waccOf(t))
+      : QUARTERS.map(q => evalQuarter(t, q)[trajUnit === 'ppt' ? 'spread' : 'roic']);
+  });
 
   let vals = [];
   (visible.length ? visible : TICKERS).forEach(t => { vals = vals.concat(series[t]); });
   if(trajUnit === 'ppt') vals.push(0);
-  else TICKERS.forEach(t => vals.push(DATA.assum[t].wacc));
+  else (visible.length ? visible : TICKERS).forEach(t => {
+    vals.push(waccOf(t));
+    if(trajUnit === 'wacc') vals.push(DATA.assum[t].wacc);
+  });
   const sc = niceScale(Math.min.apply(null,vals), Math.max.apply(null,vals), 6);
 
   const x = i => M.l + (QUARTERS.length === 1 ? pw/2 : (pw * i) / (QUARTERS.length - 1));
@@ -2004,7 +2105,7 @@ function renderTrajectory(){
   sc.ticks.forEach(v => {
     const yy = y(v);
     s += '<line x1="'+M.l+'" y1="'+yy+'" x2="'+(M.l+pw)+'" y2="'+yy+'" stroke="'+cGrid+'" stroke-width="1"/>';
-    const lab = trajUnit === 'ppt' ? nf(v*100,0) : nf(v*100,0)+'%';
+    const lab = trajUnit === 'ppt' ? nf(v*100,0) : nf(v*100, trajUnit === 'wacc' ? 1 : 0)+'%';
     s += '<text x="'+(M.l-10)+'" y="'+(yy+4)+'" text-anchor="end" font-size="11" fill="'+cInk3+'" '
        + 'style="font-variant-numeric:tabular-nums">'+lab+'</text>';
   });
@@ -2015,10 +2116,24 @@ function renderTrajectory(){
     s += '<line x1="'+M.l+'" y1="'+y0+'" x2="'+(M.l+pw)+'" y2="'+y0+'" stroke="'+cInk3+'" stroke-width="2"/>';
   }
 
+  /* In the ROIC view each company's own WACC is the line that matters, so draw
+     it — a spread is only legible against its threshold. In the WACC view, show
+     what the built figure replaced. */
+  if(trajUnit !== 'ppt'){
+    visible.forEach(t => {
+      const ref = trajUnit === 'wacc' ? DATA.assum[t].wacc : waccOf(t);
+      if(trajUnit === 'wacc' && Math.abs(ref - waccOf(t)) < 1e-12) return;
+      if(ref < sc.lo || ref > sc.hi) return;
+      const yy = y(ref);
+      s += '<line x1="'+M.l+'" y1="'+yy+'" x2="'+(M.l+pw)+'" y2="'+yy+'" stroke="'+seriesColor(t)+'" '
+         + 'stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>';
+    });
+  }
+
   // Alphabet definition-break annotation, drawn between the two buckets it
   // falls between — found by label, so it stays put as the series grows.
   const breakIdx = QUARTERS.indexOf(GOOG_BREAK_AFTER);
-  if(!hidden.has('GOOG') && breakIdx >= 0 && breakIdx < QUARTERS.length - 1){
+  if(trajUnit !== 'wacc' && !hidden.has('GOOG') && breakIdx >= 0 && breakIdx < QUARTERS.length - 1){
     const xb = (x(breakIdx) + x(breakIdx + 1)) / 2;
     s += '<line x1="'+xb+'" y1="'+M.t+'" x2="'+xb+'" y2="'+(M.t+ph)+'" stroke="'+cWarn+'" stroke-width="1" opacity="0.55"/>';
     s += '<text x="'+(xb+5)+'" y="'+(M.t+11)+'" font-size="9.5" fill="'+cInk3+'">GOOG backlog definition change</text>';
@@ -2034,9 +2149,14 @@ function renderTrajectory(){
     s += '<text x="'+x(i)+'" y="'+(M.t+ph+20)+'" text-anchor="middle" font-size="11.5" fill="'+cInk2+'">'+q+'</text>';
   });
   s += '<text x="'+M.l+'" y="'+(M.t+ph+38)+'" font-size="10" fill="'+cInk3+'">'
-     + (trajUnit==='ppt'
+     + esc(trajUnit === 'ppt'
         ? 'spread over WACC, percentage points — the heavy line at 0 is each company’s own cost of capital'
-        : 'forward ROIC, % — each company’s WACC differs; switch to Spread to see the threshold') + '</text>';
+        : trajUnit === 'roic'
+        ? 'forward ROIC, % — each company’s own WACC is the dashed line in its colour'
+        : (waccMode === 'computed'
+           ? 'cost of capital, % — solid is the WACC built on this page, dashed is the Damodaran sector average it replaced'
+           : 'cost of capital, % — Damodaran January 2026 U.S. sector averages, one per company, constant across quarters'))
+     + '</text>';
 
   // lines + markers
   const ends = [];
@@ -2204,8 +2324,9 @@ function renderTrajTable(series){
     h += '<tr><td><strong>'+t+'</strong></td><td style="color:var(--ink-3);font-size:11.5px">'
        + esc(DATA.assum[t].dur ? 'RPO ÷ duration' : 'revenue × 4') + '</td>'
        + vals.map(v => '<td class="num '+(trajUnit==='ppt' ? (v>=0?'pos':'neg') : '')+'">'
-           + (trajUnit==='ppt' ? ppt(v) : pct(v)) + '</td>').join('')
-       + '<td class="num '+(d>=0?'pos':'neg')+'">' + (trajUnit==='ppt' ? bps(d) : ppt(d)+' ppt') + '</td></tr>';
+           + (trajUnit==='ppt' ? ppt(v) : pct(v, trajUnit==='wacc' ? 2 : 1)) + '</td>').join('')
+       + '<td class="num '+(Math.abs(d)<1e-12 ? '' : d>=0?'pos':'neg')+'">'
+       + (trajUnit==='ppt' ? bps(d) : Math.abs(d)<1e-12 ? '—' : ppt(d)+' ppt') + '</td></tr>';
   });
   h += '</tbody>';
   tb.innerHTML = h;
@@ -2496,74 +2617,6 @@ function renderSnapTable(rows){
   h += '</tbody>';
   tb.innerHTML = h;
 }
-
-/* ============================================================================
-   AMAZON THESIS STRIP
-   ============================================================================ */
-function renderThesis(){
-  const modelled = evalQuarter('AMZN', LATEST, { dur: DEFAULTS.AMZN.dur });
-  const disclosed = evalQuarter('AMZN', LATEST, { dur: DISCLOSED.AMZN.value });
-  document.getElementById('amzn-from').textContent = bps(modelled.spread);
-  document.getElementById('amzn-to').textContent = bps(disclosed.spread);
-
-  document.getElementById('amzn-swing-cap').textContent =
-    'Amazon · ' + qTight(LATEST) + ' run-rate spread';
-  document.getElementById('thesis-q').textContent = LATEST;
-
-  const on = Math.abs(state.AMZN.dur - DISCLOSED.AMZN.value) < 1e-9;
-  const btn = document.getElementById('amzn-toggle');
-  btn.setAttribute('aria-pressed', String(on));
-  btn.textContent = on ? 'Restore the modelled 4.0 years' : 'Apply Amazon’s disclosed 6.4 years';
-  document.getElementById('amzn-state').textContent = on
-    ? 'The charts are on Amazon’s disclosed 6.4 years.'
-    : 'The charts are on the model’s 4.0 years.';
-
-  const wrap = document.getElementById('amzn-strip-wrap');
-  const svg = document.getElementById('amzn-strip');
-  const W = chartWidth(wrap, 260, 420), H = 72;
-  const M = { l:26, r:26, t:28, b:22 };
-  const pw = W - M.l - M.r;
-  const vals = [modelled.spread, disclosed.spread, 0];
-  const sc = niceScale(Math.min.apply(null,vals), Math.max.apply(null,vals), 4);
-  const x = v => M.l + ((v - sc.lo)/(sc.hi - sc.lo)) * pw;
-  const yy = M.t + 6;
-
-  const cAxis=cssVar('--axis'), cInk3=cssVar('--ink-3'), cInk=cssVar('--ink'),
-        cSurf=cssVar('--surface-2'), cS3=cssVar('--s3'), cCrit=cssVar('--critical');
-
-  let s = svgEl(W,H);
-  s += '<line x1="'+M.l+'" y1="'+yy+'" x2="'+(M.l+pw)+'" y2="'+yy+'" stroke="'+cssVar('--grid')+'" stroke-width="2" stroke-linecap="round"/>';
-  const x0 = x(0);
-  s += '<line x1="'+x0+'" y1="'+(yy-13)+'" x2="'+x0+'" y2="'+(yy+13)+'" stroke="'+cAxis+'" stroke-width="2"/>';
-  s += '<text x="'+x0+'" y="'+(yy-18)+'" text-anchor="middle" font-size="9.5" fill="'+cInk3+'">WACC</text>';
-  s += '<line x1="'+x(disclosed.spread)+'" y1="'+yy+'" x2="'+x(modelled.spread)+'" y2="'+yy+'" stroke="'+cS3+'" stroke-width="2" opacity="0.45"/>';
-  s += '<circle cx="'+x(modelled.spread)+'" cy="'+yy+'" r="5.5" fill="'+cS3+'" stroke="'+cssVar('--surface')+'" stroke-width="2"/>';
-  s += '<text x="'+x(modelled.spread)+'" y="'+(yy+21)+'" text-anchor="middle" font-size="9.5" fill="'+cInk3+'">4.0 y</text>';
-  s += '<circle cx="'+x(disclosed.spread)+'" cy="'+yy+'" r="5.5" fill="'+cssVar('--surface')+'" stroke="'+cCrit+'" stroke-width="2.5"/>';
-  s += '<text x="'+x(disclosed.spread)+'" y="'+(yy+21)+'" text-anchor="middle" font-size="9.5" fill="'+cInk3+'">6.4 y</text>';
-  s += '</svg>';
-  svg.outerHTML = s.replace('<svg ','<svg id="amzn-strip" role="img" aria-label="'
-    + esc('Amazon ' + qLong(LATEST) + ' run-rate spread, modelled versus disclosed contract life') + '" ');
-}
-
-/* ============================================================================
-   ASSUMPTION RAIL
-   ============================================================================ */
-/* ============================================================================
-   THE DERIVATION LEDGER
-
-   The page's primary object: for one quarter, every company's spread rebuilt
-   from its filed facts one operation at a time. Three provenance classes, three
-   treatments, and the rule is the same everywhere on the page:
-
-     FACT        blue,   always opens the document it was read out of
-     ASSUMPTION  yellow, always opens the control that sets it
-     DERIVED     plain,  no control and no link — its operands are the rows
-                 directly above it, which is the whole point of the layout
-
-   Nothing here recomputes the model. Every number comes from evalQuarter(),
-   the same four functions the self-check is run against.
-   ============================================================================ */
 
 const SLIDERS = [
   { field:'share',    label:'AI share of RPO / revenue', min:0.05, max:1,   step:0.01, fmt:v => pct(v,0) },
@@ -3023,9 +3076,22 @@ function renderAssumTable(){
 }
 
 /* ---------------------------------------------------------------------------
-   EVIDENCE LEDGER — every source, and what it holds up
+   EVIDENCE LEDGER — every source, in the same grid as the numbers above
+
+   Ordered by quarter, oldest first, to match the Inputs sheet: within a quarter
+   the five companies in the model's own order, demand fact then capex. Sources
+   that are not quarter-specific — the annual capex plans and the WACC selections
+   — sit in their own group at the end, because they are one assumptions row per
+   company rather than a filing per quarter. Anything the model never reads is
+   grouped last and labelled as context.
+
+   The quarter for a filing source is taken from USED_BY, which is built from the
+   fact rows themselves, never by parsing the id.
    --------------------------------------------------------------------------- */
 
+/* The two directions of the round trip between a figure and its paperwork:
+   a figure jumps down to its source row, a source row jumps back to the figure
+   it supports — setting the ledger's quarter on the way if it has to. */
 function jumpToSource(id){
   const row = document.getElementById('src-' + id);
   if(!row) return;
@@ -3047,52 +3113,110 @@ function jumpToFigure(t, q){
   });
 }
 
-/* Static: the ledger is the data layer, and the data layer does not move when
-   an assumption does. Rendered once, on boot. */
+function sourceRows(){
+  const rows = [];
+  const seen = new Set();
+
+  QUARTERS.forEach(q => {
+    TICKERS.forEach(t => {
+      const f = FACTS[t+'|'+q];
+      [[f.factSourceId, FACT_SHORT[t], f.fact],
+       [f.capexSourceId, 'Quarterly capex', f.capex]].forEach(([id, field, value]) => {
+        if(!id || seen.has(id + '|' + q + '|' + t)) return;
+        seen.add(id + '|' + q + '|' + t);
+        rows.push({ id, group:q, groupLabel:qLong(q), t, field, value, kind:'quarter' });
+      });
+    });
+  });
+
+  TICKERS.forEach(t => {
+    const a = DATA.assum[t];
+    rows.push({ id:a.planSource, group:'ZZ-assum', groupLabel:'Not quarter-specific · assumptions rows',
+                t, field:'Annual capex denominator', value:a.guide, kind:'assum' });
+    rows.push({ id:a.waccSource, group:'ZZ-assum', groupLabel:'Not quarter-specific · assumptions rows',
+                t, field:'WACC (Damodaran sector)', value:a.wacc, kind:'assum', isPct:true });
+  });
+
+  const cited = new Set(rows.map(r => r.id));
+  Object.keys(DATA.sources).forEach(id => {
+    if(cited.has(id)) return;
+    const s = DATA.sources[id];
+    rows.push({ id, group:'ZZZ-context', groupLabel:'Context — no model input reads these',
+                t:id.split('-')[0], field:'—', value:s.reported, kind:'context' });
+  });
+  return rows;
+}
+
 function renderEvidence(){
   const tb = document.getElementById('src-table');
-  const ids = Object.keys(DATA.sources);
-  let h = '<thead><tr><th style="text-align:left">Source</th><th style="text-align:left">Document &amp; evidence</th>'
-        + '<th>Reported</th><th style="text-align:left">Status</th>'
-        + '<th style="text-align:left">Supports</th></tr></thead><tbody>';
+  const rows = sourceRows();
 
-  const byCompany = {};
-  ids.forEach(id => { (byCompany[DATA.sources[id].company] = byCompany[DATA.sources[id].company] || []).push(id); });
+  let h = '<thead><tr>'
+        + '<th style="text-align:left">Quarter</th><th style="text-align:left">Co</th>'
+        + '<th style="text-align:left">Input</th><th>Value</th>'
+        + '<th style="text-align:left">Source id</th><th style="text-align:left">Document</th>'
+        + '<th style="text-align:left">Status</th><th style="text-align:left">Local copy</th>'
+        + '<th style="text-align:left">Evidence</th></tr></thead><tbody>';
 
-  Object.keys(byCompany).forEach(company => {
-    h += '<tr class="grouphead" data-co="' + esc(company) + '"><td colspan="5">' + esc(company) + '</td></tr>';
-    byCompany[company].forEach(id => {
-      const s = DATA.sources[id];
-      const uses = USED_BY[id] || [];
-      h += '<tr id="src-' + esc(id) + '" data-hay="' + esc((id + ' ' + company + ' ' + s.period + ' ' + s.title).toLowerCase()) + '">'
-        + '<td style="text-align:left"><span class="src-id">' + esc(id) + '</span>'
-        + '<span class="src-path" style="color:var(--ink-3)">' + esc(s.period) + '</span></td>'
-        + '<td class="doc" style="text-align:left">'
-        + '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.title) + ' ↗</a>'
-        + '<span class="src-q">“' + esc(s.evidence) + '”</span>'
-        + (s.local ? '<span class="src-path">' + esc(s.local) + '</span>'
-                   : '<span class="src-path src-none">no preserved local copy</span>')
-        + '</td>'
-        + '<td class="num">' + (s.kind === 'wacc' ? pct(s.reported,2) : usdB(s.reported,3)) + '</td>'
-        + '<td style="text-align:left"><span class="st" data-ok="' + (/^Verified/.test(s.status) ? '1' : '0') + '">'
-        + esc(s.status) + '</span></td>'
-        + '<td style="text-align:left;white-space:normal;max-width:230px">'
-        + (uses.length
-            ? '<span class="usedby">' + uses.map(u =>
-                '<a href="#led-' + u.t + '" data-fig="' + u.t + '" data-figq="' + (u.q || '') + '">'
-                + u.t + (u.q ? ' ' + u.q : '') + ' · ' + esc(u.what) + '</a>').join('') + '</span>'
-            : '<span class="src-none">context only — no model input reads this</span>')
-        + '</td></tr>';
-    });
+  let lastGroup = null;
+  rows.forEach(r => {
+    const s = DATA.sources[r.id];
+    if(!s) return;
+    if(r.group !== lastGroup){
+      lastGroup = r.group;
+      h += '<tr class="grouphead" data-group="1"><td colspan="9">' + esc(r.groupLabel) + '</td></tr>';
+    }
+    const hay = (r.id + ' ' + s.company + ' ' + r.t + ' ' + r.groupLabel + ' ' + s.period + ' '
+                 + r.field + ' ' + s.title).toLowerCase();
+    h += '<tr id="src-' + esc(r.id) + '" data-hay="' + esc(hay) + '">'
+      + '<td class="mono">' + (r.kind === 'quarter'
+          ? '<a href="#led-' + esc(r.t) + '" data-fig="' + esc(r.t) + '" data-figq="' + esc(r.group) + '" '
+            + 'title="Show this figure in the derivation ledger">' + esc(r.group) + '</a>'
+          : '<span style="color:var(--ink-3)">—</span>') + '</td>'
+      + '<td><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'
+      + seriesColor(r.t) + ';margin-right:6px"></span>' + esc(r.t) + '</td>'
+      + '<td class="txt">' + esc(r.field) + '</td>'
+      + '<td class="num">' + (r.field === '—' ? '<span class="src-none">—</span>'
+                              : r.isPct ? pct(r.value, 2) : usdB(r.value, 3)) + '</td>'
+      + '<td><span class="src-id">' + esc(r.id) + '</span></td>'
+      + '<td class="txt doc"><a href="' + esc(s.url) + '" target="_blank" rel="noopener" '
+      + 'title="' + esc(s.title) + '">' + esc(s.title) + ' ↗</a></td>'
+      + '<td><span class="st" data-ok="' + (/^Verified/.test(s.status) ? '1' : '0') + '" '
+      + 'title="' + esc(s.status) + '">' + esc(s.status) + '</span></td>'
+      + '<td class="txt">' + (s.local
+          ? '<span class="st" data-ok="1" title="' + esc(s.local) + '">archived</span>'
+          : '<span class="src-none">none</span>') + '</td>'
+      + '<td class="txt"><button class="btn btn-sm ev-toggle" type="button" data-q="' + esc(r.id) + '" '
+      + 'aria-expanded="false">quote</button></td>'
+      + '</tr>';
+    h += '<tr class="src-quote" id="q-' + esc(r.id) + '" hidden><td></td><td colspan="8">'
+      + '<span class="src-q">“' + esc(s.evidence) + '”</span>'
+      + '<span class="src-path">' + esc(s.classification) + (s.caveat ? ' · ' + esc(s.caveat) : '') + '</span>'
+      + (s.local ? '<span class="src-path">local copy: ' + esc(s.local) + '</span>'
+                 : '<span class="src-path src-none">no preserved local copy — the URL above is the only one</span>')
+      + '</td></tr>';
   });
   h += '</tbody>';
   tb.innerHTML = h;
 
   tb.querySelectorAll('[data-fig]').forEach(a => {
-    a.addEventListener('click', e => { e.preventDefault(); jumpToFigure(a.dataset.fig, a.dataset.figq || null); });
+    a.addEventListener('click', e => { e.preventDefault(); jumpToFigure(a.dataset.fig, a.dataset.figq); });
   });
+  tb.querySelectorAll('.ev-toggle').forEach(b => {
+    b.addEventListener('click', () => {
+      const row = document.getElementById('q-' + b.dataset.q);
+      const open = b.getAttribute('aria-expanded') === 'true';
+      b.setAttribute('aria-expanded', String(!open));
+      row.hidden = open;
+    });
+  });
+
   const cnt = document.getElementById('src-count');
-  if(cnt) cnt.textContent = ids.length + ' sources · ' + ids.filter(i => DATA.sources[i].local).length + ' with a local copy';
+  if(cnt){
+    const ids = Object.keys(DATA.sources);
+    cnt.textContent = ids.length + ' sources · ' + ids.filter(i => DATA.sources[i].local).length
+                    + ' with a local copy';
+  }
   filterSources();
 }
 
@@ -3103,13 +3227,14 @@ function filterSources(){
   tb.querySelectorAll('tbody tr[data-hay]').forEach(tr => {
     const hit = !q || tr.dataset.hay.indexOf(q) >= 0;
     tr.setAttribute('data-dim', hit ? '0' : '1');
+    const quote = tr.nextElementSibling;
+    if(quote && quote.classList.contains('src-quote')) quote.setAttribute('data-dim', hit ? '0' : '1');
     if(hit) shown++;
   });
-  /* a company heading with nothing under it is noise */
-  tb.querySelectorAll('tr.grouphead').forEach(head => {
+  tb.querySelectorAll('tr.grouphead[data-group]').forEach(head => {
     let any = false;
     for(let n = head.nextElementSibling; n && !n.classList.contains('grouphead'); n = n.nextElementSibling){
-      if(n.getAttribute('data-dim') === '0'){ any = true; break; }
+      if(n.hasAttribute('data-hay') && n.getAttribute('data-dim') === '0'){ any = true; break; }
     }
     head.setAttribute('data-dim', any ? '0' : '1');
   });
@@ -3148,6 +3273,441 @@ function refreshControls(){
 }
 
 /* ============================================================================
+   COST OF CAPITAL
+
+   The model's WACC is a Damodaran January 2026 U.S. *sector* average. It is a
+   published number, so the page treats it as a FACT and links it — but a sector
+   average is not a company's cost of capital, and picking the sector is itself
+   a judgement. This module builds the same figure from the ground up so the
+   threshold is arguable rather than given:
+
+       Re   = rf + beta x erp                        (CAPM)
+       Rd*  = rd x (1 - tax)                         (after-tax cost of debt)
+       WACC = (1 - D/V) x Re + (D/V) x Rd*
+
+   Every input is DECLARED. This repository's data layer holds filing facts for
+   backlog and capex and nothing else — no debt, no tax rate, no share count, no
+   market data — so not one of these is sourced today, and the page says so
+   rather than dressing a placeholder up as evidence. Each input carries the
+   reason it is not a fact:
+
+     'sourceable'  it is in the archived filings and could become a guarded fact
+                   through pipeline/extract.py (total debt, interest expense,
+                   effective tax rate, shares outstanding)
+     'market'      it exists in no filing at all and needs a market data feed
+                   (risk-free rate, equity risk premium, beta, share price)
+
+   The defaults are deliberately identical across the five companies, so at
+   rest every computed WACC is the same number — an obvious placeholder rather
+   than a plausible-looking company estimate. Change a beta and the companies
+   separate; until then nothing here claims to know anything about them.
+
+   Nothing computed here reaches the model unless `waccMode` is switched to
+   'computed', and the page's own self-check always runs on the sector figures.
+   ============================================================================ */
+
+const WACC_SHARED_INPUTS = [
+  { field:'rf',  label:'Risk-free rate', min:0, max:0.10, step:0.0005, fmt:v => pct(v,2),
+    prov:'market',
+    why:'The yield on the benchmark government bond at your valuation date — conventionally the '
+      + '10-year U.S. Treasury. It is in no SEC filing, so this repository cannot source it.' },
+  { field:'erp', label:'Equity risk premium', min:0, max:0.12, step:0.0005, fmt:v => pct(v,2),
+    prov:'market',
+    why:'The premium demanded over the risk-free rate for holding equities. Damodaran publishes an '
+      + 'implied ERP monthly from the same site as the sector WACC, but it is not in this data layer.' }
+];
+
+const WACC_COMPANY_INPUTS = [
+  { field:'beta', label:'Beta (levered)', min:0.2, max:2.5, step:0.01, fmt:v => nf(v,2),
+    prov:'market',
+    why:'Sensitivity of the company’s equity to the market. A regression on price history, or an '
+      + 'industry average relevered to this company’s capital structure. Price history is market data.' },
+  { field:'dv',  label:'Debt weight (D/V)', min:0, max:0.6, step:0.005, fmt:v => pct(v,1),
+    prov:'both',
+    why:'Debt as a share of total capital, at market value. The debt half is on the balance sheet and '
+      + 'is sourceable; the equity half is share price x share count, and price is market data. Entered '
+      + 'here as one weight rather than two invented dollar figures.' },
+  { field:'rd',  label:'Pre-tax cost of debt', min:0, max:0.15, step:0.0005, fmt:v => pct(v,2),
+    prov:'sourceable',
+    why:'Interest expense over average total debt, or the yield on the company’s outstanding bonds. '
+      + 'Both components are in the filings and could be extracted with guards.' },
+  { field:'tax', label:'Tax rate', min:0, max:0.5, step:0.005, fmt:v => pct(v,1),
+    prov:'sourceable',
+    why:'The marginal rate applied to the interest shield. Defaults to the 21% U.S. federal statutory '
+      + 'rate, which is a citable fact but is not any of these companies’ effective rate — that is in '
+      + 'each tax footnote and is sourceable.' }
+];
+const WACC_INPUT_BY_FIELD = {};
+WACC_SHARED_INPUTS.concat(WACC_COMPANY_INPUTS).forEach(i => { WACC_INPUT_BY_FIELD[i.field] = i; });
+
+const PROV_LABEL = {
+  market:     'market input',
+  sourceable: 'sourceable',
+  both:       'part sourceable'
+};
+
+/* Placeholders, identical for every company on purpose. */
+const WACC_DEFAULTS = { rf:0.0400, erp:0.0450 };
+const WACC_CO_DEFAULTS = { beta:1.00, dv:0.100, rd:0.0500, tax:0.210 };
+
+const waccState = { rf:WACC_DEFAULTS.rf, erp:WACC_DEFAULTS.erp, co:{} };
+TICKERS.forEach(t => { waccState.co[t] = Object.assign({}, WACC_CO_DEFAULTS); });
+
+let waccMode = 'sector';           /* 'sector' = the model's own; 'computed' = built here */
+
+function costOfEquity(t){
+  return waccState.rf + waccState.co[t].beta * waccState.erp;
+}
+function afterTaxCostOfDebt(t){
+  const c = waccState.co[t];
+  return c.rd * (1 - c.tax);
+}
+function computedWacc(t){
+  const c = waccState.co[t];
+  return (1 - c.dv) * costOfEquity(t) + c.dv * afterTaxCostOfDebt(t);
+}
+
+/* The single place the rest of the page asks what a company's cost of capital
+   is. The startup self-check does NOT go through here — it asserts the model
+   against the workbook, which used the sector figures and always will. */
+function waccOf(t){
+  return waccMode === 'computed' ? computedWacc(t) : DATA.assum[t].wacc;
+}
+
+function waccIsDefault(t){
+  const c = waccState.co[t];
+  return WACC_COMPANY_INPUTS.every(i => Math.abs(c[i.field] - WACC_CO_DEFAULTS[i.field]) < 1e-12)
+      && Math.abs(waccState.rf - WACC_DEFAULTS.rf) < 1e-12
+      && Math.abs(waccState.erp - WACC_DEFAULTS.erp) < 1e-12;
+}
+
+function waccChip(scope, field, value){
+  const spec = WACC_INPUT_BY_FIELD[field];
+  const cur = scope === 'shared' ? waccState[field] : waccState.co[scope][field];
+  const def = scope === 'shared' ? WACC_DEFAULTS[field] : WACC_CO_DEFAULTS[field];
+  const moved = Math.abs(cur - def) > 1e-12;
+  return '<button class="assum-btn wacc-btn" type="button" data-wpop="' + scope + '" data-wfield="' + field + '" '
+    + 'data-mod="' + (moved ? '1' : '0') + '" aria-expanded="false" '
+    + 'title="Declared input — ' + esc(PROV_LABEL[spec.prov]) + '. Click to change">'
+    + value + '<span class="ev" aria-hidden="true">▾</span></button>';
+}
+
+function waccRow(scope, field){
+  const spec = WACC_INPUT_BY_FIELD[field];
+  const cur = scope === 'shared' ? waccState[field] : waccState.co[scope][field];
+  return '<div class="led-row">'
+    + '<span class="op"></span>'
+    + '<span class="lbl">' + esc(spec.label)
+    + ' <span class="prov-flag ' + spec.prov + '">' + PROV_LABEL[spec.prov] + '</span></span>'
+    + waccChip(scope, field, spec.fmt(cur))
+    + '</div>';
+}
+
+function renderWaccShared(){
+  const el = document.getElementById('wacc-shared');
+  el.innerHTML = '<div class="led-cap" style="margin-bottom:6px">Market-wide inputs · shared by all five</div>'
+    + '<div class="wacc-shared-row">'
+    + WACC_SHARED_INPUTS.map(i =>
+        '<span class="wacc-shared-item"><span class="k">' + esc(i.label)
+        + ' <span class="prov-flag ' + i.prov + '">' + PROV_LABEL[i.prov] + '</span></span>'
+        + waccChip('shared', i.field, i.fmt(waccState[i.field])) + '</span>').join('')
+    + '<span class="wacc-shared-item"><span class="k">Reset every input</span>'
+    + '<button class="btn btn-sm" type="button" id="wacc-reset">Reset</button></span>'
+    + '</div>';
+  const r = document.getElementById('wacc-reset');
+  if(r) r.addEventListener('click', () => {
+    waccState.rf = WACC_DEFAULTS.rf; waccState.erp = WACC_DEFAULTS.erp;
+    TICKERS.forEach(t => { waccState.co[t] = Object.assign({}, WACC_CO_DEFAULTS); });
+    closePop(); render();
+  });
+}
+
+function waccCard(t){
+  const a = DATA.assum[t];
+  const re = costOfEquity(t), rdAfter = afterTaxCostOfDebt(t), w = computedWacc(t);
+  const c = waccState.co[t];
+  const delta = (w - a.wacc) * 10000;
+  const isDefault = waccIsDefault(t);
+
+  let h = '<article class="led wacc-card" id="wacc-' + t + '" style="--led-color:' + seriesColor(t) + '">';
+  h += '<div class="led-head"><span class="who"><span class="tick">' + t + '</span>'
+     + '<span class="nm">' + esc(a.company) + '</span></span>'
+     + '<span class="res"><span class="v">' + pct(w, 2) + '</span><span class="k">built here</span>'
+     + '<span class="v2" style="color:var(--fact-ink)">' + pct(a.wacc, 2) + '</span>'
+     + '<span class="k">Damodaran sector</span></span></div>';
+
+  h += '<div class="led-stage"><p class="led-cap">Cost of equity · CAPM</p>';
+  h += waccRow(t, 'beta').replace('<span class="op"></span>', '<span class="op">×</span>');
+  h += '<div class="led-row"><span class="op"></span><span class="lbl"><span class="sub">'
+     + 'rf + beta × ERP, on the market-wide inputs above</span></span><span></span></div>';
+  h += rowSum('Cost of equity', pct(re, 2)) + '</div>';
+
+  h += '<div class="led-stage"><p class="led-cap">Cost of debt</p>';
+  h += waccRow(t, 'rd');
+  h += waccRow(t, 'tax').replace('<span class="op"></span>', '<span class="op">×</span>');
+  h += '<div class="led-row"><span class="op"></span><span class="lbl"><span class="sub">'
+     + 'rd × (1 − tax)</span></span><span></span></div>';
+  h += rowSum('After-tax cost of debt', pct(rdAfter, 2)) + '</div>';
+
+  h += '<div class="led-stage"><p class="led-cap">Weights</p>';
+  h += waccRow(t, 'dv');
+  h += '<div class="led-row"><span class="op"></span><span class="lbl"><span class="sub">'
+     + 'equity weight E/V = ' + pct(1 - c.dv, 1) + '</span></span><span></span></div>';
+  h += '<div class="led-cmp-hdr"><span></span><span>built here</span><span>sector</span></div>';
+  h += rowCmp('=', 'WACC', pct(w, 2), pct(a.wacc, 2), 'sum total');
+  /* Deliberately not red/green: a higher threshold is not "bad", it is just a
+     harder test. Which direction is favourable depends on what you are arguing. */
+  h += '<div class="led-row"><span class="op"></span><span class="lbl">Difference vs the model’s WACC</span>'
+     + '<span class="val" style="color:var(--ink-2)">'
+     + (delta >= 0 ? '+' : '−') + nf(Math.abs(delta), 0) + ' bps</span></div>';
+  if(isDefault){
+    h += '<p class="wacc-warn">Placeholder inputs — identical for all five companies. '
+       + 'This is not an estimate of ' + esc(a.company) + '’s cost of capital.</p>';
+  }
+  h += '</div></article>';
+  return h;
+}
+
+function renderWacc(){
+  renderWaccShared();
+  const grid = document.getElementById('wacc-grid');
+  grid.innerHTML = TICKERS.map(waccCard).join('');
+  grid.querySelectorAll('[data-wpop]').forEach(b => {
+    b.addEventListener('click', e => { e.stopPropagation(); openWaccPop(b); });
+  });
+  document.querySelectorAll('#wacc-shared [data-wpop]').forEach(b => {
+    b.addEventListener('click', e => { e.stopPropagation(); openWaccPop(b); });
+  });
+  document.querySelectorAll('[data-wacc-mode]').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.waccMode === waccMode)));
+  const n = document.getElementById('wacc-notice');
+  if(n) n.setAttribute('data-active', waccMode === 'computed' ? '1' : '0');
+}
+
+function openWaccPop(btn){
+  const scope = btn.dataset.wpop, field = btn.dataset.wfield;
+  const spec = WACC_INPUT_BY_FIELD[field];
+  if(popOwner === btn){ closePop(); return; }
+  closePop();
+  popOwner = btn;
+  btn.setAttribute('aria-expanded', 'true');
+
+  const get = () => scope === 'shared' ? waccState[field] : waccState.co[scope][field];
+  const def = scope === 'shared' ? WACC_DEFAULTS[field] : WACC_CO_DEFAULTS[field];
+
+  const el = document.createElement('div');
+  el.className = 'pop';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-label', (scope === 'shared' ? 'All companies' : scope) + ' — ' + spec.label);
+  el.innerHTML =
+      '<div class="pop-head"><h4><span class="mark assum"></span>' + esc(spec.label) + '</h4>'
+    + '<span class="pop-val" id="pop-val">' + spec.fmt(get()) + '</span></div>'
+    + '<p class="why" style="margin-top:2px;color:var(--ink-2)">'
+    + (scope === 'shared' ? 'Applies to all five companies' : scope)
+    + ' · <span class="prov-flag ' + spec.prov + '">' + PROV_LABEL[spec.prov] + '</span></p>'
+    + '<input type="range" min="' + spec.min + '" max="' + spec.max + '" step="' + spec.step + '" '
+    + 'value="' + get() + '" aria-label="' + esc(spec.label) + '">'
+    + '<p class="why"><strong>Placeholder ' + spec.fmt(def) + '.</strong> ' + spec.why + '</p>'
+    + '<div class="pop-foot"><span></span>'
+    + '<button class="btn btn-sm" type="button" data-wrst="1">Reset</button></div>';
+  document.body.appendChild(el);
+  popEl = el;
+
+  const put = v => {
+    if(scope === 'shared') waccState[field] = v; else waccState.co[scope][field] = v;
+    const o = el.querySelector('#pop-val');
+    if(o) o.textContent = spec.fmt(v);
+    renderKeepingWaccPop();
+  };
+  const inp = el.querySelector('input[type=range]');
+  inp.addEventListener('input', () => put(parseFloat(inp.value)));
+  el.querySelector('[data-wrst]').addEventListener('click', () => { inp.value = def; put(def); });
+
+  positionPop(el, btn);
+  inp.focus();
+}
+
+function renderKeepingWaccPop(){
+  const scope = popOwner && popOwner.dataset.wpop, field = popOwner && popOwner.dataset.wfield;
+  const el = popEl;
+  popEl = null; popOwner = null;
+  render();
+  if(!el) return;
+  requestAnimationFrame(() => {
+    const btn = document.querySelector('[data-wpop="' + scope + '"][data-wfield="' + field + '"]');
+    if(!btn){ el.remove(); return; }
+    popEl = el; popOwner = btn;
+    btn.setAttribute('aria-expanded', 'true');
+    positionPop(el, btn);
+  });
+}
+
+/* ============================================================================
+   THE WORKBOOK, AS TABLES
+
+   The three sheets a reader of ai_capex_forward_roic_analysis_v02.xlsx would
+   open first, in the workbook's own layout: Trajectory with quarters across and
+   a metric block per company, Snapshot with companies across, Inputs as the
+   filing facts one row per company-quarter. Every cell is computed live through
+   the same functions as everything else on the page, so the tables and the
+   charts below them can never disagree.
+   ============================================================================ */
+
+let sheetView = 'trajectory';
+
+const SHEET_NOTE = {
+  trajectory: 'Each quarter measured on its own capex, annualised — the run-rate basis. Six rows per company, '
+            + 'exactly the workbook’s Trajectory sheet, widening by one column each time a quarter is appended.',
+  snapshot:   'The latest quarter’s demand fact measured against the company’s own annual capex plan, with the '
+            + 'bear and bull margins alongside the base. Companies across, as the workbook lays it out.',
+  inputs:     'The filing facts themselves — the workbook’s Inputs sheet, one row per company-quarter. Every '
+            + 'value here is disclosed and carries a source; nothing on this tab is computed.'
+};
+
+function sheetTrajectory(){
+  let h = '<thead><tr><th style="text-align:left">Metric</th>'
+        + QUARTERS.map(q => '<th' + (q === selQ ? ' class="selq"' : '') + '>' + q + '</th>').join('')
+        + '<th>Δ ' + qTight(BASE_Q) + ' → ' + qTight(LATEST) + '</th></tr></thead><tbody>';
+  TICKERS.forEach(t => {
+    const evs = QUARTERS.map(q => evalQuarter(t, q));
+    const rows = [
+      { lab: ROW1_LABEL[t], cls:'fact', get:(q,i) => usdB(FACTS[t+'|'+q].fact, 3) },
+      { lab: 'Quarterly Capex ($B)', cls:'fact', get:(q,i) => usdB(FACTS[t+'|'+q].capex, 3) },
+      { lab: 'Annualized AI Capex ($B)', cls:'', get:(q,i) => usdB(evs[i].capex, 1) },
+      { lab: 'Annualized AI Revenue Proxy ($B)', cls:'', get:(q,i) => usdB(evs[i].proxy, 1) },
+      { lab: 'Forward ROIC (' + state[t].scenario + ')', cls:'', get:(q,i) => pct(evs[i].roic, 2) },
+      { lab: 'Spread vs WACC (ppt)', cls:'', get:(q,i) => ppt(evs[i].spread),
+        tone:(q,i) => evs[i].spread >= 0 ? 'pos' : 'neg' }
+    ];
+    h += '<tr class="grouphead"><td colspan="' + (QUARTERS.length + 2) + '">'
+       + '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'
+       + seriesColor(t) + ';margin-right:8px"></span>' + t + ' · ' + esc(DATA.assum[t].company)
+       + '</td></tr>';
+    rows.forEach((r, ri) => {
+      h += '<tr><td class="metric' + (r.cls ? ' ' + r.cls : '') + '">' + esc(r.lab) + '</td>'
+         + QUARTERS.map((q, i) => '<td class="num ' + (r.tone ? r.tone(q, i) : '')
+             + (q === selQ ? ' selq' : '') + '">' + r.get(q, i) + '</td>').join('');
+      const first = ri === 0 ? FACTS[t+'|'+QUARTERS[0]].fact : null;
+      let d = '';
+      if(ri === 5){
+        const dd = evs[evs.length-1].spread - evs[0].spread;
+        d = '<td class="num ' + (dd >= 0 ? 'pos' : 'neg') + '">' + bps(dd) + '</td>';
+      } else if(ri === 4){
+        const dd = evs[evs.length-1].roic - evs[0].roic;
+        d = '<td class="num ' + (dd >= 0 ? 'pos' : 'neg') + '">' + ppt(dd) + ' ppt</td>';
+      } else {
+        d = '<td class="num" style="color:var(--ink-3)">—</td>';
+      }
+      h += d + '</tr>';
+    });
+  });
+  return h + '</tbody>';
+}
+
+function sheetSnapshot(){
+  const snap = {}, run = {};
+  TICKERS.forEach(t => {
+    snap[t] = { bear: evalSnapshot(t, 'bear'), base: evalSnapshot(t, 'base'), bull: evalSnapshot(t, 'bull') };
+    run[t] = evalQuarter(t, LATEST);
+  });
+  const rows = [
+    ['Latest quarter', t => esc(FACTS[t+'|'+LATEST].fiscal), 'text'],
+    ['AI revenue source', t => esc(DATA.assum[t].proxy), 'text'],
+    ['Total RPO / backlog or annualized revenue ($B)',
+      t => usdB(DATA.assum[t].dur ? FACTS[t+'|'+LATEST].fact : FACTS[t+'|'+LATEST].fact * 4, 3), 'fact'],
+    ['AI share % (assumption)', t => pct(state[t].share, 0), 'assum'],
+    ['AI-linked RPO / revenue ($B)',
+      t => usdB((DATA.assum[t].dur ? FACTS[t+'|'+LATEST].fact : FACTS[t+'|'+LATEST].fact * 4) * state[t].share, 1), ''],
+    ['Annual capex guide / midpoint / actual ($B)', t => usdB(DATA.assum[t].guide, 3), 'fact'],
+    ['AI share of capex % (assumption)', t => pct(state[t].capshare, 0), 'assum'],
+    ['AI capex ($B)', t => usdB(snap[t].base.capex, 1), ''],
+    ['Contract duration (years, assumption)',
+      t => state[t].dur === null ? '<span class="na">N/A</span>' : nf(state[t].dur, 1), 'assum'],
+    ['Annualized AI revenue proxy ($B)', t => usdB(snap[t].base.proxy, 1), ''],
+    ['NOPAT margin (' + 'base' + ')', t => pct(DATA.assum[t].base, 0), 'assum'],
+    ['Forward ROIC (bear)', t => pct(snap[t].bear.roic, 2), ''],
+    ['Forward ROIC (base)', t => pct(snap[t].base.roic, 2), ''],
+    ['Forward ROIC (bull)', t => pct(snap[t].bull.roic, 2), ''],
+    ['WACC', t => pct(waccOf(t), 2), waccMode === 'computed' ? 'assum' : 'fact'],
+    ['Spread (bear, ppt)', t => ppt(snap[t].bear.spread), 'tone'],
+    ['Spread (base, ppt)', t => ppt(snap[t].base.spread), 'tone'],
+    ['Spread (bull, ppt)', t => ppt(snap[t].bull.spread), 'tone'],
+    ['Spread ' + LATEST + ' (run-rate basis, ppt)', t => ppt(run[t].spread), 'tone']
+  ];
+  /* the three change rows, each naming the quarter it is measured against */
+  anchorColumns().forEach(col => {
+    const label = 'Δ Spread ' + LATEST + (col.prior ? ' vs ' + col.prior : '')
+                + ' (' + col.name.toLowerCase() + ', bps)';
+    rows.push([label, t => col.prior
+      ? bps(run[t].spread - evalQuarter(t, col.prior).spread)
+      : '<span class="na">n/a — no such quarter on file</span>', 'tone']);
+  });
+
+  let h = '<thead><tr><th>Metric</th>'
+        + TICKERS.map(t => '<th><span style="display:inline-block;width:8px;height:8px;border-radius:2px;'
+            + 'background:' + seriesColor(t) + ';margin-right:6px"></span>' + t + '</th>').join('')
+        + '</tr></thead><tbody>';
+  rows.forEach(([lab, get, kind]) => {
+    h += '<tr><td class="metric' + (kind === 'fact' || kind === 'assum' ? ' ' + kind : '') + '">'
+       + esc(lab) + '</td>'
+       + TICKERS.map(t => {
+           const v = get(t);
+           let cls = kind === 'text' ? 'txt' : 'num';
+           if(kind === 'tone'){
+             const raw = v.indexOf('−') === 0 || v.indexOf('-') === 0;
+             cls += raw ? ' neg' : ' pos';
+           }
+           if(kind === 'fact') cls += ' v-fact';
+           if(kind === 'assum') cls += ' v-assum';
+           return '<td class="' + cls + '">' + v + '</td>';
+         }).join('')
+       + '</tr>';
+  });
+  return h + '</tbody>';
+}
+
+function sheetInputs(){
+  let h = '<thead><tr><th>Quarter</th><th>Company</th><th>Fiscal period</th><th>Period end</th>'
+        + '<th>Demand fact ($B)</th><th style="text-align:left">Metric</th>'
+        + '<th>Quarterly capex ($B)</th><th style="text-align:left">Capex definition</th>'
+        + '<th style="text-align:left">Sources</th></tr></thead><tbody>';
+  QUARTERS.forEach(q => {
+    h += '<tr class="grouphead"><td colspan="9">' + qLong(q) + '</td></tr>';
+    TICKERS.forEach(t => {
+      const f = FACTS[t+'|'+q];
+      h += '<tr' + (q === selQ ? ' class="selq-row"' : '') + '>'
+        + '<td>' + q + '</td>'
+        + '<td><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'
+        + seriesColor(t) + ';margin-right:6px"></span>' + t + '</td>'
+        + '<td>' + esc(f.fiscal) + '</td>'
+        + '<td class="mono">' + f.end + '</td>'
+        + '<td class="num v-fact">' + usdB(f.fact, 3) + '</td>'
+        + '<td class="txt" style="max-width:230px;white-space:normal">' + esc(f.metric) + '</td>'
+        + '<td class="num v-fact">' + usdB(f.capex, 3) + '</td>'
+        + '<td class="txt" style="max-width:250px;white-space:normal">' + esc(f.capexDef) + '</td>'
+        + '<td style="text-align:left"><span class="usedby">'
+        + '<a href="#src-' + esc(f.factSourceId) + '" data-jumpsrc="' + esc(f.factSourceId) + '">fact</a>'
+        + '<a href="#src-' + esc(f.capexSourceId) + '" data-jumpsrc="' + esc(f.capexSourceId) + '">capex</a>'
+        + '</span></td></tr>';
+    });
+  });
+  return h + '</tbody>';
+}
+
+function renderSheet(){
+  const tb = document.getElementById('sheet-table');
+  tb.innerHTML = sheetView === 'trajectory' ? sheetTrajectory()
+               : sheetView === 'snapshot'   ? sheetSnapshot()
+                                            : sheetInputs();
+  document.getElementById('sheet-note').textContent = SHEET_NOTE[sheetView];
+  document.querySelectorAll('[data-sheet]').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.sheet === sheetView)));
+  tb.querySelectorAll('[data-jumpsrc]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); jumpToSource(a.dataset.jumpsrc); });
+  });
+}
+
+/* ============================================================================
    Render + wiring
    ============================================================================ */
 let renderQueued = false;
@@ -3156,11 +3716,12 @@ function render(){
   renderQueued = true;
   requestAnimationFrame(() => {
     renderQueued = false;
-    renderThesis();
+    renderSheet();
     renderTrajectory();
     renderAnchors();
     renderSnapshot();
     renderLedger();
+    renderWacc();
     renderAssumTable();
     refreshControls();
     refreshCaveatFigures();
@@ -3213,7 +3774,6 @@ function boot(){
       res.failures.slice(0,40).join('\n') + (res.failures.length > 40 ? '\n… and ' + (res.failures.length-40) + ' more' : '');
     document.querySelector('.layout').style.opacity = '0.35';
     document.querySelector('.layout').setAttribute('aria-hidden','true');
-    document.getElementById('thesis').style.display = 'none';
     return;
   }
 
@@ -3229,15 +3789,16 @@ function boot(){
     });
   });
 
-  document.getElementById('amzn-toggle').addEventListener('click', () => {
-    const on = Math.abs(state.AMZN.dur - DISCLOSED.AMZN.value) < 1e-9;
-    state.AMZN.dur = on ? DEFAULTS.AMZN.dur : DISCLOSED.AMZN.value;
-    syncInputs(); render();
-  });
   document.getElementById('reset-all').addEventListener('click', () => {
     TICKERS.forEach(t => { state[t] = JSON.parse(JSON.stringify(DEFAULTS[t])); });
     hidden.clear();
     syncInputs(); render();
+  });
+  document.querySelectorAll('[data-sheet]').forEach(b => {
+    b.addEventListener('click', () => { sheetView = b.dataset.sheet; render(); });
+  });
+  document.querySelectorAll('[data-wacc-mode]').forEach(b => {
+    b.addEventListener('click', () => { waccMode = b.dataset.waccMode; closePop(); render(); });
   });
   document.querySelectorAll('[data-traj-unit]').forEach(b => {
     b.addEventListener('click', () => {
