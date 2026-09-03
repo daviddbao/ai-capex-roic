@@ -58,10 +58,16 @@ def page():
 
 
 def reset(page) -> None:
-    """Back to the workbook's own assumptions and the latest quarter."""
+    """Back to a known state: default assumptions, latest quarter, first view.
+
+    The page fixture is module-scoped, so whatever the previous test left
+    selected is still selected. A reset that does not restore the view makes
+    later tests depend on the order they happen to run in.
+    """
     page.keyboard.press("Escape")
     page.click("#reset-all")
     page.click("#q-seg button:last-child")
+    page.click("[data-sheet='trajectory']")
     page.wait_for_timeout(250)
 
 
@@ -714,6 +720,120 @@ def test_the_evidence_ledger_files_it_apart_from_the_model_inputs(page):
     row = page.locator("#src-MSFT-FY26-OPENAI-REV")
     assert row.count() == 1
     assert "24.100" in row.inner_text()
+
+# ---------------------------------------------------------------------------
+# Click a computed value, see how it was computed
+# ---------------------------------------------------------------------------
+
+
+def test_every_explanation_reproduces_the_number_it_explains(page):
+    """The load-time gate. An explanation that has drifted from the calculation
+    is worse than no explanation, so it alarms like a model mismatch."""
+    reset(page)
+    assert page.evaluate("() => checkDerivations()") == []
+
+
+def test_computed_values_are_clickable_across_the_page(page):
+    reset(page)
+    counts = page.evaluate(
+        """() => ({
+             ledger: document.querySelectorAll('#ledger [data-der]').length,
+             table:  document.querySelectorAll('#sheet-table [data-der]').length,
+             wacc:   document.querySelectorAll('#wacc [data-der]').length,
+           })"""
+    )
+    assert counts["ledger"] >= 5 * 5      # proxy, two capex, two ROIC, two spreads per company
+    assert counts["table"] >= 5 * 4       # four computed rows x five companies
+    assert counts["wacc"] == 5 * 3        # cost of equity, after-tax debt, WACC
+
+
+def test_a_spread_drills_down_to_the_filing(page):
+    """spread -> ROIC -> proxy -> the disclosed backlog and its document."""
+    reset(page)
+    page.locator("#led-GOOG .led-row.total .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    assert "forward ROIC − WACC" in page.inner_text(".der-pop")
+
+    page.locator(".der-pop .derived-btn").first.click()   # -> Forward ROIC
+    page.wait_for_timeout(250)
+    assert "AI revenue proxy × NOPAT margin ÷ AI capex" in page.inner_text(".der-pop")
+
+    page.locator(".der-pop .derived-btn").first.click()   # -> the proxy
+    page.wait_for_timeout(250)
+    body = page.inner_text(".der-pop")
+    assert "backlog × AI share ÷ contract duration" in body
+    assert "$519.500B" in body and "65%" in body and "2.5 y" in body
+
+    src = page.locator(".der-pop a.fig-src")
+    assert src.count() == 1
+    assert src.get_attribute("data-jumpsrc") == "GOOG-Q226-FACT"
+    src.click()
+    page.wait_for_timeout(700)
+    assert page.locator("#src-GOOG-Q226-FACT.hit").count() == 1
+
+
+def test_each_operand_declares_its_provenance_class(page):
+    reset(page)
+    page.locator("#led-MSFT .led-row.total .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    page.locator(".der-pop .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    classes = page.eval_on_selector_all(
+        ".der-pop .der-cls", "els => els.map(e => e.className.replace('der-cls ',''))")
+    # ROIC = computed proxy x assumed margin / computed capex
+    assert classes == ["derived", "assum", "derived"]
+
+
+def test_the_meta_proxy_explains_its_different_construction(page):
+    reset(page)
+    page.locator("#led-META .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    body = page.inner_text(".der-pop")
+    assert "quarterly revenue × 4 × AI attribution" in body
+    assert "reports no backlog" in body
+    assert "DEFINITION" in body        # the x4 is a definition, not an assumption
+
+
+def test_the_ltm_roic_explanation_admits_its_mixed_basis(page):
+    """For the four RPO filers the LTM cell is forward-over-trailing, and the
+    explanation has to say so rather than let the column header imply otherwise."""
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    page.locator("#sheet-table td.rhs [data-der][data-der='ltmRoic']").first.click()
+    page.wait_for_timeout(250)
+    body = page.inner_text(".der-pop")
+    assert "MIXED BASIS" in body
+    assert "cannot be summed" in body
+
+
+def test_the_roic_explanation_states_the_denominator_is_not_invested_capital(page):
+    reset(page)
+    page.locator("#led-ORCL .led-row.total .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    page.locator(".der-pop .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    body = page.inner_text(".der-pop")
+    assert "not an invested-capital base" in body
+
+
+def test_the_wacc_operand_changes_class_with_the_toggle(page):
+    """The sector figure is disclosed; the built one is assumed. The operand
+    must not claim to be a fact when it is not."""
+    reset(page)
+    page.locator("#led-MSFT .led-row.total .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    assert "DISCLOSED" in page.inner_text(".der-pop")
+    page.keyboard.press("Escape")
+    page.click("[data-wacc-mode='computed']")
+    page.wait_for_timeout(350)
+    page.locator("#led-MSFT .led-row.total .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    body = page.inner_text(".der-pop")
+    assert "built here" in body and "DISCLOSED" not in body
+    page.keyboard.press("Escape")
+    page.click("[data-wacc-mode='sector']")
+    page.wait_for_timeout(300)
 
 # ---------------------------------------------------------------------------
 # Last, so it sees everything the tests above provoked

@@ -219,6 +219,48 @@ SOURCE_FIELDS: tuple[tuple[str, str], ...] = (
 )
 
 
+#: The snapshot manifest written by :mod:`pipeline.archive`, keyed by URL. This
+#: — not ``sources.csv``'s ``local_path_if_any`` — is what the page is allowed
+#: to call "archived".
+ARCHIVE_MANIFEST = REPO / "01_sources" / "manifest.json"
+
+
+def archived_copies(manifest: Path = ARCHIVE_MANIFEST) -> dict[str, dict[str, Any]]:
+    """URL -> the preserved copy of that document, if one is genuinely on disk.
+
+    ``sources.csv`` carries a ``local_path_if_any`` column that predates the
+    archiver, and 32 of its 63 rows name a path under a directory layout that
+    was never populated — the runbook says as much: historic filings were not
+    backfilled. Trusting that column made the page display "archived" for files
+    that do not exist, which is exactly the kind of unearned assurance the rest
+    of this model exists to prevent.
+
+    So the manifest is the authority, and every entry is checked against the
+    filesystem before it counts. A path in the manifest that is missing on disk
+    is a build failure, not a downgrade: the manifest is generated alongside the
+    files and the two cannot legitimately disagree.
+    """
+    if not manifest.exists():
+        return {}
+    payload = json.loads(manifest.read_text(encoding="utf-8"))
+    out: dict[str, dict[str, Any]] = {}
+    for snap in payload.get("snapshots", []):
+        rel = str(snap["repo_relative_path"])
+        if not (REPO / rel).exists():
+            raise SystemExit(
+                f"01_sources/manifest.json names {rel!r}, which is not on disk. The archive and "
+                "its manifest have diverged; refusing to write a page that claims a preserved "
+                "copy it cannot show."
+            )
+        out[str(snap["url"])] = {
+            "path": rel,
+            "sha256": str(snap.get("sha256", "")),
+            "bytes": int(snap.get("bytes", 0)),
+            "role": str(snap.get("role", "")),
+        }
+    return out
+
+
 def source_ledger(data_dir: Path) -> dict[str, dict[str, Any]]:
     """``data/sources.csv`` as a lookup keyed by ``source_id``.
 
@@ -229,6 +271,7 @@ def source_ledger(data_dir: Path) -> dict[str, dict[str, Any]]:
     so rather than print a filename that does not exist.
     """
     df = pd.read_csv(data_dir / "sources.csv")
+    archive = archived_copies()
     ledger: dict[str, dict[str, Any]] = {}
     for row in df.itertuples():
         entry: dict[str, Any] = {}
@@ -240,6 +283,14 @@ def source_ledger(data_dir: Path) -> dict[str, dict[str, Any]]:
                 entry[key] = float(value)
             else:
                 entry[key] = str(value)
+        # `local` is the archived copy only when one demonstrably exists.
+        recorded = entry.pop("local", None)
+        snap = archive.get(entry["url"])
+        entry["local"] = snap["path"] if snap else None
+        entry["sha256"] = snap["sha256"] if snap else None
+        # A path recorded in sources.csv with nothing behind it is reported as
+        # exactly that, rather than quietly shown as archived or as absent.
+        entry["localClaimed"] = recorded if (recorded and not snap) else None
         ledger[str(row.source_id)] = entry
     return ledger
 
@@ -464,6 +515,10 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
     computed = model_rows(facts, assumptions, row1, quarters[-1], quarters[0])
 
     sources = source_ledger(data_dir)
+    archived = sum(1 for v in sources.values() if v["local"])
+    claimed = sum(1 for v in sources.values() if v["localClaimed"])
+    print(f"{'sources':<13} {len(sources)} rows · {archived} with a verified archived copy"
+          + (f" · {claimed} record a path that was never backfilled" if claimed else ""))
 
     facts_by_key = {(r.ticker, r.report_bucket): r for r in facts_df.itertuples()}
     fact_rows = []
