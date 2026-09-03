@@ -385,6 +385,30 @@ silently improving it.
 
 ---
 
+## 7a. Regenerating the dashboard
+
+`dashboard/index.html` is a single self-contained page. Only one region of it is
+machine-written — the embedded `DATA` object — and `scripts/build_dashboard.py` is the only
+thing that writes it:
+
+```bash
+python scripts/build_dashboard.py            # regenerate in place
+python scripts/build_dashboard.py --check    # fail if regeneration would change the file
+```
+
+Before writing, the script recomputes all 260 frozen workbook rows through `model/calc.py` and
+refuses to emit a page whose model no longer reproduces the workbook. The page then re-asserts
+the whole model in JavaScript on load and shows a red alarm instead of numbers if it disagrees.
+
+**The page carries `data/sources.csv` and links every disclosed figure to it.** Each fact row
+in `data/facts.csv` cites a `*-FACT` and a `*-CAPEX` source id, and each company cites a
+`*-PLAN` and a `*-WACC` id; the build **aborts** if any of them is missing or is of the wrong
+kind. So the §7 warning applies here with teeth: if `pipeline.apply` appends a fact row without
+the matching source rows, the dashboard build fails rather than rendering a blue number that
+links nowhere. Check the source ledger grew.
+
+---
+
 ## 8. Quick reference
 
 ```bash
@@ -398,4 +422,6 @@ python -m pipeline.apply pipeline/packets/CY2026Q3/GOOG.json
 python -m pytest pipeline/tests -q                   # replay validation
 python scripts/build_workbook.py                     # render build/*.xlsx from data/
 python -m pytest scripts/tests/test_build_workbook.py -q   # verify the render
+python scripts/build_dashboard.py                    # refresh dashboard/index.html
+python scripts/build_dashboard.py --check            # fail if the page is stale
 ```

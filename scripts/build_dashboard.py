@@ -17,6 +17,12 @@ What lands in the page
     The same shape of rows, but computed here by :mod:`model.calc` for **every**
     quarter in ``data/facts.csv``. This set grows when the data grows, so a
     sixth quarter arrives verified rather than merely rendered.
+``sources``
+    All of ``data/sources.csv``, keyed by ``source_id``. The page's derivation
+    ledger renders every FACT as a link into this, and every entry links back to
+    the figures it supports. A fact row citing an id that is not here, or a plan
+    or WACC source of the wrong kind, aborts the build: an unsourced figure on
+    this page is a defect, not a cosmetic gap.
 
 Both sets are asserted by the page against its own JavaScript re-implementation
 of the model, and reported separately, so a reader can see how much of the page
@@ -197,6 +203,70 @@ def _provenance_counts(data_dir: Path) -> dict[str, int]:
 # ---------------------------------------------------------------------------
 
 
+#: Columns carried out of ``data/sources.csv`` into the page, in payload order.
+SOURCE_FIELDS: tuple[tuple[str, str], ...] = (
+    ("url", "url"),
+    ("kind", "kind"),
+    ("title_or_description", "title"),
+    ("local_path_if_any", "local"),
+    ("reported_value", "reported"),
+    ("classification", "classification"),
+    ("evidence_derivation", "evidence"),
+    ("status", "status"),
+    ("caveat", "caveat"),
+    ("company", "company"),
+    ("period", "period"),
+)
+
+
+def source_ledger(data_dir: Path) -> dict[str, dict[str, Any]]:
+    """``data/sources.csv`` as a lookup keyed by ``source_id``.
+
+    This is the evidence side of the page: every FACT the ledger renders cites
+    one of these ids, and the page links the figure to the entry and back. A
+    blank ``local_path_if_any`` becomes ``None`` rather than the string "nan" —
+    21 of the 62 sources have no preserved local copy, and the page has to say
+    so rather than print a filename that does not exist.
+    """
+    df = pd.read_csv(data_dir / "sources.csv")
+    ledger: dict[str, dict[str, Any]] = {}
+    for row in df.itertuples():
+        entry: dict[str, Any] = {}
+        for column, key in SOURCE_FIELDS:
+            value = getattr(row, column)
+            if pd.isna(value):
+                entry[key] = None
+            elif key == "reported":
+                entry[key] = float(value)
+            else:
+                entry[key] = str(value)
+        ledger[str(row.source_id)] = entry
+    return ledger
+
+
+def _require_source(
+    sources: Mapping[str, Mapping[str, Any]], source_id: str, ticker: str, kind: str
+) -> str:
+    """Assert a source id exists and is of the expected kind, then return it.
+
+    The page renders every FACT as a link into the ledger. A missing id would
+    silently degrade to an unsourced number, which is the one thing this page
+    must never do — so it is a build failure instead.
+    """
+    entry = sources.get(source_id)
+    if entry is None:
+        raise SystemExit(
+            f"{ticker}: data/sources.csv has no entry {source_id!r}. Every figure the "
+            "page renders must cite a source row; refusing to write an unsourced page."
+        )
+    if entry["kind"] != kind:
+        raise SystemExit(
+            f"{source_id}: expected kind {kind!r} in data/sources.csv, found "
+            f"{entry['kind']!r}."
+        )
+    return source_id
+
+
 def model_rows(
     facts: Sequence[QuarterFact],
     assumptions: Mapping[str, Assumptions],
@@ -353,11 +423,15 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
 
     computed = model_rows(facts, assumptions, row1, quarters[-1], quarters[0])
 
+    sources = source_ledger(data_dir)
+
     facts_by_key = {(r.ticker, r.report_bucket): r for r in facts_df.itertuples()}
     fact_rows = []
     for ticker in build.TICKERS:
         for quarter in quarters:
             r = facts_by_key[(ticker, quarter)]
+            _require_source(sources, str(r.fact_source_id), ticker, "fact")
+            _require_source(sources, str(r.capex_source_id), ticker, "capex")
             fact_rows.append([
                 str(r.ticker),
                 str(r.report_bucket),
@@ -370,6 +444,8 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
                 str(r.fact_source_url),
                 str(r.capex_source_url),
                 str(r.evidence_derivation),
+                str(r.fact_source_id),
+                str(r.capex_source_id),
             ])
 
     assum_payload: dict[str, Any] = {}
@@ -390,6 +466,8 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
             "guide": a.annual_capex_guide_b,
             "planBasis": a.plan_basis,
             "planUrl": str(row["plan_source_url"]),
+            "planSource": _require_source(sources, f"{ticker}-PLAN", ticker, "plan"),
+            "waccSource": _require_source(sources, f"{ticker}-WACC", ticker, "wacc"),
             "caveat": str(row["source_assumption_caveat"]),
         }
 
@@ -401,6 +479,7 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
         "workbook": wb,
         "facts": fact_rows,
         "assum": assum_payload,
+        "sources": sources,
         "expected": [
             [str(r.company), str(r.period), str(r.view), str(r.metric),
              str(r.value), str(r.value_type)]

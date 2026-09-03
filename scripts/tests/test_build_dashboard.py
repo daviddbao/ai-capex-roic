@@ -117,7 +117,7 @@ def test_generated_block_is_valid_json_after_the_assignment(sandbox: Path):
     body = block[block.index("const DATA = ") + len("const DATA = ") : block.rindex("};") + 1]
     assert set(json.loads(body)) == {
         "tickers", "quartersPerYear", "row1Label", "provenance",
-        "workbook", "facts", "assum", "expected", "computed",
+        "workbook", "facts", "assum", "sources", "expected", "computed",
     }
 
 
@@ -243,3 +243,79 @@ def test_expected_and_computed_share_one_row_shape():
             assert row[5] in ("number", "text")
             if row[5] == "number":
                 float(row[4])  # round-trippable for the page's parseFloat
+
+
+# ---------------------------------------------------------------------------
+# The evidence ledger: no figure on the page is allowed to be unsourced
+# ---------------------------------------------------------------------------
+
+
+def test_every_source_row_reaches_the_page():
+    data = bd.build_data(REPO / "data")
+    on_file = pd.read_csv(REPO / "data" / "sources.csv")
+    assert set(data["sources"]) == set(on_file.source_id)
+    assert len(data["sources"]) == 62
+
+
+def test_every_fact_row_cites_two_sources_that_exist(sandbox: Path):
+    data = bd.build_data(sandbox / "data")
+    sources = data["sources"]
+    for row in data["facts"]:
+        fact_id, capex_id = row[11], row[12]
+        assert sources[fact_id]["kind"] == "fact", row[:2]
+        assert sources[capex_id]["kind"] == "capex", row[:2]
+
+
+def test_every_company_cites_a_plan_and_a_wacc_source():
+    data = bd.build_data(REPO / "data")
+    for ticker, a in data["assum"].items():
+        assert data["sources"][a["planSource"]]["kind"] == "plan", ticker
+        assert data["sources"][a["waccSource"]]["kind"] == "wacc", ticker
+
+
+def test_a_fact_row_citing_an_unknown_source_refuses_to_build(sandbox: Path):
+    """An unsourced figure is a build failure, not a quietly bare number."""
+    facts = sandbox / "data" / "facts.csv"
+    df = pd.read_csv(facts)
+    df.loc[0, "fact_source_id"] = "GOOG-Q999-FACT"
+    df.to_csv(facts, index=False)
+    with pytest.raises(SystemExit, match="GOOG-Q999-FACT"):
+        bd.build_data(sandbox / "data")
+
+
+def test_a_source_of_the_wrong_kind_refuses_to_build(sandbox: Path):
+    srcs = sandbox / "data" / "sources.csv"
+    df = pd.read_csv(srcs)
+    df.loc[df.source_id == "MSFT-WACC", "kind"] = "plan"
+    df.to_csv(srcs, index=False)
+    with pytest.raises(SystemExit, match="expected kind 'wacc'"):
+        bd.build_data(sandbox / "data")
+
+
+def test_a_blank_local_path_is_null_not_the_string_nan():
+    """21 of the 62 sources have no preserved copy. The page has to say so."""
+    sources = bd.build_data(REPO / "data")["sources"]
+    locals_ = [s["local"] for s in sources.values()]
+    assert None in locals_
+    assert not any(isinstance(v, str) and v.lower() == "nan" for v in locals_)
+    assert sum(v is None for v in locals_) == 21
+
+
+def test_a_new_quarter_without_source_rows_is_refused(sandbox: Path):
+    """A quarter appended to facts.csv whose sources never landed is refused.
+
+    ``pipeline.apply`` appends the fact row and the matching ``*-FACT`` /
+    ``*-CAPEX`` source rows together. If only the first half arrives, the page
+    would render a new quarter whose blue figures link nowhere — so the build
+    stops instead. (The synthetic quarter used by the tests above copies the
+    previous quarter's ids, which is why it builds; a real one would not.)
+    """
+    append_quarter(sandbox / "data", "Q3 26", "2026-09-30", "2026-08-31")
+    facts = sandbox / "data" / "facts.csv"
+    df = pd.read_csv(facts)
+    new_rows = df["report_bucket"] == "Q3 26"
+    df.loc[new_rows, "fact_source_id"] = df.loc[new_rows, "ticker"] + "-Q326-FACT"
+    df.loc[new_rows, "capex_source_id"] = df.loc[new_rows, "ticker"] + "-Q326-CAPEX"
+    df.to_csv(facts, index=False)
+    with pytest.raises(SystemExit, match="MSFT-Q326-FACT"):
+        bd.build_data(sandbox / "data")
