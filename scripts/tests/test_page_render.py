@@ -252,3 +252,96 @@ def test_the_ledger_filter_narrows_to_one_company(page):
     assert set(tickers) == {"ORCL"}
     page.fill("#src-search", "")
     page.wait_for_timeout(150)
+
+# ---------------------------------------------------------------------------
+# The two capex views, on one receipt
+# ---------------------------------------------------------------------------
+
+
+def test_the_receipt_carries_both_denominators(page):
+    reset(page)
+    text = page.inner_text("#led-GOOG")
+    # the stage captions are uppercased by CSS, and inner_text renders it
+    assert "denominator a · run-rate" in text.lower()
+    assert "denominator b · annual plan" in text.lower()
+    # GOOG: 200.0 plan x .8 -> 160.0; 135.07 x .30 / 160 -> 25.33%; -1066 -> +1,467 bps
+    for shown in ("$200.000B", "$160.0B", "25.33%", "+1,467 bps"):
+        assert shown in text, shown
+
+
+def test_the_plan_receipt_agrees_with_the_snapshot_section(page):
+    """The ledger's plan column must equal evalSnapshot(), the page's own
+    snapshot-basis model — two renderings of one calculation, never two."""
+    reset(page)
+    diffs = page.evaluate(
+        """() => {
+            const out = [];
+            TICKERS.forEach(t => {
+                const a = DATA.assum[t], s = state[t];
+                const ev = evalQuarter(t, LATEST);
+                const ledger = spreadVsWacc(
+                    forwardRoic(ev.proxy, marginOf(t), capexSnapshot(a.guide, s.capshare)), a.wacc);
+                const section = evalSnapshot(t, s.scenario).spread;
+                if(Math.abs(ledger - section) > 1e-12) out.push([t, ledger, section]);
+            });
+            return out;
+        }"""
+    )
+    assert diffs == []
+
+
+def test_both_views_share_one_numerator(page):
+    """The receipt builds the proxy once because the two views agree on it
+    exactly — not approximately. If that ever stops being true the receipt is
+    lying about which stage is shared."""
+    reset(page)
+    diffs = page.evaluate(
+        """() => {
+            const out = [];
+            TICKERS.forEach(t => {
+                const run = evalQuarter(t, LATEST).proxy;
+                const snap = evalSnapshot(t, state[t].scenario).proxy;
+                if(run !== snap) out.push([t, run, snap]);
+            });
+            return out;
+        }"""
+    )
+    assert diffs == []
+
+
+def test_the_plan_denominator_names_the_period_it_belongs_to(page):
+    """The annual plan is not a per-quarter fact. On any quarter but the latest
+    the receipt has to say the plan is not that quarter's own."""
+    reset(page)
+    assert "effective from 2025-06-30" in page.inner_text("#led-GOOG")
+    assert "not Q2 25’s own plan" not in page.inner_text("#led-GOOG")
+    page.click("#q-seg button[data-q='Q2 25']")
+    page.wait_for_timeout(250)
+    assert "not Q2 25’s own plan" in page.inner_text("#led-GOOG")
+    reset(page)
+
+
+def test_the_capex_share_chip_appears_in_both_denominators(page):
+    """One assumption, three renderings on the card — and each must drive the
+    model from wherever it was opened."""
+    reset(page)
+    chips = page.locator("#led-GOOG .assum-btn[data-field='capshare']")
+    assert chips.count() == 2
+    assert set(page.eval_on_selector_all(
+        "#led-GOOG .assum-btn[data-field='capshare']", "els => els.map(e => e.dataset.slot)"
+    )) == {"run", "plan"}
+
+    before = page.inner_text("#led-GOOG .led-row.total")
+    chips.nth(1).click()          # open from the PLAN row, not the run-rate one
+    page.wait_for_timeout(200)
+    page.evaluate(
+        """() => { const i = document.querySelector('.pop input[type=range]');
+                   i.value = 0.5; i.dispatchEvent(new Event('input', {bubbles:true})); }"""
+    )
+    page.wait_for_timeout(300)
+    assert page.inner_text("#led-GOOG .led-row.total") != before
+    # the popover reattached to the chip it was opened from, not to its namesake
+    owner = page.evaluate(
+        "() => document.querySelector('.assum-btn[aria-expanded=\"true\"]').dataset.slot")
+    assert owner == "plan"
+    reset(page)

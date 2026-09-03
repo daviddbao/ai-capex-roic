@@ -466,6 +466,10 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
             "guide": a.annual_capex_guide_b,
             "planBasis": a.plan_basis,
             "planUrl": str(row["plan_source_url"]),
+            # The date this assumptions row became effective. The annual denominator
+            # is not a per-quarter fact, so the receipt names the period it belongs
+            # to rather than let a reader take it for the selected quarter's.
+            "planFrom": str(row["effective_from"]),
             "planSource": _require_source(sources, f"{ticker}-PLAN", ticker, "plan"),
             "waccSource": _require_source(sources, f"{ticker}-WACC", ticker, "wacc"),
             "caveat": str(row["source_assumption_caveat"]),
