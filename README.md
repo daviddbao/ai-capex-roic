@@ -136,8 +136,10 @@ of rendering figures it cannot stand behind.
 
 ### Click any computed number
 
-Every derived value on the page — 170 of them — opens the arithmetic that produced it: the
-formula, then each operand tagged **disclosed** / **assumed** / **computed** / **definition**.
+Every derived value on the page — 170 of them — opens the arithmetic that produced it: the formula
+in words, then **the same calculation with the numbers substituted in**, on a line you can check by
+hand and land on the answer shown, then the calculation stacked with its operators and each operand
+tagged **disclosed** / **assumed** / **computed** / **definition**.
 Disclosed operands link to the filing. Assumed operands open the control that sets them. Computed
 operands are themselves clickable, so a spread opens into ROIC, which opens into the revenue
 proxy, which opens into the backlog fact and its 10-Q.

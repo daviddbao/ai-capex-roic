@@ -836,6 +836,28 @@ a.fig-src:hover{ border-bottom-color:var(--fact-ink); }
 .led-row.floor .op{ font-size:9.5px; letter-spacing:.04em; }
 
 
+
+.der-eq{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px;
+  margin:0 0 10px; padding:8px 10px; border-radius:7px;
+  background:var(--surface-2); border:1px solid var(--rule);
+  font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:11.5px;
+}
+.der-eq-sum{ color:var(--ink-2); }
+.der-eq-res{ color:var(--ink); font-weight:700; margin-left:auto; white-space:nowrap; }
+.der-op{ grid-template-columns:22px 66px minmax(0,1fr) auto; }
+.der-oper{
+  font-family:var(--font-mono); font-size:11px; color:var(--ink-3); text-align:right;
+}
+.der-op.der-total{
+  margin-top:5px; padding-top:6px; border-top:1px solid var(--rule-2);
+}
+.der-op.der-total .der-name{ color:var(--ink); font-weight:600; }
+.der-res{
+  font-family:var(--font-mono); font-variant-numeric:tabular-nums;
+  font-size:12px; font-weight:700; color:var(--ink); white-space:nowrap;
+}
+
 /* a computed value: click it for the arithmetic behind it */
 .derived-btn{
   font:inherit; font-family:var(--font-mono); font-variant-numeric:tabular-nums;
@@ -855,7 +877,7 @@ a.fig-src:hover{ border-bottom-color:var(--fact-ink); }
   color:var(--ink-2); background:var(--surface-2); border-radius:6px; padding:6px 8px;
 }
 .der-ops{ display:flex; flex-direction:column; gap:5px; }
-.der-op{ display:grid; grid-template-columns:66px minmax(0,1fr) auto; gap:8px; align-items:baseline; }
+.der-op{ display:grid; gap:8px; align-items:baseline; }
 .der-cls{
   font-family:var(--font-mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase;
   padding:2px 4px; border-radius:3px; text-align:center;
@@ -3948,12 +3970,19 @@ function renderSheet(){
 
 const opFact   = (name, value, fmt, srcId, note) =>
   ({ cls:'fact', name, value, fmt, srcId, note });
-const opAssum  = (name, value, fmt, t, field, slot) =>
-  ({ cls:'assum', name, value, fmt, t, field, slot });
+const opAssum  = (name, value, fmt, t, field, slot, note) =>
+  ({ cls:'assum', name, value, fmt, t, field, slot, note });
 const opConst  = (name, value, fmt, note) =>
   ({ cls:'const', name, value, fmt, note });
 const opDerived = (name, value, fmt, kind, t, q) =>
   ({ cls:'derived', name, value, fmt, kind, t, q });
+
+/* In the worked line, money is shown to the dollar-million rather than to the
+   nearest $0.1B: a reader who multiplies the figures on screen must arrive at
+   the answer on screen. Percentages and durations are already exact as shown. */
+function precise(o){
+  return (o.fmt === fmtB1 ? fmtB : o.fmt)(o.value);
+}
 
 const fmtB   = v => usdB(v, 3);
 const fmtB1  = v => usdB(v, 1);
@@ -3986,6 +4015,7 @@ const DERIVE = {
         : 'A point-in-time balance converted to a forward annual run-rate. Dividing by a shorter '
           + 'duration recognises the same backlog faster and raises the proxy.',
       fmt: fmtB1, ops,
+      opers: s.dur === null ? ['', '×', '×'] : ['', '×', '÷'],
       compute: o => s.dur === null ? o[0].value * o[1].value * o[2].value
                                    : o[0].value * o[1].value / o[2].value
     };
@@ -4002,6 +4032,7 @@ const DERIVE = {
       ops: [opFact('Quarterly capex, ' + q, f.capex, fmtB, f.capexSourceId, f.capexDef),
             opConst('quarters in a year', 4, fmtX),
             opAssum('AI share of capex', s.capshare, fmtPc0, t, 'capshare', 'run')],
+      opers: ['', '×', '×'],
       compute: o => o[0].value * o[1].value * o[2].value
     };
   },
@@ -4016,6 +4047,7 @@ const DERIVE = {
       fmt: fmtB1,
       ops: [opFact('Annual capex plan', a.guide, fmtB, a.planSource, a.planBasis),
             opAssum('AI share of capex', s.capshare, fmtPc0, t, 'capshare', 'plan')],
+      opers: ['', '×'],
       compute: o => o[0].value * o[1].value
     };
   },
@@ -4032,6 +4064,7 @@ const DERIVE = {
       ops: [opDerived('AI revenue proxy', ev.proxy, fmtB1, 'proxy', t, q),
             opAssum('NOPAT margin · ' + state[t].scenario, marginOf(t), fmtPc0, t, 'scenario', 'return'),
             opDerived('Annualized AI capex', ev.capex, fmtB1, 'aiCapex', t, q)],
+      opers: ['', '×', '÷'],
       compute: o => o[0].value * o[1].value / o[2].value
     };
   },
@@ -4047,6 +4080,7 @@ const DERIVE = {
       ops: [opDerived('AI revenue proxy', ev.proxy, fmtB1, 'proxy', t, selQ),
             opAssum('NOPAT margin · ' + state[t].scenario, marginOf(t), fmtPc0, t, 'scenario', 'return'),
             opDerived('AI capex on the plan', cap, fmtB1, 'planCapex', t, null)],
+      opers: ['', '×', '÷'],
       compute: o => o[0].value * o[1].value / o[2].value
     };
   },
@@ -4061,6 +4095,7 @@ const DERIVE = {
       fmt: fmtBps,
       ops: [opDerived('Forward ROIC', ev.roic, fmtPct, 'roic', t, q),
             waccOperand(t)],
+      opers: ['', '−'],
       compute: o => o[0].value - o[1].value
     };
   },
@@ -4074,6 +4109,7 @@ const DERIVE = {
       formula: 'forward ROIC (plan) − WACC',
       fmt: fmtBps,
       ops: [opDerived('Forward ROIC (plan)', r, fmtPct, 'planRoic', t, null), waccOperand(t)],
+      opers: ['', '−'],
       compute: o => o[0].value - o[1].value
     };
   },
@@ -4088,6 +4124,7 @@ const DERIVE = {
       fmt: fmtB1,
       ops: qs.map(q => opFact('Quarterly capex, ' + q, FACTS[t+'|'+q].capex, fmtB,
                               FACTS[t+'|'+q].capexSourceId)),
+      opers: qs.map((q, i) => i === 0 ? '' : '+'),
       compute: o => o.reduce((s, x) => s + x.value, 0)
     };
   },
@@ -4100,6 +4137,7 @@ const DERIVE = {
       fmt: fmtB1,
       ops: [opDerived('LTM capex', l.capex, fmtB1, 'ltmCapex', t, null),
             opAssum('AI share of capex', state[t].capshare, fmtPc0, t, 'capshare', 'run')],
+      opers: ['', '×'],
       compute: o => o[0].value * o[1].value
     };
   },
@@ -4121,6 +4159,7 @@ const DERIVE = {
               : opDerived('AI revenue proxy (run-rate)', l.proxy, fmtB1, 'proxy', t, LATEST)),
             opAssum('NOPAT margin · ' + state[t].scenario, marginOf(t), fmtPc0, t, 'scenario', 'return'),
             opDerived('LTM AI capex', l.aiCapex, fmtB1, 'ltmAiCapex', t, null)],
+      opers: ['', '×', '÷'],
       compute: o => o[0].value * o[1].value / o[2].value
     };
   },
@@ -4132,6 +4171,7 @@ const DERIVE = {
       formula: 'LTM forward ROIC − WACC',
       fmt: fmtPpt,
       ops: [opDerived('LTM forward ROIC', l.roic, fmtPct, 'ltmRoic', t, null), waccOperand(t)],
+      opers: ['', '−'],
       compute: o => o[0].value - o[1].value
     };
   },
@@ -4144,6 +4184,7 @@ const DERIVE = {
     ops: [opAssum('Risk-free rate', waccState.rf, fmtPct, 'shared', 'rf', null),
           opAssum('Beta (levered)', waccState.co[t].beta, v => nf(v, 2), t, 'beta', null),
           opAssum('Equity risk premium', waccState.erp, fmtPct, 'shared', 'erp', null)],
+    opers: ['', '+', '×'],
     compute: o => o[0].value + o[1].value * o[2].value
   }),
 
@@ -4152,7 +4193,10 @@ const DERIVE = {
     formula: 'pre-tax cost of debt × (1 − tax rate)',
     fmt: fmtPct,
     ops: [opAssum('Pre-tax cost of debt', waccState.co[t].rd, fmtPct, t, 'rd', null),
-          opAssum('Tax rate', waccState.co[t].tax, v => pct(v, 1), t, 'tax', null)],
+          opAssum('Tax rate', waccState.co[t].tax, v => pct(v, 1), t, 'tax', null,
+                  'applied as (1 − tax), the shield on interest')],
+    opers: ['', ''],
+    worked: o => precise(o[0]) + ' × (1 − ' + precise(o[1]) + ')',
     compute: o => o[0].value * (1 - o[1].value)
   }),
 
@@ -4164,6 +4208,9 @@ const DERIVE = {
     ops: [opAssum('Debt weight (D/V)', waccState.co[t].dv, v => pct(v, 1), t, 'dv', null),
           opDerived('Cost of equity', costOfEquity(t), fmtPct, 'costOfEquity', t, null),
           opDerived('After-tax cost of debt', afterTaxCostOfDebt(t), fmtPct, 'afterTaxDebt', t, null)],
+    opers: ['', '', ''],
+    worked: o => '(1 − ' + precise(o[0]) + ') × ' + precise(o[1])
+               + '  +  ' + precise(o[0]) + ' × ' + precise(o[2]),
     compute: o => (1 - o[0].value) * o[1].value + o[0].value * o[2].value
   })
 };
@@ -4208,11 +4255,22 @@ function openDerivation(btn){
   btn.setAttribute('aria-expanded', 'true');
 
   const result = d.compute(d.ops);
+  const opers = d.opers || d.ops.map(() => '');
+
   let h = '<div class="pop-head"><h4>' + esc(d.label) + '</h4>'
         + '<span class="pop-val der-val">' + d.fmt(result) + '</span></div>';
   h += '<p class="der-formula">' + esc(d.formula) + '</p>';
+
+  /* The same arithmetic twice: once substituted on a line you can check by
+     hand, once stacked so each input is identified and reachable. */
+  const substituted = d.worked
+    ? d.worked(d.ops)
+    : d.ops.map((o, i) => (opers[i] ? opers[i] + ' ' : '') + precise(o)).join(' ');
+  h += '<div class="der-eq"><span class="der-eq-sum">' + esc(substituted) + '</span>'
+     + '<span class="der-eq-res">= ' + d.fmt(result) + '</span></div>';
+
   h += '<div class="der-ops">';
-  d.ops.forEach(o => {
+  d.ops.forEach((o, i) => {
     const val = o.fmt(o.value);
     let control;
     if(o.cls === 'fact'){
@@ -4227,13 +4285,18 @@ function openDerivation(btn){
     } else {
       control = '<span class="der-const">' + val + '</span>';
     }
-    h += '<div class="der-op"><span class="der-cls ' + o.cls + '">'
+    h += '<div class="der-op"><span class="der-oper">' + esc(opers[i] || '') + '</span>'
+       + '<span class="der-cls ' + o.cls + '">'
        + (o.cls === 'fact' ? 'disclosed' : o.cls === 'assum' ? 'assumed'
           : o.cls === 'derived' ? 'computed' : 'definition')
        + '</span><span class="der-name">' + esc(o.name)
        + (o.note ? '<span class="sub">' + esc(o.note) + '</span>' : '')
        + '</span>' + control + '</div>';
   });
+  h += '<div class="der-op der-total"><span class="der-oper">=</span>'
+     + '<span class="der-cls derived">result</span>'
+     + '<span class="der-name">' + esc(d.label) + '</span>'
+     + '<span class="der-res">' + d.fmt(result) + '</span></div>';
   h += '</div>';
   if(d.note) h += '<p class="why">' + esc(d.note) + '</p>';
 

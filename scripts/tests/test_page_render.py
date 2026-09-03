@@ -779,9 +779,13 @@ def test_each_operand_declares_its_provenance_class(page):
     page.locator(".der-pop .derived-btn").first.click()
     page.wait_for_timeout(250)
     classes = page.eval_on_selector_all(
-        ".der-pop .der-cls", "els => els.map(e => e.className.replace('der-cls ',''))")
+        ".der-pop .der-op:not(.der-total) .der-cls",
+        "els => els.map(e => e.className.replace('der-cls ',''))")
     # ROIC = computed proxy x assumed margin / computed capex
     assert classes == ["derived", "assum", "derived"]
+    opers = page.eval_on_selector_all(
+        ".der-pop .der-op:not(.der-total) .der-oper", "els => els.map(e => e.textContent.trim())")
+    assert opers == ["", "×", "÷"]
 
 
 def test_the_meta_proxy_explains_its_different_construction(page):
@@ -834,6 +838,63 @@ def test_the_wacc_operand_changes_class_with_the_toggle(page):
     page.keyboard.press("Escape")
     page.click("[data-wacc-mode='sector']")
     page.wait_for_timeout(300)
+
+def test_the_popover_shows_the_arithmetic_with_the_numbers_substituted(page):
+    """Describing a formula is not showing a calculation. The reader must be
+    able to check the line by hand and land on the answer on screen."""
+    reset(page)
+    page.locator("#led-GOOG .led-stage:nth-child(2) .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    eq = page.inner_text(".der-pop .der-eq")
+    assert "$519.500B × 65% ÷ 2.5 y" in eq
+    assert "= $135.1B" in eq
+    # and the substituted figures really do reproduce the answer
+    assert abs(519.500 * 0.65 / 2.5 - 135.07) < 0.005
+
+
+def test_money_is_substituted_at_a_precision_that_reconciles(page):
+    """The stacked rows may round to $0.1B; the worked line must not, or the
+    arithmetic on screen would not check out."""
+    reset(page)
+    page.locator("#led-MSFT .led-stage:nth-child(3) .derived-btn").first.click()
+    page.wait_for_timeout(250)
+    eq = page.inner_text(".der-pop .der-eq")
+    assert "$41.000B" in eq          # not $41.0B
+    assert "× 4" in eq and "× 85%" in eq
+
+
+def test_a_sum_is_shown_as_a_sum(page):
+    reset(page)
+    page.locator("#sheet-table [data-der='ltmCapex']").first.click()
+    page.wait_for_timeout(250)
+    eq = page.inner_text(".der-pop .der-eq")
+    assert eq.count("+") == 3        # four quarters, three additions
+    assert "= $145.3B" in eq
+
+
+def test_a_bracketed_formula_keeps_its_brackets(page):
+    reset(page)
+    page.locator("#wacc [data-der='afterTaxDebt']").first.click()
+    page.wait_for_timeout(250)
+    eq = page.inner_text(".der-pop .der-eq")
+    assert "5.00% × (1 − 21.0%)" in eq
+    assert "= 3.95%" in eq
+    # and the operand says how the tax rate enters, since no operator can
+    assert "applied as (1 − tax)" in page.inner_text(".der-pop")
+
+
+def test_every_popover_ends_with_its_own_result(page):
+    reset(page)
+    for sel in ("#led-ORCL .led-row.total .derived-btn",
+                "#sheet-table [data-der='ltmRoic']",
+                "#wacc [data-der='builtWacc']"):
+        page.locator(sel).first.click()
+        page.wait_for_timeout(220)
+        total = page.locator(".der-pop .der-op.der-total")
+        assert total.count() == 1, sel
+        assert total.inner_text().startswith("=")
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(100)
 
 # ---------------------------------------------------------------------------
 # Last, so it sees everything the tests above provoked
