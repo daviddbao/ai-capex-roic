@@ -404,12 +404,32 @@ the whole model in JavaScript on load and shows a red alarm instead of numbers i
 
 | Section | What it is |
 |---|---|
-| **Trajectory / Snapshot / Inputs** | The workbook's own three sheets, live. This is what the page leads with. |
+| **The numbers** | Three views of the model — quarterly trajectory, latest-quarter snapshot, and the disclosed inputs themselves. This is what the page leads with. Every disclosed figure is a link to its row in the evidence ledger; the trajectory view carries a QoQ / YoY / LTM block on the right. |
 | **Return against cost of capital** | The same numbers drawn, toggling between forward ROIC, WACC and the spread between them. |
 | **How each spread is built** | One receipt per company for the selected quarter: the filed figures, the analyst choices, and the arithmetic. Both capex denominators — run-rate and annual plan — against a shared numerator. |
 | **Cost of capital** | The Damodaran sector WACC the model uses, beside a bottom-up WACC built on the page. See below. |
 | **Assumptions** | Every analyst judgement in one grid. |
 | **Evidence ledger** | All 62 sources, ordered by quarter, each linked to and from the figures it supports. |
+
+### LTM is not four times the latest quarter
+
+The trajectory view's LTM column sums the last four quarters rather than annualising the latest
+one, because for capex ramping this hard the two differ materially — Alphabet's Q2 26 quarter
+annualises to $179.7B against $132.4B actually spent in the year to that date. A demand fact is
+only summable when it is a flow: backlog and RPO are point-in-time balances, so those cells read
+`balance` and the LTM proxy for those four filers is the run-rate proxy unchanged, with only the
+denominator becoming trailing. Meta's demand fact is quarterly revenue, so its numerator *is* a
+true trailing sum. `test_ltm_refuses_to_sum_a_point_in_time_balance` pins that distinction.
+
+### The page names no file, script or format
+
+`test_no_visible_text_reveals_how_the_page_is_built` asserts that no body text, tooltip, label or
+aria-label on the rendered page contains "workbook", ".xlsx", "calc.py", "extract.py",
+"pipeline/", "scripts/", "01_sources", "data layer", "csv" or "python". The page is meant to read
+as its own analysis rather than as a description of the machinery behind it. The integrity signal
+survives the de-jargoning — the verification chip still states how many reference values were
+matched — and `test_the_verification_chip_still_says_what_it_checked` holds it to that. **If you
+add prose to the page, keep it in the reader's language.**
 | **What this model cannot tell you** | The caveats, carried from the methodology doc. |
 
 ### The cost-of-capital card is not sourced, by construction

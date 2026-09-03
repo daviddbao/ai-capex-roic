@@ -500,6 +500,162 @@ def test_a_source_row_carries_its_quote_behind_a_click(page):
 
 
 # ---------------------------------------------------------------------------
+# Disclosed figures link to the disclosure
+# ---------------------------------------------------------------------------
+
+
+def test_every_disclosed_figure_in_the_tables_is_a_link(page):
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    # two disclosed rows per company x five quarters
+    assert page.locator("#sheet-table a.fig-src").count() == 5 * 2 * 5
+    unresolved = page.evaluate(
+        """() => [...document.querySelectorAll('#sheet-table a.fig-src')]
+                  .map(a => a.dataset.jumpsrc).filter(id => !DATA.sources[id])"""
+    )
+    assert unresolved == []
+
+
+def test_clicking_a_number_lands_on_its_evidence_row(page):
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    target = page.locator("#sheet-table a.fig-src").first
+    want = target.get_attribute("data-jumpsrc")
+    target.click()
+    page.wait_for_timeout(700)
+    hit = page.locator("#src-table tr.hit")
+    assert hit.count() == 1
+    assert hit.get_attribute("id") == "src-" + want
+
+
+def test_the_snapshot_and_inputs_views_link_their_figures_too(page):
+    for sheet, least in (("snapshot", 10), ("inputs", 50)):
+        page.click(f"[data-sheet='{sheet}']")
+        page.wait_for_timeout(250)
+        assert page.locator("#sheet-table a.fig-src").count() >= least, sheet
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(200)
+
+
+# ---------------------------------------------------------------------------
+# QoQ / YoY / LTM
+# ---------------------------------------------------------------------------
+
+
+def test_the_comparison_block_names_the_quarters_it_compares(page):
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    heads = page.eval_on_selector_all(
+        "#sheet-table th.rhs", "els => els.map(e => e.textContent.trim())"
+    )
+    assert len(heads) == 3
+    assert heads[0].startswith("QoQ") and "Q1 26" in heads[0]
+    assert heads[1].startswith("YoY") and "Q2 25" in heads[1]
+    assert heads[2].startswith("LTM") and "Q3 25" in heads[2] and "Q2 26" in heads[2]
+
+
+def test_ltm_capex_is_the_sum_of_the_last_four_quarters(page):
+    """And not four times the latest quarter, which for capex ramping this fast
+    is a materially different number."""
+    reset(page)
+    checked = page.evaluate(
+        """() => TICKERS.map(t => {
+             const qs = QUARTERS.slice(-QUARTERS_PER_YEAR);
+             const want = qs.reduce((s, q) => s + FACTS[t+'|'+q].capex, 0);
+             const got = ltmFor(t).capex;
+             const annualised = FACTS[t+'|'+LATEST].capex * 4;
+             return [t, Math.abs(got - want), Math.abs(got - annualised) / want];
+           })"""
+    )
+    for ticker, err, gap in checked:
+        assert err < 1e-9, ticker
+        # every one of the five is ramping hard enough that the two differ by >5%
+        assert gap > 0.05, f"{ticker}: annualising the quarter is within {gap:.1%} of LTM"
+
+
+def test_ltm_refuses_to_sum_a_point_in_time_balance(page):
+    """A backlog is a balance. Four of them cannot be added, and the cell says so
+    rather than printing a number."""
+    reset(page)
+    page.click("[data-sheet='trajectory']")
+    page.wait_for_timeout(250)
+    msft = page.inner_text("#sheet-table")
+    assert "balance" in msft            # RPO rows
+    assert "run-rate" in msft           # RPO-derived proxy rows
+    flows = page.evaluate("() => TICKERS.map(t => [t, ltmFor(t).isFlow])")
+    assert dict(flows) == {"MSFT": False, "GOOG": False, "AMZN": False, "ORCL": False, "META": True}
+    # Meta's demand fact is quarterly revenue, so its LTM really is a sum
+    meta = page.evaluate(
+        """() => {
+             const qs = QUARTERS.slice(-QUARTERS_PER_YEAR);
+             return [ltmFor('META').demand, qs.reduce((s,q) => s + FACTS['META|'+q].fact, 0)];
+           }"""
+    )
+    assert abs(meta[0] - meta[1]) < 1e-9
+
+
+def test_the_ltm_spread_uses_the_trailing_denominator(page):
+    reset(page)
+    ok = page.evaluate(
+        """() => TICKERS.every(t => {
+             const l = ltmFor(t);
+             const roic = forwardRoic(l.proxy, marginOf(t), l.aiCapex);
+             return Math.abs(l.roic - roic) < 1e-12
+                 && Math.abs(l.spread - (roic - waccOf(t))) < 1e-12;
+           })"""
+    )
+    assert ok
+
+
+# ---------------------------------------------------------------------------
+# The page reads as its own analysis
+# ---------------------------------------------------------------------------
+
+
+FORBIDDEN = [
+    "workbook", ".xlsx", "calc.py", "extract.py", "pipeline/", "scripts/",
+    "01_sources", "data layer", "this repository", "csv", "python",
+]
+
+
+def test_no_visible_text_reveals_how_the_page_is_built(page):
+    """The reader is looking at an analysis, not at a description of the machinery
+    that produced one. Nothing on screen — body text, tooltips, labels or alt
+    text — should name a file, a script or a source format."""
+    reset(page)
+    seen = []
+    for sheet in ("trajectory", "snapshot", "inputs"):
+        page.click(f"[data-sheet='{sheet}']")
+        page.wait_for_timeout(250)
+        seen.append(page.inner_text("body"))
+    # expand the things that are hidden until asked for
+    page.click("#src-GOOG-Q226-FACT .ev-toggle")
+    page.locator("#led-GOOG .fact-btn").first.click()
+    page.wait_for_timeout(300)
+    seen.append(page.inner_text("body"))
+    seen.append(" ".join(page.eval_on_selector_all(
+        "[title]", "els => els.map(e => e.getAttribute('title'))")))
+    seen.append(" ".join(page.eval_on_selector_all(
+        "[aria-label]", "els => els.map(e => e.getAttribute('aria-label'))")))
+    blob = " ".join(seen).lower()
+    found = sorted({w for w in FORBIDDEN if w in blob})
+    assert found == [], f"visible text still names: {found}"
+    reset(page)
+
+
+def test_the_verification_chip_still_says_what_it_checked(page):
+    """De-jargoning must not cost the reader the integrity signal."""
+    reset(page)
+    assert page.get_attribute("#verify", "data-state") == "pass"
+    text = page.inner_text("#verify-text")
+    assert "verified" in text.lower() and "535" in text
+    title = page.get_attribute("#verify", "title")
+    assert "535" in title and "recomputed" in title.lower()
+
+# ---------------------------------------------------------------------------
 # Last, so it sees everything the tests above provoked
 # ---------------------------------------------------------------------------
 

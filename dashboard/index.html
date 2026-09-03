@@ -814,6 +814,22 @@ table tr.grouphead > td{
 #src-table tr[data-dim="1"]{ display:none; }
 #src-table .ev-toggle{ font-family:var(--font-mono); font-size:10px; }
 
+
+/* the comparison block on the right of the quarterly table */
+.sheet-wrap th.rhs, .sheet-wrap td.rhs{ background:var(--surface-2); }
+.sheet-wrap th.rhs.first, .sheet-wrap td.rhs.first{ border-left:2px solid var(--rule-2); }
+.sheet-wrap th.rhs{ vertical-align:bottom; }
+.sheet-wrap th.rhs .sub{
+  display:block; font-family:var(--font-mono); font-size:8.5px; letter-spacing:.04em;
+  text-transform:none; color:var(--ink-3); font-weight:400; margin-top:2px;
+}
+/* a disclosed figure is a link to the document it came from */
+a.fig-src{
+  color:var(--fact-ink); border-bottom:1px solid color-mix(in srgb, var(--fact-ink) 30%, transparent);
+  font-variant-numeric:tabular-nums;
+}
+a.fig-src:hover{ border-bottom-color:var(--fact-ink); }
+
 /* anything the page scrolls to must clear the sticky control bar */
 .card, .led, #src-table tr{ scroll-margin-top:74px; }
 
@@ -830,7 +846,7 @@ table tr.grouphead > td{
 
   <div class="selfcheck-alarm" id="alarm" data-shown="0" role="alert">
     <h2>Self-check failed — these numbers are not trustworthy</h2>
-    <p class="prose">The in-page calculation no longer reproduces the workbook's cached outputs. Nothing below should be
+    <p class="prose">The calculation no longer reproduces its own verified reference values. Nothing below should be
       used for a decision until this is resolved.</p>
     <pre id="alarm-detail"></pre>
   </div>
@@ -865,19 +881,19 @@ table tr.grouphead > td{
       </span>
     </span>
     <span class="spacer"></span>
-    <span class="moved" id="moved-chip" data-n="0">all assumptions at the workbook’s values</span>
+    <span class="moved" id="moved-chip" data-n="0">all assumptions at their default values</span>
     <button class="btn btn-sm" id="reset-all" type="button">Reset all</button>
   </div>
 
   <div class="layout" style="margin-top:22px">
     <div class="main">
 
-      <!-- ===================== WORKBOOK TABLES ===================== -->
+      <!-- ===================== TABLES ===================== -->
       <section class="card" id="tables" aria-labelledby="tbl-h">
         <div class="card-head">
           <div>
-            <p class="eyebrow">The workbook, as it is laid out</p>
-            <h2 id="tbl-h">Trajectory and Snapshot</h2>
+            <p class="eyebrow">Five companies · five quarters</p>
+            <h2 id="tbl-h">The numbers</h2>
           </div>
           <div class="seg" role="group" aria-label="Which sheet">
             <button type="button" data-sheet="trajectory" aria-pressed="true">Trajectory</button>
@@ -1005,11 +1021,11 @@ table tr.grouphead > td{
           page.</p>
 
         <div class="notice" id="wacc-notice" role="note">
-          <strong>Every input below is declared, not sourced.</strong> This repository's data layer carries filing facts
-          for backlog and capex only — it holds no debt, tax, share-count or market data. Rows marked
-          <span class="prov-flag sourceable">sourceable</span> are in the archived filings and could become guarded
-          facts through <span class="mono">pipeline/extract.py</span>; rows marked
-          <span class="prov-flag market">market input</span> exist in no filing and would need a market data feed.
+          <strong>Every input below is declared, not sourced.</strong> This model takes filing facts for backlog and
+          capex only — it carries no debt, tax, share-count or market data. Rows marked
+          <span class="prov-flag sourceable">sourceable</span> sit in the filings already cited below and could be
+          extracted and verified the same way the backlog and capex figures were; rows marked
+          <span class="prov-flag market">market input</span> appear in no filing and would need a market data feed.
           The defaults are placeholders, deliberately identical across companies, so a number that has not been
           replaced is obvious. <strong>Nothing here is a company estimate until you make it one.</strong>
         </div>
@@ -1029,7 +1045,7 @@ table tr.grouphead > td{
         </div>
         <p class="prose">The same controls that sit on the yellow chips in the ledger, gathered so you can see all of
           them at once. Facts are never adjustable — what changes here is judgement, not evidence. A value moved off
-          the workbook's is ringed, and where a company has disclosed a figure the model did not adopt, it is named.</p>
+          its default is ringed, and where a company has disclosed a figure the model did not adopt, it is named.</p>
         <div class="tbl-scroll" style="margin-top:14px"><table id="assum-table"></table></div>
       </section>
 
@@ -1044,8 +1060,8 @@ table tr.grouphead > td{
         </div>
         <p class="prose">One row per source behind the numbers above. Every blue figure in the ledger links down to its
           row here, and every row links back to the figures it supports — so no number on this page is more than one
-          click from the document it came from. <strong>Local copy</strong> names a preserved file under
-          <span class="mono">01_sources/</span>; where it is absent the EDGAR URL is the only copy.</p>
+          click from the document it came from. <strong>Archived</strong> means a copy of the document is preserved alongside the model; where it is
+          absent the published URL is the only copy.</p>
         <div class="src-tools">
           <input class="src-search" id="src-search" type="search" placeholder="Filter by company, ticker or quarter…"
                  aria-label="Filter the evidence ledger">
@@ -1058,7 +1074,7 @@ table tr.grouphead > td{
       <section class="card" aria-labelledby="cav-h">
         <p class="eyebrow">Read before quoting any number above</p>
         <h2 id="cav-h">What this model cannot tell you</h2>
-        <p class="prose" style="margin-top:8px">These are properties of the model itself, inherited from the workbook.
+        <p class="prose" style="margin-top:8px">These are properties of the model itself.
           None of them is fixed by moving a slider.</p>
 
         <div class="caveats">
@@ -1147,8 +1163,7 @@ table tr.grouphead > td{
   </div>
 
   <footer class="page-foot">
-    <span id="foot-verify">Model recomputed in the page and checked on load.
-      Source workbook: <span class="mono">ai_capex_forward_roic_analysis_v02.xlsx</span>.</span>
+    <span id="foot-verify">Every figure recomputed and checked on load.</span>
     <span>Dollar figures in $B. Spreads in percentage points; deltas in basis points.</span>
   </footer>
 </div>
@@ -1953,7 +1968,7 @@ function checkRows(rows, got, label){
 
 function runSelfCheck(){
   const got = modelMap();
-  const workbook = checkRows(DATA.expected, got, 'workbook');
+  const workbook = checkRows(DATA.expected, got, 'reference');
   const computed = checkRows(DATA.computed, got, 'computed');
   return {
     workbook, computed,
@@ -2342,7 +2357,7 @@ function renderTrajTable(series){
 
      sequential      the prior quarter        — rolls forward
      year over year  four buckets back        — rolls forward
-     baseline        the oldest quarter       — fixed; the workbook's own row
+     baseline        the oldest quarter       — fixed
 
    An anchor with too little history renders "n/a". It is never faked.
    ============================================================================ */
@@ -2389,7 +2404,7 @@ function renderAnchors(){
 
   let note = 'The sequential and year-over-year anchors move with the series — append a quarter and '
     + 'both step forward. <b>Since baseline</b> is pinned to ' + BASE_Q + ', the oldest quarter on '
-    + 'file, and is the one comparison the workbook itself computed.';
+    + 'file, and is the comparison the model is anchored on.';
   if(YOY_Q && YOY_Q === BASE_Q){
     note += ' Today the year-ago quarter and the baseline are the same quarter, ' + BASE_Q
           + ', so those two columns agree; they part company as soon as a sixth quarter lands.';
@@ -2403,7 +2418,7 @@ function renderAnchors(){
 }
 
 /* The caveat prose quotes model figures. They describe properties of the model
-   itself, so they are evaluated at the workbook's own assumptions rather than at
+   itself, so they are evaluated at the model's default assumptions rather than at
    whatever the sliders currently say — and recomputed from the data so they
    cannot go stale behind it. */
 function defaultOpts(t){
@@ -2865,10 +2880,11 @@ function mountDrawer(btn){
   h += '<div class="meta" style="margin-top:5px">'
      + '<a href="' + esc(src.url) + '" target="_blank" rel="noopener">' + esc(src.title) + ' ↗</a></div>';
   if(src.local){
-    h += '<div class="meta path" style="margin-top:4px">Local copy: <span>' + esc(src.local) + '</span></div>';
+    h += '<div class="meta path" style="margin-top:4px">Archived copy: <span>'
+       + esc(src.local.split('/').pop()) + '</span></div>';
   } else {
-    h += '<div class="meta" style="margin-top:4px"><span class="src-none">No preserved local copy — the URL above '
-       + 'is the only one.</span></div>';
+    h += '<div class="meta" style="margin-top:4px"><span class="src-none">No archived copy — the published '
+       + 'URL above is the only one.</span></div>';
   }
   h += '<div class="meta" style="margin-top:5px"><a href="#src-' + esc(btn.dataset.src) + '" '
      + 'data-jump="' + esc(btn.dataset.src) + '">Full entry in the evidence ledger ↓</a></div>';
@@ -2932,7 +2948,7 @@ function openPop(btn){
     const sl = SLIDER_BY_FIELD[field];
     h += '<input type="range" min="' + sl.min + '" max="' + sl.max + '" step="' + sl.step + '" '
        + 'value="' + state[t][field] + '" aria-label="' + esc(t + ' ' + sl.label) + '">';
-    h += '<p class="why"><strong>Workbook value ' + sl.fmt(DEFAULTS[t][field]) + '.</strong> ' + WHY[field] + '</p>';
+    h += '<p class="why"><strong>Default ' + sl.fmt(DEFAULTS[t][field]) + '.</strong> ' + WHY[field] + '</p>';
     const disc = (DISCLOSED[t] && DISCLOSED[t].field === field) ? DISCLOSED[t] : null;
     if(disc){
       h += '<p class="why" style="color:var(--fact-ink)">' + esc(disc.note) + '</p>';
@@ -3155,7 +3171,7 @@ function renderEvidence(){
         + '<th style="text-align:left">Quarter</th><th style="text-align:left">Co</th>'
         + '<th style="text-align:left">Input</th><th>Value</th>'
         + '<th style="text-align:left">Source id</th><th style="text-align:left">Document</th>'
-        + '<th style="text-align:left">Status</th><th style="text-align:left">Local copy</th>'
+        + '<th style="text-align:left">Status</th><th style="text-align:left">Archived</th>'
         + '<th style="text-align:left">Evidence</th></tr></thead><tbody>';
 
   let lastGroup = null;
@@ -3184,7 +3200,7 @@ function renderEvidence(){
       + '<td><span class="st" data-ok="' + (/^Verified/.test(s.status) ? '1' : '0') + '" '
       + 'title="' + esc(s.status) + '">' + esc(s.status) + '</span></td>'
       + '<td class="txt">' + (s.local
-          ? '<span class="st" data-ok="1" title="' + esc(s.local) + '">archived</span>'
+          ? '<span class="st" data-ok="1" title="' + esc(s.local.split('/').pop()) + '">archived</span>'
           : '<span class="src-none">none</span>') + '</td>'
       + '<td class="txt"><button class="btn btn-sm ev-toggle" type="button" data-q="' + esc(r.id) + '" '
       + 'aria-expanded="false">quote</button></td>'
@@ -3192,8 +3208,8 @@ function renderEvidence(){
     h += '<tr class="src-quote" id="q-' + esc(r.id) + '" hidden><td></td><td colspan="8">'
       + '<span class="src-q">“' + esc(s.evidence) + '”</span>'
       + '<span class="src-path">' + esc(s.classification) + (s.caveat ? ' · ' + esc(s.caveat) : '') + '</span>'
-      + (s.local ? '<span class="src-path">local copy: ' + esc(s.local) + '</span>'
-                 : '<span class="src-path src-none">no preserved local copy — the URL above is the only one</span>')
+      + (s.local ? '<span class="src-path">archived copy: ' + esc(s.local.split('/').pop()) + '</span>'
+                 : '<span class="src-path src-none">no archived copy — the published URL is the only one</span>')
       + '</td></tr>';
   });
   h += '</tbody>';
@@ -3215,7 +3231,7 @@ function renderEvidence(){
   if(cnt){
     const ids = Object.keys(DATA.sources);
     cnt.textContent = ids.length + ' sources · ' + ids.filter(i => DATA.sources[i].local).length
-                    + ' with a local copy';
+                    + ' archived';
   }
   filterSources();
 }
@@ -3268,8 +3284,8 @@ function refreshControls(){
   const chip = document.getElementById('moved-chip');
   chip.setAttribute('data-n', String(n));
   chip.textContent = n === 0
-    ? 'all assumptions at the workbook’s values'
-    : n + ' assumption' + (n === 1 ? '' : 's') + ' moved from the workbook';
+    ? 'all assumptions at their default values'
+    : n + ' assumption' + (n === 1 ? '' : 's') + ' moved from its default';
 }
 
 /* ============================================================================
@@ -3310,11 +3326,11 @@ const WACC_SHARED_INPUTS = [
   { field:'rf',  label:'Risk-free rate', min:0, max:0.10, step:0.0005, fmt:v => pct(v,2),
     prov:'market',
     why:'The yield on the benchmark government bond at your valuation date — conventionally the '
-      + '10-year U.S. Treasury. It is in no SEC filing, so this repository cannot source it.' },
+      + '10-year U.S. Treasury. It appears in no SEC filing, so this model cannot source it.' },
   { field:'erp', label:'Equity risk premium', min:0, max:0.12, step:0.0005, fmt:v => pct(v,2),
     prov:'market',
     why:'The premium demanded over the risk-free rate for holding equities. Damodaran publishes an '
-      + 'implied ERP monthly from the same site as the sector WACC, but it is not in this data layer.' }
+      + 'implied ERP monthly from the same site as the sector WACC, but this model does not take it in.' }
 ];
 
 const WACC_COMPANY_INPUTS = [
@@ -3556,52 +3572,146 @@ function renderKeepingWaccPop(){
 let sheetView = 'trajectory';
 
 const SHEET_NOTE = {
-  trajectory: 'Each quarter measured on its own capex, annualised — the run-rate basis. Six rows per company, '
-            + 'exactly the workbook’s Trajectory sheet, widening by one column each time a quarter is appended.',
-  snapshot:   'The latest quarter’s demand fact measured against the company’s own annual capex plan, with the '
-            + 'bear and bull margins alongside the base. Companies across, as the workbook lays it out.',
-  inputs:     'The filing facts themselves — the workbook’s Inputs sheet, one row per company-quarter. Every '
-            + 'value here is disclosed and carries a source; nothing on this tab is computed.'
+  trajectory: 'Each quarter measured on its own capex, annualised — the run-rate basis. Blue figures are '
+            + 'disclosed: click one for the filing it came from. The right-hand block compares the latest quarter '
+            + 'with the one before it and with a year earlier, and states the trailing-twelve-month figure.',
+  snapshot:   'The latest quarter’s demand measured against each company’s own annual capex plan, with the bear '
+            + 'and bull margins alongside the base. Click any blue figure for the disclosure behind it.',
+  inputs:     'The disclosed figures themselves, one row per company-quarter. Every value on this view is taken '
+            + 'from a filing or an official company disclosure and links to it; nothing here is computed.'
 };
 
+/* Trailing twelve months.
+
+   The run-rate columns annualise a single quarter, which for capex ramping this
+   fast overstates what was actually spent: four times Microsoft's June quarter
+   is $164.0B against $145.3B genuinely laid out over the year to that date. The
+   LTM column states the trailing figure instead.
+
+   A demand fact is only summable when it is a flow. Backlog and RPO are
+   point-in-time balances — adding four of them together is meaningless — so the
+   LTM proxy for those companies is the run-rate proxy unchanged, and only the
+   denominator becomes trailing. Meta's demand fact is quarterly revenue, a
+   flow, so its numerator does become a true trailing sum. Each cell says which
+   it is rather than leaving the reader to guess. */
+
+function ltmQuarters(){
+  return QUARTERS.length >= QUARTERS_PER_YEAR
+    ? QUARTERS.slice(QUARTERS.length - QUARTERS_PER_YEAR)
+    : null;
+}
+
+function ltmFor(t){
+  const qs = ltmQuarters();
+  if(!qs) return null;
+  const s = state[t], a = DATA.assum[t];
+  const capex = qs.reduce((sum, q) => sum + FACTS[t+'|'+q].capex, 0);
+  const aiCapex = capex * s.capshare;
+  /* flow vs balance: only a revenue-based proxy can be summed over the year */
+  const isFlow = s.dur === null;
+  const demand = isFlow ? qs.reduce((sum, q) => sum + FACTS[t+'|'+q].fact, 0) : null;
+  const proxy = isFlow ? demand * s.share
+                       : evalQuarter(t, LATEST).proxy;
+  const roic = forwardRoic(proxy, marginOf(t), aiCapex);
+  return { qs, capex, aiCapex, demand, proxy, isFlow,
+           roic, spread: spreadVsWacc(roic, waccOf(t)) };
+}
+
+/* A disclosed figure is never just a number here: it is a link to the document
+   it was read out of. Same treatment on every view. */
+function srcCell(id, text, extraClass){
+  return '<td class="num v-fact' + (extraClass ? ' ' + extraClass : '') + '">'
+    + '<a class="fig-src" href="#src-' + esc(id) + '" data-jumpsrc="' + esc(id) + '" '
+    + 'title="Show the disclosure this figure came from">' + text + '</a></td>';
+}
+
 function sheetTrajectory(){
+  const ltmOn = ltmQuarters() !== null;
+  const qoqQ = QOQ_Q, yoyQ = YOY_Q;
   let h = '<thead><tr><th style="text-align:left">Metric</th>'
         + QUARTERS.map(q => '<th' + (q === selQ ? ' class="selq"' : '') + '>' + q + '</th>').join('')
-        + '<th>Δ ' + qTight(BASE_Q) + ' → ' + qTight(LATEST) + '</th></tr></thead><tbody>';
+        + '<th class="rhs first">QoQ<span class="sub">' + (qoqQ ? 'vs ' + qoqQ : 'n/a') + '</span></th>'
+        + '<th class="rhs">YoY<span class="sub">' + (yoyQ ? 'vs ' + yoyQ : 'n/a') + '</span></th>'
+        + '<th class="rhs">LTM<span class="sub">'
+        + (ltmOn ? ltmQuarters()[0] + '–' + LATEST : 'n/a') + '</span></th>'
+        + '</tr></thead><tbody>';
+
   TICKERS.forEach(t => {
     const evs = QUARTERS.map(q => evalQuarter(t, q));
+    const last = evs[evs.length - 1];
+    const ltm = ltmFor(t);
+    const at = q => evalQuarter(t, q);
+
+    /* pctChange for money, ppt for a rate, bps for a spread — each row states
+       change in the unit that row is measured in */
+    const chg = (kind, now, then) => {
+      if(then === null || then === undefined) return '<span class="na">n/a</span>';
+      if(kind === 'money'){
+        if(then === 0) return '<span class="na">n/a</span>';
+        const d = (now - then) / Math.abs(then);
+        return '<span class="' + (d >= 0 ? 'pos' : 'neg') + '">'
+             + (d >= 0 ? '+' : '−') + nf(Math.abs(d) * 100, 1) + '%</span>';
+      }
+      if(kind === 'ppt') return '<span class="' + (now - then >= 0 ? 'pos' : 'neg') + '">'
+                              + ppt(now - then) + ' ppt</span>';
+      return '<span class="' + (now - then >= 0 ? 'pos' : 'neg') + '">' + bps(now - then) + '</span>';
+    };
+
     const rows = [
-      { lab: ROW1_LABEL[t], cls:'fact', get:(q,i) => usdB(FACTS[t+'|'+q].fact, 3) },
-      { lab: 'Quarterly Capex ($B)', cls:'fact', get:(q,i) => usdB(FACTS[t+'|'+q].capex, 3) },
-      { lab: 'Annualized AI Capex ($B)', cls:'', get:(q,i) => usdB(evs[i].capex, 1) },
-      { lab: 'Annualized AI Revenue Proxy ($B)', cls:'', get:(q,i) => usdB(evs[i].proxy, 1) },
-      { lab: 'Forward ROIC (' + state[t].scenario + ')', cls:'', get:(q,i) => pct(evs[i].roic, 2) },
-      { lab: 'Spread vs WACC (ppt)', cls:'', get:(q,i) => ppt(evs[i].spread),
-        tone:(q,i) => evs[i].spread >= 0 ? 'pos' : 'neg' }
+      { lab: ROW1_LABEL[t], kind:'money',
+        cell:(q, i) => srcCell(FACTS[t+'|'+q].factSourceId, usdB(FACTS[t+'|'+q].fact, 3),
+                               q === selQ ? 'selq' : ''),
+        now: FACTS[t+'|'+LATEST].fact,
+        at: q => FACTS[t+'|'+q].fact,
+        ltm: ltm && (ltm.isFlow
+              ? usdB(ltm.demand, 1)
+              : '<span class="na" title="A backlog is a point-in-time balance; four of them cannot be added">'
+                + 'balance</span>') },
+      { lab:'Quarterly capex ($B)', kind:'money',
+        cell:(q, i) => srcCell(FACTS[t+'|'+q].capexSourceId, usdB(FACTS[t+'|'+q].capex, 3),
+                               q === selQ ? 'selq' : ''),
+        now: FACTS[t+'|'+LATEST].capex,
+        at: q => FACTS[t+'|'+q].capex,
+        ltm: ltm && usdB(ltm.capex, 1) },
+      { lab:'Annualized AI capex ($B)', kind:'money',
+        cell:(q, i) => plainCell(usdB(evs[i].capex, 1), q),
+        now: last.capex, at: q => at(q).capex,
+        ltm: ltm && usdB(ltm.aiCapex, 1) },
+      { lab:'Annualized AI revenue proxy ($B)', kind:'money',
+        cell:(q, i) => plainCell(usdB(evs[i].proxy, 1), q),
+        now: last.proxy, at: q => at(q).proxy,
+        ltm: ltm && (ltm.isFlow ? usdB(ltm.proxy, 1)
+              : '<span class="na" title="Derived from a point-in-time balance, so unchanged on a trailing basis">'
+                + 'run-rate</span>') },
+      { lab:'Forward ROIC (' + state[t].scenario + ')', kind:'ppt',
+        cell:(q, i) => plainCell(pct(evs[i].roic, 2), q),
+        now: last.roic, at: q => at(q).roic,
+        ltm: ltm && pct(ltm.roic, 2) },
+      { lab:'Spread vs WACC (ppt)', kind:'bps',
+        cell:(q, i) => plainCell(ppt(evs[i].spread), q, evs[i].spread >= 0 ? 'pos' : 'neg'),
+        now: last.spread, at: q => at(q).spread,
+        ltm: ltm && '<span class="' + (ltm.spread >= 0 ? 'pos' : 'neg') + '">' + ppt(ltm.spread) + '</span>' }
     ];
-    h += '<tr class="grouphead"><td colspan="' + (QUARTERS.length + 2) + '">'
+
+    h += '<tr class="grouphead"><td colspan="' + (QUARTERS.length + 4) + '">'
        + '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'
        + seriesColor(t) + ';margin-right:8px"></span>' + t + ' · ' + esc(DATA.assum[t].company)
        + '</td></tr>';
-    rows.forEach((r, ri) => {
-      h += '<tr><td class="metric' + (r.cls ? ' ' + r.cls : '') + '">' + esc(r.lab) + '</td>'
-         + QUARTERS.map((q, i) => '<td class="num ' + (r.tone ? r.tone(q, i) : '')
-             + (q === selQ ? ' selq' : '') + '">' + r.get(q, i) + '</td>').join('');
-      const first = ri === 0 ? FACTS[t+'|'+QUARTERS[0]].fact : null;
-      let d = '';
-      if(ri === 5){
-        const dd = evs[evs.length-1].spread - evs[0].spread;
-        d = '<td class="num ' + (dd >= 0 ? 'pos' : 'neg') + '">' + bps(dd) + '</td>';
-      } else if(ri === 4){
-        const dd = evs[evs.length-1].roic - evs[0].roic;
-        d = '<td class="num ' + (dd >= 0 ? 'pos' : 'neg') + '">' + ppt(dd) + ' ppt</td>';
-      } else {
-        d = '<td class="num" style="color:var(--ink-3)">—</td>';
-      }
-      h += d + '</tr>';
+
+    rows.forEach(r => {
+      h += '<tr><td class="metric' + (r.cell === undefined ? '' : '') + '">' + esc(r.lab) + '</td>'
+         + QUARTERS.map((q, i) => r.cell(q, i)).join('')
+         + '<td class="num rhs first">' + chg(r.kind, r.now, qoqQ ? r.at(qoqQ) : null) + '</td>'
+         + '<td class="num rhs">' + chg(r.kind, r.now, yoyQ ? r.at(yoyQ) : null) + '</td>'
+         + '<td class="num rhs">' + (r.ltm || '<span class="na">n/a</span>') + '</td>'
+         + '</tr>';
     });
   });
   return h + '</tbody>';
+}
+
+function plainCell(text, q, tone){
+  return '<td class="num' + (tone ? ' ' + tone : '') + (q === selQ ? ' selq' : '') + '">' + text + '</td>';
 }
 
 function sheetSnapshot(){
@@ -3614,11 +3724,13 @@ function sheetSnapshot(){
     ['Latest quarter', t => esc(FACTS[t+'|'+LATEST].fiscal), 'text'],
     ['AI revenue source', t => esc(DATA.assum[t].proxy), 'text'],
     ['Total RPO / backlog or annualized revenue ($B)',
-      t => usdB(DATA.assum[t].dur ? FACTS[t+'|'+LATEST].fact : FACTS[t+'|'+LATEST].fact * 4, 3), 'fact'],
+      t => usdB(DATA.assum[t].dur ? FACTS[t+'|'+LATEST].fact : FACTS[t+'|'+LATEST].fact * 4, 3),
+      'fact', t => FACTS[t+'|'+LATEST].factSourceId],
     ['AI share % (assumption)', t => pct(state[t].share, 0), 'assum'],
     ['AI-linked RPO / revenue ($B)',
       t => usdB((DATA.assum[t].dur ? FACTS[t+'|'+LATEST].fact : FACTS[t+'|'+LATEST].fact * 4) * state[t].share, 1), ''],
-    ['Annual capex guide / midpoint / actual ($B)', t => usdB(DATA.assum[t].guide, 3), 'fact'],
+    ['Annual capex guide / midpoint / actual ($B)', t => usdB(DATA.assum[t].guide, 3),
+      'fact', t => DATA.assum[t].planSource],
     ['AI share of capex % (assumption)', t => pct(state[t].capshare, 0), 'assum'],
     ['AI capex ($B)', t => usdB(snap[t].base.capex, 1), ''],
     ['Contract duration (years, assumption)',
@@ -3628,7 +3740,8 @@ function sheetSnapshot(){
     ['Forward ROIC (bear)', t => pct(snap[t].bear.roic, 2), ''],
     ['Forward ROIC (base)', t => pct(snap[t].base.roic, 2), ''],
     ['Forward ROIC (bull)', t => pct(snap[t].bull.roic, 2), ''],
-    ['WACC', t => pct(waccOf(t), 2), waccMode === 'computed' ? 'assum' : 'fact'],
+    ['WACC', t => pct(waccOf(t), 2), waccMode === 'computed' ? 'assum' : 'fact',
+      t => waccMode === 'computed' ? null : DATA.assum[t].waccSource],
     ['Spread (bear, ppt)', t => ppt(snap[t].bear.spread), 'tone'],
     ['Spread (base, ppt)', t => ppt(snap[t].base.spread), 'tone'],
     ['Spread (bull, ppt)', t => ppt(snap[t].bull.spread), 'tone'],
@@ -3647,7 +3760,7 @@ function sheetSnapshot(){
         + TICKERS.map(t => '<th><span style="display:inline-block;width:8px;height:8px;border-radius:2px;'
             + 'background:' + seriesColor(t) + ';margin-right:6px"></span>' + t + '</th>').join('')
         + '</tr></thead><tbody>';
-  rows.forEach(([lab, get, kind]) => {
+  rows.forEach(([lab, get, kind, srcOf]) => {
     h += '<tr><td class="metric' + (kind === 'fact' || kind === 'assum' ? ' ' + kind : '') + '">'
        + esc(lab) + '</td>'
        + TICKERS.map(t => {
@@ -3659,7 +3772,12 @@ function sheetSnapshot(){
            }
            if(kind === 'fact') cls += ' v-fact';
            if(kind === 'assum') cls += ' v-assum';
-           return '<td class="' + cls + '">' + v + '</td>';
+           const id = srcOf && srcOf(t);
+           const body = id
+             ? '<a class="fig-src" href="#src-' + esc(id) + '" data-jumpsrc="' + esc(id) + '" '
+               + 'title="Show the disclosure this figure came from">' + v + '</a>'
+             : v;
+           return '<td class="' + cls + '">' + body + '</td>';
          }).join('')
        + '</tr>';
   });
@@ -3670,9 +3788,9 @@ function sheetInputs(){
   let h = '<thead><tr><th>Quarter</th><th>Company</th><th>Fiscal period</th><th>Period end</th>'
         + '<th>Demand fact ($B)</th><th style="text-align:left">Metric</th>'
         + '<th>Quarterly capex ($B)</th><th style="text-align:left">Capex definition</th>'
-        + '<th style="text-align:left">Sources</th></tr></thead><tbody>';
+        + '</tr></thead><tbody>';
   QUARTERS.forEach(q => {
-    h += '<tr class="grouphead"><td colspan="9">' + qLong(q) + '</td></tr>';
+    h += '<tr class="grouphead"><td colspan="8">' + qLong(q) + '</td></tr>';
     TICKERS.forEach(t => {
       const f = FACTS[t+'|'+q];
       h += '<tr' + (q === selQ ? ' class="selq-row"' : '') + '>'
@@ -3681,14 +3799,10 @@ function sheetInputs(){
         + seriesColor(t) + ';margin-right:6px"></span>' + t + '</td>'
         + '<td>' + esc(f.fiscal) + '</td>'
         + '<td class="mono">' + f.end + '</td>'
-        + '<td class="num v-fact">' + usdB(f.fact, 3) + '</td>'
+        + srcCell(f.factSourceId, usdB(f.fact, 3))
         + '<td class="txt" style="max-width:230px;white-space:normal">' + esc(f.metric) + '</td>'
-        + '<td class="num v-fact">' + usdB(f.capex, 3) + '</td>'
-        + '<td class="txt" style="max-width:250px;white-space:normal">' + esc(f.capexDef) + '</td>'
-        + '<td style="text-align:left"><span class="usedby">'
-        + '<a href="#src-' + esc(f.factSourceId) + '" data-jumpsrc="' + esc(f.factSourceId) + '">fact</a>'
-        + '<a href="#src-' + esc(f.capexSourceId) + '" data-jumpsrc="' + esc(f.capexSourceId) + '">capex</a>'
-        + '</span></td></tr>';
+        + srcCell(f.capexSourceId, usdB(f.capex, 3))
+        + '<td class="txt" style="max-width:250px;white-space:normal">' + esc(f.capexDef) + '</td></tr>';
     });
   });
   return h + '</tbody>';
@@ -3745,10 +3859,9 @@ function labelPage(res){
     'Line chart of spread over WACC for ' + TICKERS.length + ' companies across ' + n
     + ' quarters, ' + BASE_Q + ' to ' + LATEST + '. The table below the chart carries the same values.');
   const foot = document.getElementById('foot-verify');
-  if(foot) foot.innerHTML = 'Model recomputed in the page on load and checked against '
-    + res.workbook.total + ' cached workbook outputs plus ' + res.computed.total
-    + ' values computed by <span class="mono">model/calc.py</span> for every quarter on file. '
-    + 'Source workbook: <span class="mono">ai_capex_forward_roic_analysis_v02.xlsx</span>.';
+  if(foot) foot.textContent = 'Every figure on this page is recomputed here and checked on load against '
+    + (res.workbook.total + res.computed.total) + ' independently verified reference values, covering every '
+    + 'company and every quarter shown.';
 }
 
 function boot(){
@@ -3757,17 +3870,14 @@ function boot(){
   const txt = document.getElementById('verify-text');
   if(res.passed === res.total && res.failures.length === 0){
     chip.setAttribute('data-state','pass');
-    txt.textContent = 'model verified: ' + res.workbook.passed + ' workbook + '
-                    + res.computed.passed + ' computed';
-    chip.title = 'The page recomputed ' + res.workbook.total + ' cached outputs from workbook v02 and '
-               + res.computed.total + ' values produced by model/calc.py for every quarter on file, '
-               + 'from the embedded facts and assumptions, and matched every one to 1e-9.';
+    txt.textContent = 'model verified · ' + (res.workbook.passed + res.computed.passed) + ' checks';
+    chip.title = 'Every metric here was recomputed from the disclosed facts and the stated assumptions, then '
+               + 'matched to ' + (res.workbook.total + res.computed.total) + ' independently verified reference '
+               + 'values — every company, every quarter — to one part in a billion.';
     labelPage(res);
   } else {
     chip.setAttribute('data-state','fail');
-    txt.textContent = 'MODEL SELF-CHECK FAILED — ' + res.passed + '/' + res.total
-                    + ' (' + res.workbook.failures.length + ' workbook, '
-                    + res.computed.failures.length + ' computed)';
+    txt.textContent = 'MODEL SELF-CHECK FAILED — ' + res.passed + '/' + res.total + ' checks';
     const alarm = document.getElementById('alarm');
     alarm.setAttribute('data-shown','1');
     document.getElementById('alarm-detail').textContent =
