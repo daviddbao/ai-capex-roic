@@ -219,7 +219,7 @@ def test_the_snapshot_tooltip_is_fully_on_screen(page, row):
 
 
 def test_every_source_has_a_row(page):
-    assert page.locator("#src-table tbody tr[data-hay]").count() == 62
+    assert page.locator("#src-table tbody tr[data-hay]").count() == 63
 
 
 def test_the_chart_selects_the_quarter_the_ledger_shows(page):
@@ -246,7 +246,7 @@ def test_the_ledger_filter_narrows_to_one_company(page):
     page.fill("#src-search", "oracle")
     page.wait_for_timeout(200)
     visible = page.locator("#src-table tbody tr[data-hay][data-dim='0']").count()
-    assert 0 < visible < 62
+    assert 0 < visible < 63
     tickers = page.evaluate(
         """() => [...document.querySelectorAll("#src-table tbody tr[data-hay][data-dim='0']")]
                    .map(r => r.id.replace('src-','').split('-')[0])"""
@@ -484,7 +484,7 @@ def test_every_source_appears_exactly_once(page):
     ids = page.eval_on_selector_all(
         "#src-table tbody tr[data-hay]", "els => els.map(e => e.id.replace('src-',''))"
     )
-    assert len(ids) == len(set(ids)) == 62
+    assert len(ids) == len(set(ids)) == 63
 
 
 def test_a_source_row_carries_its_quote_behind_a_click(page):
@@ -654,6 +654,66 @@ def test_the_verification_chip_still_says_what_it_checked(page):
     assert "verified" in text.lower() and "535" in text
     title = page.get_attribute("#verify", "title")
     assert "535" in title and "recomputed" in title.lower()
+
+# ---------------------------------------------------------------------------
+# The disclosed floor — one audited counterparty figure, and what it is not
+# ---------------------------------------------------------------------------
+
+
+def test_the_floor_appears_on_the_one_filer_that_discloses_it(page):
+    """Four of the five disclose nothing, and the row is simply absent for them
+    — never a zero, never a blank."""
+    reset(page)
+    assert page.locator(".led-row.floor").count() == 1
+    assert page.locator("#led-MSFT .led-row.floor").count() == 1
+
+
+def test_the_floor_states_the_residual_the_model_implies(page):
+    reset(page)
+    text = page.inner_text("#led-MSFT")
+    assert "$24.1B" in text
+    assert "5.6× it" in text
+    assert "$111.5B" in text          # 135.6 proxy - 24.1 disclosed
+    assert "not OpenAI" in text
+    assert "one counterparty, not all AI revenue" in text
+
+
+def test_the_floor_links_to_the_filing_and_quotes_it(page):
+    reset(page)
+    page.locator("#led-MSFT .led-row.floor .fact-btn").click()
+    page.wait_for_timeout(250)
+    drawer = page.locator("#led-MSFT .led-row.floor .ev-drawer")
+    assert drawer.count() == 1
+    body = drawer.inner_text()
+    assert "revenue-sharing payments, of $24.1 billion" in body
+    assert drawer.locator("a[href*='msft-20260630']").count() >= 1
+    page.locator("#led-MSFT .led-row.floor .fact-btn").click()
+    page.wait_for_timeout(150)
+
+
+def test_the_floor_never_feeds_the_model(page):
+    """It is a cross-check on the proxy, not an input to it. Nothing about
+    Microsoft's spread may depend on it."""
+    reset(page)
+    same = page.evaluate(
+        """() => {
+             const ev = evalQuarter('MSFT', LATEST);
+             const a = DATA.assum.MSFT, s = state.MSFT;
+             const proxy = a.dur ? FACTS['MSFT|'+LATEST].fact * s.share / s.dur : null;
+             return Math.abs(ev.proxy - proxy) < 1e-12;
+           }"""
+    )
+    assert same, "the proxy must still be built from commercial RPO alone"
+
+
+def test_the_evidence_ledger_files_it_apart_from_the_model_inputs(page):
+    groups = page.eval_on_selector_all(
+        "#src-table tbody tr.grouphead", "els => els.map(e => e.textContent.trim())"
+    )
+    assert "Annual disclosures · not model inputs" in groups
+    row = page.locator("#src-MSFT-FY26-OPENAI-REV")
+    assert row.count() == 1
+    assert "24.100" in row.inner_text()
 
 # ---------------------------------------------------------------------------
 # Last, so it sees everything the tests above provoked

@@ -117,7 +117,7 @@ def test_generated_block_is_valid_json_after_the_assignment(sandbox: Path):
     body = block[block.index("const DATA = ") + len("const DATA = ") : block.rindex("};") + 1]
     assert set(json.loads(body)) == {
         "tickers", "quartersPerYear", "row1Label", "provenance",
-        "workbook", "facts", "assum", "sources", "expected", "computed",
+        "workbook", "facts", "assum", "sources", "disclosed", "expected", "computed",
     }
 
 
@@ -254,7 +254,7 @@ def test_every_source_row_reaches_the_page():
     data = bd.build_data(REPO / "data")
     on_file = pd.read_csv(REPO / "data" / "sources.csv")
     assert set(data["sources"]) == set(on_file.source_id)
-    assert len(data["sources"]) == 62
+    assert len(data["sources"]) == 63
 
 
 def test_every_fact_row_cites_two_sources_that_exist(sandbox: Path):
@@ -319,3 +319,20 @@ def test_a_new_quarter_without_source_rows_is_refused(sandbox: Path):
     df.to_csv(facts, index=False)
     with pytest.raises(SystemExit, match="MSFT-Q326-FACT"):
         bd.build_data(sandbox / "data")
+
+
+def test_the_disclosed_counterparty_revenue_reaches_the_page():
+    """It feeds no model input, so nothing breaks if it is absent — but when it
+    is on file the page must carry it, with its source."""
+    data = bd.build_data(REPO / "data")
+    d = data["disclosed"]
+    assert set(d) == {"MSFT"}
+    assert d["MSFT"]["revenueB"] == 24.1
+    assert d["MSFT"]["months"] == 12
+    assert data["sources"][d["MSFT"]["source"]]["kind"] == "counterparty_revenue"
+
+
+def test_the_page_builds_without_the_optional_disclosure_table(sandbox: Path):
+    (sandbox / "data" / "disclosed_counterparty_revenue.csv").unlink()
+    data = bd.build_data(sandbox / "data")
+    assert data["disclosed"] == {}

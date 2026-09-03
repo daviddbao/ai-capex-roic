@@ -305,3 +305,47 @@ All four counts claimed in `ai_capex_forward_roic_analysis_v02_methodology.md` r
 The doc's Q2 2026 filing-input table and Q2 model-output table both tie to `facts.csv`,
 `assumptions.csv` and `expected_outputs.csv` at displayed precision, and the trajectory ROIC for
 all five companies recomputes from `facts.csv` + `assumptions.csv` to a delta of exactly 0.0.
+
+---
+
+## 8. `data/disclosed_counterparty_revenue.csv` — the one audited AI-linked revenue figure
+
+1 row. A **different grain** from `facts.csv`, which is why it is a separate table rather than
+four mostly-empty columns: this is **annual** rather than quarterly, **counterparty-specific**
+rather than company-wide, and exists for **one filer**. Putting it in `facts.csv` would have
+implied all three were otherwise.
+
+Microsoft's FY2026 10-K:
+
+> In accordance with ASC 850, we are disclosing revenue and accounts receivable balances from
+> transactions with OpenAI. For fiscal year 2026, we recorded revenue from commercial
+> arrangements with OpenAI, inclusive of revenue-sharing payments, of **$24.1 billion**, and
+> accounts receivable from OpenAI as of June 30, 2026 was **$6.0 billion**.
+
+| column | type | unit | class | meaning |
+|---|---|---|---|---|
+| `ticker` / `company` | string | — | LABEL | `MSFT` / `Microsoft`. Join key. |
+| `fiscal_period` | string | — | LABEL | `FY2026`. |
+| `period_start` / `period_end` | date | ISO | FACT | `2025-07-01` → `2026-06-30`. Microsoft's fiscal year ends June 30, so this coincides exactly with a trailing-twelve-month window ending at the model's latest quarter. |
+| `period_months` | int | months | FACT | `12`. **Never a quarter** — see `T8`. |
+| `counterparty` | string | — | LABEL | `OpenAI`. |
+| `counterparty_member` | string | — | FACT | `msft:OpenAIGlobalLlcMember`, the XBRL member that identifies it. |
+| `revenue_usd_b` | float | $B | **FACT** | `24.1`. Audited, trailing, disclosed. |
+| `receivable_usd_b` | float | $B | **FACT** | `6.0` at `receivable_instant`. |
+| `xbrl_concept` | string | — | FACT | `us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax` — **the same concept as total revenue**. |
+| `xbrl_axis` | string | — | FACT | `srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis`. The axis is the whole disclosure: undimensioned, the concept returns $331,839M. |
+| `disclosure_basis` | string | — | LABEL | `ASC 850 related-party disclosure`. |
+| `why_it_exists` | string | — | LABEL | It is compelled by the accounting for a ~25% equity-method stake, not chosen as AI reporting. |
+| `covers` / `excludes` | string | — | LABEL | What the number is and — load-bearing — what it is not. |
+| `source_id` | string | — | FACT | `MSFT-FY26-OPENAI-REV` into `sources.csv`. |
+
+### What it is for
+
+**It feeds no model input.** It is carried as a disclosed cross-check on the AI revenue proxy, and
+the gap between them is the point. At Q2 2026 the proxy is $678.0B × 50% ÷ 2.5y = **$135.6B**,
+which is **5.6×** the $24.1B disclosed. Read the other way, the model implicitly asserts that
+Microsoft earns roughly **$111B of AI revenue from customers who are not OpenAI** — a claim that
+is now checkable rather than unfalsifiable.
+
+It is not a substitute for the proxy, and `T16` blocks any refresh that treats it as one. `T17`
+blocks the mirror-image error of reading the other four filers' silence as evidence.

@@ -154,6 +154,19 @@ assumption must be appended as a **new row with a later `effective_from`**, neve
 place. If an approved annual denominator differs from the one on file, the diff report says so;
 append the row by hand and re-run the model.
 
+### Step 8 — the annual disclosure, once a year
+
+`data/disclosed_counterparty_revenue.csv` holds Microsoft's ASC 850 disclosure of revenue from
+commercial arrangements with OpenAI. It is **annual and 10-K-only**, so three refreshes in four
+will not touch it — refresh it in the late-July window, when Microsoft's 10-K lands, and leave it
+alone otherwise. `pipeline.apply` does not write this table; append the row by hand alongside its
+`*-OPENAI-REV` source row.
+
+It feeds **no model input**. It is carried so the AI revenue proxy can be read against the one
+audited AI-linked revenue figure any of the five filers publishes, and guards `T16`/`T17` exist to
+stop it being mistaken for AI revenue or its absence elsewhere being read as evidence. See
+`docs/SCHEMA.md` §8.
+
 ---
 
 ## 3. What each guard means when it trips
@@ -173,7 +186,7 @@ Statuses: `FAIL` blocks outright · `NEEDS_HUMAN` blocks until acknowledged by i
 | `S6` | A fetch failed. | Re-run; if it persists, report it. Do not proceed on partial data. |
 | `S7` | The pinned annual-denominator window is a superseded fiscal year. | Decide whether to roll the pin forward in `source_map.json`. This is a methodology choice. |
 
-### The 15 documented traps
+### The 17 documented traps
 
 | Id | Trap | Meaning when it trips |
 |---|---|---|
@@ -192,6 +205,8 @@ Statuses: `FAIL` blocks outright · `NEEDS_HUMAN` blocks until acknowledged by i
 | `T13` | Oracle's period ends are not calendar quarter ends | FAILs if Oracle resolves to a calendar quarter end, or if a calendar filer resolves to something else. INFO otherwise, restating the one-month mismatch that no automation removes. |
 | `T14` | Oracle's RPO includes prepaid / customer-supplied hardware | Always asks a human. ~$75B of prepaid or customer-supplied GPUs reduces Oracle's own capital requirement. The number is machine-readable; its comparability is not. |
 | `T15` | Precision is not uniform, and rounding is not error | PASSes with the tolerance for that specific fact. MSFT/AMZN/ORCL tag demand facts to whole billions, Alphabet to one decimal, cash-flow items to the million. A rounded press-release figure never overrides a more precise XBRL derivation (Meta: $31.08B printed, $31.078B derived — use the derivation). |
+| `T16` | A related-party revenue disclosure is one counterparty, not AI revenue | Microsoft's FY2026 10-K discloses **$24.1B of revenue from commercial arrangements with OpenAI**, inclusive of revenue-sharing payments, plus $6.0B of receivables — compelled by ASC 850 because its ~25% stake makes OpenAI an equity-method related party. **FAILs** if the fact lacks `srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis = msft:OpenAIGlobalLlcMember`, or if the value is company-scale: the same concept undimensioned returns total FY2026 revenue of $331,839M, 13.8x too large. **Always asks a human** as well, because the figure covers one counterparty and excludes Copilot, Foundry and Azure AI sold to everyone else — a floor on Microsoft's AI revenue, never a substitute for the proxy. |
+| `T17` | The absence of that disclosure elsewhere is an accounting artifact | Amazon names a $38.0B OpenAI commitment expanded by $100.0B over 8 years and an Anthropic collaboration expanded by more than $100.0B over 10 years, and discloses no revenue from either — because its stakes are not equity-method, so neither is a related party. INFO on the four filers without the disclosure. Never read silence as evidence. |
 
 ### Range and cross-check
 

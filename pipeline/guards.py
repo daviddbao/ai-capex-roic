@@ -1,4 +1,4 @@
-"""The 15 documented definitional traps, as executable checks that fail loudly.
+"""The 17 documented definitional traps, as executable checks that fail loudly.
 
 Design principle
 ----------------
@@ -17,7 +17,7 @@ Statuses
 ``INFO``           context the reviewer must read; does not block.
 ``NOT_APPLICABLE`` this trap does not apply to this company/field.
 
-Guard ids ``T1``-``T15`` map one-to-one onto ``docs/SOURCE_MAP.md`` §3.
+Guard ids ``T1``-``T17`` map one-to-one onto ``docs/SOURCE_MAP.md`` §3.
 ``S*`` are structural preconditions, ``R*`` are range/sanity checks and
 ``X1`` is the press-release cross-check the SOURCE_MAP recommends.
 """
@@ -1665,6 +1665,152 @@ def _r_sequential_moves(
 # Registry
 # ---------------------------------------------------------------------------
 
+
+# ---------------------------------------------------------------------------
+# T16 -- a related-party revenue disclosure is one counterparty, not AI revenue
+# ---------------------------------------------------------------------------
+
+#: The only counterparty-revenue disclosure any of the five filers makes, and
+#: the axis that distinguishes it from total company revenue.
+_COUNTERPARTY_REVENUE: dict[str, dict[str, Any]] = {
+    "MSFT": {
+        "counterparty": "OpenAI",
+        "member": "msft:OpenAIGlobalLlcMember",
+        "axis": "srt:ScheduleOfEquityMethodInvestmentEquityMethodInvesteeNameAxis",
+        "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "fy2026_usd_b": 24.1,
+        # the SAME concept with no dimensions, which is what a naive selector returns
+        "undimensioned_fy2026_usd_m": 331_839,
+    },
+}
+
+#: Filers with large, named AI counterparties and NO revenue disclosure about
+#: them -- because the stakes are not equity-method, so the counterparties are
+#: not related parties. The silence is an accounting artifact.
+_AI_COUNTERPARTY_NO_DISCLOSURE: dict[str, str] = {
+    "AMZN": (
+        "Amazon's 10-Q names a $38.0B OpenAI commitment expanded by $100.0B over 8 years, and "
+        "an Anthropic collaboration expanded by more than $100.0B over 10 years. It discloses no "
+        "revenue from either, because its stakes are convertible notes and nonvoting preferred "
+        "carried at fair value, not equity-method holdings -- so neither is a related party under "
+        "ASC 850 and no disclosure is compelled."
+    ),
+    "GOOG": "Alphabet names Anthropic once and holds no equity-method AI investee; nothing is compelled.",
+    "ORCL": "Oracle states the ASC 850 rule but has no material AI equity-method investee.",
+    "META": "Meta has no AI counterparty investment of this kind at all.",
+}
+
+
+def _t16_counterparty_revenue_dimension(
+    extraction: CompanyExtraction, **_: Any
+) -> list[GuardResult]:
+    """The dimension is the whole disclosure.
+
+    ``RevenueFromContractWithCustomerExcludingAssessedTax`` is the same concept
+    Microsoft uses for total revenue. Only the equity-method-investee axis
+    separates the $24.1B related-party figure from the $331,839M company total
+    -- a 13.8x error that reads as a perfectly plausible revenue number. This is
+    T4's failure mode on a different fact, and it fails the same way.
+    """
+    spec = _COUNTERPARTY_REVENUE.get(extraction.ticker)
+    if spec is None:
+        return [
+            GuardResult(
+                "T16", "Counterparty revenue is not AI revenue", extraction.ticker,
+                "counterparty_revenue", NOT_APPLICABLE,
+                _AI_COUNTERPARTY_NO_DISCLOSURE.get(
+                    extraction.ticker, "No counterparty-revenue disclosure for this filer."),
+                {},
+            )
+        ]
+
+    fld = _field(extraction, "counterparty_revenue")
+    results: list[GuardResult] = []
+
+    if fld is None or fld.value_usd is None:
+        results.append(GuardResult(
+            "T16", "Counterparty revenue is not AI revenue", extraction.ticker,
+            "counterparty_revenue", INFO,
+            "No counterparty-revenue figure was extracted this period. The disclosure is annual "
+            "and appears in the 10-K only, so its absence from a 10-Q quarter is expected.",
+            {"counterparty": spec["counterparty"]},
+        ))
+    else:
+        context = fld.context or {}
+        dims = dict(context.get("explicit_dimensions") or {})
+        member = dims.get(spec["axis"])
+        if member != spec["member"]:
+            results.append(GuardResult(
+                "T16", "Counterparty revenue is not AI revenue", extraction.ticker,
+                "counterparty_revenue", FAIL,
+                f"The selected {spec['concept']} fact does not carry "
+                f"{spec['axis']} = {spec['member']}. Undimensioned, that concept returns "
+                f"Microsoft's TOTAL revenue "
+                f"(${spec['undimensioned_fy2026_usd_m']:,}M for FY2026), not the "
+                f"${spec['fy2026_usd_b']}B disclosed for {spec['counterparty']}. Select by axis.",
+                {"context": context, "found_dimensions": dims,
+                 "required_axis": spec["axis"], "required_member": spec["member"]},
+            ))
+        elif fld.value_usd > spec["undimensioned_fy2026_usd_m"] * 1e6 * 0.5:
+            results.append(GuardResult(
+                "T16", "Counterparty revenue is not AI revenue", extraction.ticker,
+                "counterparty_revenue", FAIL,
+                f"The extracted value ${fld.value_usd / 1e9:,.1f}B is within range of total company "
+                f"revenue. A single counterparty's revenue cannot be half the company. The axis "
+                f"is present but the wrong context was taken.",
+                {"value_usd": fld.value_usd},
+            ))
+        else:
+            results.append(GuardResult(
+                "T16", "Counterparty revenue is not AI revenue", extraction.ticker,
+                "counterparty_revenue", PASS,
+                f"${fld.value_usd / 1e9:,.1f}B, selected on {spec['axis']} = {spec['member']}, "
+                f"distinct from the undimensioned company total.",
+                {"value_usd": fld.value_usd, "context": context},
+            ))
+
+    # The misuse this fact invites, which no dimension check can catch.
+    results.append(GuardResult(
+        "T16", "Counterparty revenue is not the AI revenue proxy", extraction.ticker,
+        "demand_fact", NEEDS_HUMAN,
+        f"Microsoft discloses ${spec['fy2026_usd_b']}B of FY2026 revenue from commercial "
+        f"arrangements with {spec['counterparty']}, inclusive of revenue-sharing payments. It is "
+        "audited, trailing and real -- and it is ONE counterparty. It excludes Copilot, Foundry "
+        "and Azure AI sold to everyone else, so it is a FLOOR on Microsoft's AI revenue, never a "
+        "substitute for the model's AI revenue proxy and never a replacement for the demand fact. "
+        "Confirm the proxy is still being computed from commercial RPO, and read the gap between "
+        "the two as the model's implicit claim about non-OpenAI AI revenue.",
+        {"disclosed_usd_b": spec["fy2026_usd_b"], "counterparty": spec["counterparty"]},
+    ))
+    return results
+
+
+def _t17_absent_disclosure_is_not_absent_revenue(
+    extraction: CompanyExtraction, **_: Any
+) -> list[GuardResult]:
+    """Four of the five disclose nothing, and it means nothing.
+
+    Amazon has larger named AI-counterparty exposure than Microsoft and reports
+    no revenue from it, purely because its stakes are not equity-method. Reading
+    the silence as evidence would invert the ranking.
+    """
+    if extraction.ticker in _COUNTERPARTY_REVENUE:
+        return [GuardResult(
+            "T17", "Absence of a counterparty disclosure is an accounting artifact",
+            extraction.ticker, "counterparty_revenue", NOT_APPLICABLE,
+            "This filer does make the disclosure.", {},
+        )]
+    return [GuardResult(
+        "T17", "Absence of a counterparty disclosure is an accounting artifact",
+        extraction.ticker, "counterparty_revenue", INFO,
+        _AI_COUNTERPARTY_NO_DISCLOSURE.get(extraction.ticker, "No such disclosure.")
+        + " Do not read the absence as evidence of no AI revenue, and do not compare this filer's "
+          "unquantified exposure with Microsoft's quantified one as though the difference were "
+          "commercial rather than accounting.",
+        {},
+    )]
+
+
 GUARDS: tuple[Callable[..., list[GuardResult]], ...] = (
     _s1_period_matches_spec,
     _s2_filing_present,
@@ -1686,6 +1832,8 @@ GUARDS: tuple[Callable[..., list[GuardResult]], ...] = (
     _t13_orcl_period_end,
     _t14_orcl_prepaid_hardware,
     _t15_precision_cross_check,
+    _t16_counterparty_revenue_dimension,
+    _t17_absent_disclosure_is_not_absent_revenue,
     _r_sequential_moves,
 )
 

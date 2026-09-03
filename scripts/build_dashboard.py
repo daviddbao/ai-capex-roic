@@ -267,6 +267,46 @@ def _require_source(
     return source_id
 
 
+def disclosed_counterparty_revenue(data_dir: Path) -> dict[str, dict[str, Any]]:
+    """``data/disclosed_counterparty_revenue.csv``, keyed by ticker.
+
+    One row today: Microsoft's ASC 850 disclosure of revenue from commercial
+    arrangements with OpenAI. It feeds no model input — it is carried so the
+    page can show the model's AI revenue proxy against the one audited AI-linked
+    revenue figure any of the five filers publishes, and so the gap between them
+    is visible rather than implicit.
+
+    Optional: the table may be absent, and four of the five tickers are absent
+    from it, because no equivalent disclosure exists for them. That silence is an
+    accounting artifact (see guard ``T17``) and the page has to say so rather
+    than render a blank.
+    """
+    path = data_dir / "disclosed_counterparty_revenue.csv"
+    if not path.exists():
+        return {}
+    df = pd.read_csv(path)
+    out: dict[str, dict[str, Any]] = {}
+    for row in df.itertuples():
+        out[str(row.ticker)] = {
+            "counterparty": str(row.counterparty),
+            "fiscalPeriod": str(row.fiscal_period),
+            "periodStart": str(row.period_start),
+            "periodEnd": str(row.period_end),
+            "months": int(row.period_months),
+            "revenueB": float(row.revenue_usd_b),
+            "receivableB": float(row.receivable_usd_b),
+            "basis": str(row.disclosure_basis),
+            "whyExists": str(row.why_it_exists),
+            "covers": str(row.covers),
+            "excludes": str(row.excludes),
+            "source": _require_source(
+                source_ledger(data_dir), str(row.source_id), str(row.ticker),
+                "counterparty_revenue",
+            ),
+        }
+    return out
+
+
 def model_rows(
     facts: Sequence[QuarterFact],
     assumptions: Mapping[str, Assumptions],
@@ -484,6 +524,7 @@ def build_data(data_dir: Path = DEFAULT_DATA_DIR) -> dict[str, Any]:
         "facts": fact_rows,
         "assum": assum_payload,
         "sources": sources,
+        "disclosed": disclosed_counterparty_revenue(data_dir),
         "expected": [
             [str(r.company), str(r.period), str(r.view), str(r.metric),
              str(r.value), str(r.value_type)]
